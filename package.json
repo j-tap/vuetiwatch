@@ -1,0 +1,36 @@
+{
+  "name": "vuetiwatch",
+  "version": "0.0.1",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "private": false,
+  "description": "Themes for Vuetify library",
+  "license": "MIT",
+  "author": "j-tap",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "keywords": [
+    "vuetiwatch",
+    "vue",
+    "vuetify",
+    "theme"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/j-tap/vuetiwatch",
+    "directory": "packages/vuetiwatch",
+    "branch": "main"
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "vuetify": "^3.8.12"
+  }
+}
