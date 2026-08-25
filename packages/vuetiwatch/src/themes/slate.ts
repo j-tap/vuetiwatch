@@ -45,6 +45,7 @@ export const slate = defineTheme({
       'font-body': "'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif",
       'vw-radius': '3px',
       'vw-radius-lg': '4px',
+      'vw-radius-thumb': '3px',
       'vw-radius-chip': '3px',
       'vw-border-width': '1px',
       'vw-btn-transform': 'none',

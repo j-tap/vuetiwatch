@@ -45,6 +45,7 @@ export const paper = defineTheme({
       'font-heading': "'Source Serif 4', 'Iowan Old Style', Georgia, 'Times New Roman', serif",
       'vw-radius': '2px',
       'vw-radius-lg': '2px',
+      'vw-radius-thumb': '2px',
       'vw-radius-chip': '2px',
       'vw-border-width': '1px',
       'vw-btn-transform': 'none',

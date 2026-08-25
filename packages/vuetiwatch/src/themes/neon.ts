@@ -50,6 +50,7 @@ export const neon = defineTheme({
       'font-heading': "'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace",
       'vw-radius': '0px',
       'vw-radius-lg': '0px',
+      'vw-radius-thumb': '0px',
       'vw-radius-chip': '0px',
       'vw-border-width': '1px',
       'vw-btn-transform': 'uppercase',

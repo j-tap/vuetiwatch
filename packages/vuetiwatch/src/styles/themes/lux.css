@@ -3,7 +3,7 @@
  * on the page are hairlines, so the few that exist have to be precise.
  */
 .v-theme--lux {
-  & :is(.v-card, .v-sheet, .v-table, .v-list) {
+  & :is(.v-card, .v-sheet, .v-table, .v-list, .v-expansion-panels) {
     box-shadow: none;
   }
 

@@ -100,6 +100,37 @@
     border-radius: var(--v-vw-radius-chip, 9999px);
   }
 
+  /**
+   * The slider track is a bar like any other, so it follows the theme
+   * radius. The thumb keeps its own variable because round is right for
+   * most themes even when nothing else is — only the square-cornered ones
+   * set it.
+   */
+  & .v-slider-track.v-slider-track {
+    border-radius: var(--v-vw-radius, 6px);
+  }
+
+  & .v-slider-thumb__surface {
+    border-radius: var(--v-vw-radius-thumb, 50%);
+  }
+
+  & .v-slider-thumb__label {
+    border-radius: var(--v-vw-radius, 4px);
+  }
+
+  /* --------------------------------------------------- active pagination */
+
+  /**
+   * Vuetify ties the active page's overlay to `--v-border-opacity`, which
+   * is not what that variable means: a theme with solid borders gets an
+   * opaque block over the page number, and a theme with invisible ones
+   * loses the active state entirely. `--v-activated-opacity` is the
+   * variable for an activated item, so use that instead.
+   */
+  & .v-pagination .v-pagination__item--is-active .v-btn__overlay {
+    opacity: var(--v-vw-pagination-active-opacity, var(--v-activated-opacity));
+  }
+
   /* --------------------------------------------------- overlay surfaces */
 
   /**

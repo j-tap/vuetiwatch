@@ -52,6 +52,7 @@ export const sketchy = defineTheme({
       // and only cards are big enough to carry the full stroke.
       'vw-radius': '22px 5px 20px 6px / 6px 20px 5px 22px',
       'vw-radius-lg': '255px 15px 225px 15px / 15px 225px 15px 255px',
+      'vw-radius-thumb': '7px 2px 6px 3px / 3px 6px 2px 7px',
       'vw-radius-chip': '18px 42px 18px 42px / 42px 18px 42px 18px',
       'vw-border-width': '2px',
       'vw-btn-transform': 'none',

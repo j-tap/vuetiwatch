@@ -45,6 +45,7 @@ export const lux = defineTheme({
       'font-body': "'Jost', 'Futura', system-ui, sans-serif",
       'vw-radius': '0px',
       'vw-radius-lg': '0px',
+      'vw-radius-thumb': '0px',
       'vw-radius-chip': '0px',
       'vw-border-width': '1px',
       'vw-btn-transform': 'uppercase',

@@ -51,6 +51,7 @@ export const brutalist = defineTheme({
       'font-body': "'Space Grotesk', 'Arial Black', system-ui, sans-serif",
       'vw-radius': '0px',
       'vw-radius-lg': '0px',
+      'vw-radius-thumb': '0px',
       'vw-radius-chip': '0px',
       'vw-border-width': '3px',
       'vw-btn-transform': 'uppercase',

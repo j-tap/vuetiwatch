@@ -33,8 +33,4 @@
     height: 3px;
   }
 
-  & :is(.v-slider-thumb__surface, .v-slider-track) {
-    border-radius: var(--v-vw-radius);
-  }
-
 }

@@ -4,7 +4,7 @@
  * for free.
  */
 .v-theme--neon {
-  & :is(.v-card, .v-sheet, .v-list, .v-table) {
+  & :is(.v-card, .v-sheet, .v-list, .v-table, .v-expansion-panels) {
     box-shadow: none;
   }
 
@@ -48,11 +48,6 @@
     box-shadow: inset 0 -1px 0 rgba(var(--v-theme-primary), 0.3);
   }
 
-  /* Every control is square and lit from within. */
-  & :is(.v-slider-thumb__surface, .v-slider-track) {
-    border-radius: 0;
-  }
-
   & .v-slider-thumb__surface {
     box-shadow: 0 0 12px rgba(var(--v-theme-primary), 0.6);
   }
@@ -72,6 +67,11 @@
 
   .v-locale--is-rtl & .v-list-item.v-list-item--active {
     box-shadow: inset -2px 0 0 rgb(var(--v-theme-primary));
+  }
+
+
+  & .v-expansion-panels {
+    box-shadow: 0 0 0 1px rgba(var(--v-theme-primary), 0.12);
   }
 
 }

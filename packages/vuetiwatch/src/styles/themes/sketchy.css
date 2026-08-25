@@ -4,7 +4,7 @@
  * uneven weight, and a redrawn line on hover.
  */
 .v-theme--sketchy {
-  & :is(.v-card, .v-sheet, .v-table, .v-list) {
+  & :is(.v-card, .v-sheet, .v-table, .v-list, .v-expansion-panels) {
     box-shadow: none;
   }
 
