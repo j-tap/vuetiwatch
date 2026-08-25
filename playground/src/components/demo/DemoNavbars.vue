@@ -17,21 +17,26 @@ const subMenu = ['Bio', 'Settings', 'Logout']
             <v-icon left>mdi-vuetify</v-icon>
           </v-toolbar-title>
 
+          <!--
+            The menu belongs inside `v-toolbar-items` with the other links.
+            That container stretches its children to the full bar height, so
+            an activator left outside it hovers at a different height.
+          -->
           <v-toolbar-items>
             <v-btn v-for="title in menu" :key="title" :text="title" />
-          </v-toolbar-items>
 
-          <v-menu>
-            <template #activator="{ props }">
-              <v-btn v-bind="props" text>
-                Profile
-                <v-icon end>mdi-menu-down</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item v-for="title in subMenu" :key="title" :title="title" />
-            </v-list>
-          </v-menu>
+            <v-menu>
+              <template #activator="{ props }">
+                <v-btn v-bind="props">
+                  Profile
+                  <v-icon end>mdi-menu-down</v-icon>
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item v-for="title in subMenu" :key="title" :title="title" />
+              </v-list>
+            </v-menu>
+          </v-toolbar-items>
 
           <v-spacer />
 
