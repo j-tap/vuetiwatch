@@ -64,16 +64,25 @@ function season (val: number) {
         </v-col>
 
         <v-col cols="12" md="6">
-            <v-text-field model-value="example@mail.com" label="Email" class="rounded-e-0">
-              <template #append>
-                <v-btn
-                  color="info"
-                  size="large"
-                  class="h-100 ms-n4 rounded-s-0"
-                  text="Process"
-                />
-              </template>
-            </v-text-field>
+          <!--
+            Field and button as flex siblings rather than an `append` slot.
+            That slot reserves a 16px gap outside the field, so cancelling it
+            with a negative margin leaves the pair 16px short of the column
+            while every other field fills it.
+          -->
+          <div class="d-flex">
+            <v-text-field
+              model-value="example@mail.com"
+              label="Email"
+              class="rounded-e-0"
+              hide-details
+            />
+            <v-btn
+              color="info"
+              class="rounded-s-0 h-auto"
+              text="Process"
+            />
+          </div>
         </v-col>
 
         <v-col cols="12" md="6">
