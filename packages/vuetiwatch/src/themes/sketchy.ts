@@ -16,6 +16,7 @@ export const sketchy = defineTheme({
     title: 'Sketchy',
     description: 'Hand-drawn wobble and pencil greys — for mockups, wireframes and mirth.',
     dark: false,
+    iconStyle: 'outline',
     swatch: ['#FFFEF7', '#FFFFFF', '#333333', '#7A6A55'],
     fonts: ['Neucha', 'Cabin Sketch'],
   },

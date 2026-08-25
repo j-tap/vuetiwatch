@@ -12,6 +12,7 @@ export const slate = defineTheme({
     title: 'Slate',
     description: 'Dense corporate dashboard — muted slate blue, compact density, tight radii.',
     dark: false,
+    iconStyle: 'filled',
     swatch: ['#F4F6F8', '#FFFFFF', '#2C5282', '#4A6FA5'],
     fonts: ['Inter'],
   },

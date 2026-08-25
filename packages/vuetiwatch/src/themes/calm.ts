@@ -16,6 +16,7 @@ export const calm = defineTheme({
     title: 'Calm',
     description: 'Low contrast, desaturated naturals and a lot of air. Nothing competes for attention.',
     dark: false,
+    iconStyle: 'outline',
     swatch: ['#FAFAF7', '#FFFFFF', '#6B7A6B', '#A89684'],
     fonts: ['Inter'],
   },

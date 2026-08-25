@@ -24,6 +24,7 @@ export const liquidGlass = defineTheme({
     title: 'Liquid Glass',
     description: 'Capsule controls and refracting panes over a calm wash, after iOS 26.',
     dark: false,
+    iconStyle: 'outline',
     swatch: ['#F2F2F7', '#FFFFFF', '#007AFF', '#5856D6'],
     fonts: ['Inter'],
   },

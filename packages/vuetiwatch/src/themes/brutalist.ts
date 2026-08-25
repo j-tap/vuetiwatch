@@ -15,6 +15,7 @@ export const brutalist = defineTheme({
     title: 'Brutalist',
     description: 'Thick black rules, acid lime and hard unblurred shadows. Loud on purpose.',
     dark: false,
+    iconStyle: 'filled',
     swatch: ['#FFFDF0', '#FFFFFF', '#0A0A0A', '#C4F82A'],
     fonts: ['Space Grotesk'],
   },

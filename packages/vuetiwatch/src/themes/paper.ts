@@ -12,6 +12,7 @@ export const paper = defineTheme({
     title: 'Paper',
     description: 'Flat editorial look — warm paper, ink accents, borders instead of elevation.',
     dark: false,
+    iconStyle: 'outline',
     swatch: ['#FAF8F2', '#FFFFFF', '#1A1A1A', '#8A6A3B'],
     fonts: ['Source Serif 4'],
   },

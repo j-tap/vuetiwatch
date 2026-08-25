@@ -12,6 +12,7 @@ export const soft = defineTheme({
     title: 'Soft',
     description: 'Pastel palette, large radii and diffuse shadows. Friendly and unhurried.',
     dark: false,
+    iconStyle: 'filled',
     swatch: ['#F7F5FF', '#FFFFFF', '#7C6CF0', '#F08CA8'],
     fonts: ['Nunito'],
   },

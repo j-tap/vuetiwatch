@@ -10,6 +10,7 @@ export const classic = defineTheme({
     title: 'Classic',
     description: 'Vuetify as it ships. Material Design, Roboto, familiar elevation.',
     dark: false,
+    iconStyle: 'filled',
     swatch: ['#FFFFFF', '#EEEEEE', '#1867C0', '#48A9A6'],
     fonts: ['Roboto'],
   },

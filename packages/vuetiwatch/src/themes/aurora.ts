@@ -15,6 +15,7 @@ export const aurora = defineTheme({
     title: 'Aurora',
     description: 'Iridescent gradients on near-black. Built to be looked at — the showcase theme.',
     dark: true,
+    iconStyle: 'filled',
     swatch: ['#08080C', '#101018', '#7C5CFF', '#00D4FF'],
     fonts: ['Inter'],
   },

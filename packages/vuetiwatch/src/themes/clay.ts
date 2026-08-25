@@ -13,6 +13,7 @@ export const clay = defineTheme({
     title: 'Clay',
     description: 'Inflated pastel shapes with a triple shadow. Tactile and toy-like.',
     dark: false,
+    iconStyle: 'filled',
     swatch: ['#EDE7FF', '#FFFFFF', '#6C5CE7', '#FF7BA9'],
     fonts: ['Quicksand'],
   },

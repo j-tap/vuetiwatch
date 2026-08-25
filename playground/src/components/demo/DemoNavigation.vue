@@ -1,31 +1,55 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useTheme } from 'vuetify'
+import { vuetiwatchMeta } from 'vuetiwatch'
 import CardPreview from '@/components/CardPreview.vue'
+
+/**
+ * Content icons belong to the app, not the theme — Vuetify only lets a
+ * theme pick the glyphs of controls it renders itself. A theme can still
+ * say which style it would like, though, so this demo follows it: `mdi-cog`
+ * where the theme is filled, `mdi-cog-outline` where it is drawn in
+ * hairlines.
+ */
+const theme = useTheme()
+const outlined = computed(() =>
+  vuetiwatchMeta[theme.global.name.value as keyof typeof vuetiwatchMeta]
+    ?.iconStyle === 'outline',
+)
+const icon = (name: string) => computed(() => outlined.value ? `${name}-outline` : name)
+
+const dashboardIcon = icon('mdi-view-dashboard')
+const cogIcon = icon('mdi-cog')
+const inboxIcon = icon('mdi-inbox')
+const archiveIcon = icon('mdi-archive')
+const starIcon = icon('mdi-star')
+const eyeIcon = icon('mdi-eye')
+const pencilIcon = icon('mdi-pencil')
 
 const tab = ref('overview')
 const pill = ref('all')
 const selectedTags = ref(['design'])
 
-const tabs = [
-  { value: 'overview', title: 'Overview', icon: 'mdi-view-dashboard' },
+const tabs = computed(() => [
+  { value: 'overview', title: 'Overview', icon: dashboardIcon.value },
   { value: 'activity', title: 'Activity', icon: 'mdi-pulse' },
-  { value: 'settings', title: 'Settings', icon: 'mdi-cog' },
-]
+  { value: 'settings', title: 'Settings', icon: cogIcon.value },
+])
 
 const filters = ['all', 'open', 'closed']
 const tags = ['design', 'code', 'docs', 'infra']
 
-const nav = [
-  { title: 'Inbox', icon: 'mdi-inbox', badge: '12' },
-  { title: 'Starred', icon: 'mdi-star-outline', badge: '' },
-  { title: 'Archive', icon: 'mdi-archive-outline', badge: '' },
-]
+const nav = computed(() => [
+  { title: 'Inbox', icon: inboxIcon.value, badge: '12' },
+  { title: 'Starred', icon: starIcon.value, badge: '' },
+  { title: 'Archive', icon: archiveIcon.value, badge: '' },
+])
 
-const timeline = [
+const timeline = computed(() => [
   { title: 'Theme published', color: 'success', icon: 'mdi-check' },
-  { title: 'Review requested', color: 'info', icon: 'mdi-eye' },
-  { title: 'Draft created', color: 'warning', icon: 'mdi-pencil' },
-]
+  { title: 'Review requested', color: 'info', icon: eyeIcon.value },
+  { title: 'Draft created', color: 'warning', icon: pencilIcon.value },
+])
 </script>
 
 <template>
@@ -56,7 +80,7 @@ const timeline = [
             </template>
           </v-list-item>
           <v-divider class="my-2" />
-          <v-list-item title="Settings" prepend-icon="mdi-cog-outline" />
+          <v-list-item title="Settings" :prepend-icon="cogIcon" />
         </v-list>
       </v-col>
 

@@ -15,6 +15,7 @@ export const morph = defineTheme({
     title: 'Morph',
     description: 'Neumorphic — one continuous surface, shaped only by light and shadow.',
     dark: false,
+    iconStyle: 'filled',
     swatch: ['#E4EBF5', '#E4EBF5', '#5A7DE0', '#8894AA'],
     fonts: ['Nunito'],
   },

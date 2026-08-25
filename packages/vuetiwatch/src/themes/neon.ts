@@ -12,6 +12,7 @@ export const neon = defineTheme({
     title: 'Neon',
     description: 'Terminal black with cyan and magenta glow. Sharp corners, monospace headings.',
     dark: true,
+    iconStyle: 'outline',
     swatch: ['#05060A', '#0B0E16', '#00F0FF', '#FF2FD0'],
     fonts: ['JetBrains Mono', 'Inter'],
   },

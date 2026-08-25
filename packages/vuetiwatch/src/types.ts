@@ -15,6 +15,17 @@ export interface VuetiwatchMeta {
   /** Preview swatch: background, surface, primary, secondary. */
   swatch: [string, string, string, string]
   /**
+   * How the theme would like *content* icons drawn — the ones an app passes
+   * itself, like a mailbox or a dashboard.
+   *
+   * Vuetify only lets a theme choose the glyphs of controls it renders
+   * (a checkbox tick, a sort arrow); anything an app passes as a literal
+   * name is its own content, and a theme has no business overriding it.
+   * So the theme states a preference here and an app may follow it — see
+   * the playground's navigation demo.
+   */
+  iconStyle: 'outline' | 'filled'
+  /**
    * Web fonts the theme expects. The package never loads them for you —
    * add them yourself (Google Fonts, Fontsource, self-hosted) for the full
    * look, or skip it and fall back to the system stack.

@@ -12,6 +12,7 @@ export const darkGlass = defineTheme({
     title: 'Dark Glass',
     description: 'Frosted translucent surfaces on a deep violet ground.',
     dark: true,
+    iconStyle: 'filled',
     swatch: ['#0E0B18', '#191428', '#7C4DFF', '#4FC3F7'],
     fonts: ['Inter'],
   },

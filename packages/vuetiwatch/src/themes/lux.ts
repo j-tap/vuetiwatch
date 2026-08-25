@@ -13,6 +13,7 @@ export const lux = defineTheme({
     title: 'Lux',
     description: 'Editorial luxury — hairline rules, wide tracking, small caps and muted gold.',
     dark: false,
+    iconStyle: 'outline',
     swatch: ['#FFFFFF', '#FAFAFA', '#1A1A1A', '#B39A5B'],
     fonts: ['Jost'],
   },

@@ -93,6 +93,22 @@ Every key is optional and spreads across each component that draws it —
 `dropdown` reaches selects, expansion panels and list groups at once. Names
 must exist in whatever set the app installed; a missing one renders blank.
 
+This only reaches the glyphs Vuetify draws for its own controls. An icon the
+app passes itself — a mailbox, a dashboard — is content, and a theme has no
+business overriding it. Themes therefore *declare* a preference instead, and
+an app may follow it:
+
+```ts
+import { useTheme } from 'vuetify'
+import { vuetiwatchMeta } from 'vuetiwatch'
+
+const theme = useTheme()
+const outlined = computed(
+  () => vuetiwatchMeta[theme.global.name.value]?.iconStyle === 'outline',
+)
+const cog = computed(() => outlined.value ? 'mdi-cog-outline' : 'mdi-cog')
+```
+
 ## Usage
 
 ### Colors and fonts only
