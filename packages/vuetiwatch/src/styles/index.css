@@ -1,0 +1,14 @@
+/**
+ * Every Vuetiwatch stylesheet in one import.
+ *
+ * The core layer is generic and variable-driven; each theme file adds only
+ * the surface treatment — shadows, blur, glow — that a `ThemeDefinition`
+ * cannot express. Rules are scoped per theme, so importing the whole file
+ * costs nothing for themes you do not use.
+ */
+@import './core.css';
+@import './themes/paper.css';
+@import './themes/slate.css';
+@import './themes/soft.css';
+@import './themes/darkGlass.css';
+@import './themes/neon.css';

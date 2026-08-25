@@ -186,31 +186,6 @@ longer exist.
   and without them the themes lose most of what separates them.
 - Vue 3.5+
 
-## Repository layout
-
-This is a Bun workspace:
-
-| Path                   | What it is |
-| ---------------------- | ---------- |
-| `packages/vuetiwatch/` | The published package |
-| `playground/`          | Live demo of every theme against a wall of Vuetify components |
-
-```sh
-bun install
-bun run build        # build the package
-bun run playground   # build, then serve the demo on :5173
-bun run typecheck
-```
-
-The playground reads `?theme=<name>` from the URL, so any theme is linkable.
-
-## Contributing
-
-New themes are welcome — add a file under `packages/vuetiwatch/src/themes/`,
-register it in `registry.ts`, and check it against every section of the
-playground. A theme earns its place by differing structurally, not only in
-palette: see the six existing ones for the axes that matter.
-
 ## License
 
 MIT

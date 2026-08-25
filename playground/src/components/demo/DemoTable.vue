@@ -17,7 +17,7 @@ const headers = [
   { title: 'Role', key: 'role' },
   { title: 'Status', key: 'status' },
   { title: 'Created', key: 'created' },
-];
+]
 
 const items = [
   {
@@ -76,7 +76,7 @@ const items = [
   },
 ]
 
-const statusColor = {
+const statusColor: Record<string, string> = {
   Active: 'success',
   Inactive: 'grey',
   Pending: 'warning',

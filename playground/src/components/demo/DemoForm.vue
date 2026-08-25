@@ -23,7 +23,7 @@ const icons = ref([
   'mdi-fire',
   'mdi-water',
 ])
-function season (val) {
+function season (val: number) {
   return icons.value[val]
 }
 </script>
@@ -41,7 +41,7 @@ function season (val) {
         </v-col>
 
         <v-col cols="12" md="6">
-          <v-text-field value="Disabled" label="Disabled value" disabled />
+          <v-text-field model-value="Disabled" label="Disabled value" disabled />
         </v-col>
 
         <v-col cols="12" md="6">
@@ -53,7 +53,7 @@ function season (val) {
         </v-col>
 
         <v-col cols="12" md="6">
-          <v-text-field value="Country" label="Country" :messages="['Success']" color="success" base-color="success" icon-color="success" append-inner-icon="mdi-check-circle-outline">
+          <v-text-field model-value="Country" label="Country" :messages="['Success']" color="success" base-color="success" icon-color="success" append-inner-icon="mdi-check-circle-outline">
             <template #message="{ message }">
               <span class="text-success">{{ message }}</span>
             </template>

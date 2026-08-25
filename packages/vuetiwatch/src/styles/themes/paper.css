@@ -1,0 +1,32 @@
+/**
+ * Paper — flat by construction. Elevation is replaced with hairline rules,
+ * and headings get the tighter tracking a serif face wants.
+ *
+ * Vuetify emits its theme colors as bare `r, g, b` triples, so every color
+ * here goes through `rgba(var(--v-theme-*), a)`.
+ */
+.v-theme--paper {
+  & :is(.v-card, .v-sheet, .v-list, .v-table, .v-expansion-panels) {
+    box-shadow: none;
+  }
+
+  & .v-card.v-card--variant-elevated {
+    border: var(--v-vw-border-width, 1px) solid
+      rgba(var(--v-border-color), var(--v-border-opacity));
+    box-shadow: none;
+  }
+
+  /**
+   * Vuetify 4's heading scale is `text-display-*`, `text-headline-*` and
+   * `text-title-large` (plus responsive `text-md-*` forms) — the substring
+   * match covers both.
+   */
+  & :is(
+    h1, h2, h3, h4, h5, h6,
+    [class*='-display-'],
+    [class*='-headline-'],
+    [class*='-title-large']
+  ) {
+    letter-spacing: -0.01em;
+  }
+}

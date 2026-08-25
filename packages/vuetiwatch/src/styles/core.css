@@ -1,0 +1,123 @@
+/**
+ * Vuetiwatch core layer.
+ *
+ * Vuetify's radius, border width and button typography are SASS variables
+ * baked in at build time, so a `ThemeDefinition` cannot reach them. This
+ * file re-expresses them as custom properties that each theme sets through
+ * its `variables`, which Vuetify re-emits on `:root` whenever the active
+ * theme changes.
+ *
+ * The scope is either a Vuetiwatch theme class or the `data-vuetiwatch`
+ * attribute `createVuetiwatch()` sets on `<html>` — the latter is what
+ * extends this layer to themes you build yourself with `defineTheme()`.
+ * Importing this file therefore cannot affect an app that is not running a
+ * Vuetiwatch theme, and every value falls back to the stock Vuetify one, so
+ * a theme only pays for what it overrides.
+ *
+ * Component classes are doubled to out-specify Vuetify's own rules without
+ * relying on an ancestor, which keeps teleported overlays covered.
+ *
+ * Authored with CSS nesting; the published file is flattened at build time.
+ */
+
+:is(
+  [data-vuetiwatch],
+  .v-theme--classic,
+  .v-theme--paper,
+  .v-theme--slate,
+  .v-theme--soft,
+  .v-theme--darkGlass,
+  .v-theme--neon
+) {
+  /* -------------------------------------------------------------- radius */
+
+  /* An explicit `rounded` prop always wins — hence the :not() guards. */
+  & .v-btn.v-btn:not(.v-btn--icon, .v-btn--rounded, [class*='rounded-']) {
+    border-radius: var(--v-vw-radius, 4px);
+  }
+
+  & :is(
+    .v-card.v-card:not([class*='rounded-']),
+    .v-table.v-table
+  ) {
+    border-radius: var(--v-vw-radius-lg, var(--v-vw-radius, 4px));
+  }
+
+  /**
+   * Panels inherit their corners from the group, and Vuetify decides which
+   * of them are rounded from `@layer vuetify-overrides`. Layered rules lose
+   * to unlayered ones at any specificity, so styling `.v-expansion-panel`
+   * here would flatten that logic and round every panel in the stack.
+   */
+  & .v-expansion-panels.v-expansion-panels {
+    border-radius: var(--v-vw-radius-lg, var(--v-vw-radius, 4px));
+  }
+
+  & :is(
+    .v-alert.v-alert:not([class*='rounded-']),
+    .v-field.v-field:not([class*='rounded-']),
+    .v-btn-group.v-btn-group,
+    .v-list-item.v-list-item:not([class*='rounded-']),
+    .v-snackbar__wrapper,
+    .v-menu > .v-overlay__content,
+    .v-tooltip > .v-overlay__content,
+    .v-overlay__content > :is(.v-list, .v-sheet)
+  ) {
+    border-radius: var(--v-vw-radius, 4px);
+  }
+
+  /* Filled and underlined fields only round their top corners. */
+  & .v-field.v-field:is(.v-field--variant-filled, .v-field--variant-underlined):not([class*='rounded-']) {
+    border-radius: var(--v-vw-radius, 4px) var(--v-vw-radius, 4px) 0 0;
+  }
+
+  & .v-chip.v-chip:not([class*='rounded-']) {
+    border-radius: var(--v-vw-radius-chip, 9999px);
+  }
+
+  /* -------------------------------------------------------- border width */
+
+  & :is(
+    .v-btn--variant-outlined,
+    .v-card--variant-outlined,
+    .v-alert--variant-outlined,
+    .v-chip--variant-outlined,
+    .v-sheet--variant-outlined
+  ) {
+    border-width: var(--v-vw-border-width, thin);
+  }
+
+  /**
+   * Vuetify already funnels every outline segment through one property, so
+   * the field only needs that one set. Specificity matters here: this must
+   * beat `.v-field__outline` (0,1,0) but lose to the focused rule (0,3,0)
+   * that thickens the outline to 2px.
+   */
+  & .v-field__outline {
+    --v-field-border-width: var(--v-vw-border-width, 1px);
+  }
+
+  /* ---------------------------------------------------- button typography */
+
+  & .v-btn.v-btn {
+    font-weight: var(--v-vw-btn-weight, 500);
+    letter-spacing: var(--v-vw-btn-tracking, 0.0892857143em);
+    text-transform: var(--v-vw-btn-transform, uppercase);
+  }
+
+  /* ------------------------------------------------------------ headings */
+
+  /**
+   * `--v-font-heading` is native to Vuetify 4 and already drives the
+   * `text-display-*` / `text-headline-*` utilities. Bare heading tags are not, so they
+   * pick it up here.
+   */
+  & :is(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--v-font-heading, var(--v-font-body, inherit));
+  }
+
+  & .v-application {
+    -webkit-font-smoothing: var(--v-vw-font-smoothing, antialiased);
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

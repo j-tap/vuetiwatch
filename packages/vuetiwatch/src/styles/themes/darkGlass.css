@@ -1,0 +1,54 @@
+/**
+ * Dark Glass — translucent surfaces with a backdrop blur and an inset top
+ * highlight, so stacked panels read as sheets of glass.
+ *
+ * `backdrop-filter` only shows through to what is actually behind the
+ * element, so give `v-app` a gradient or image for the effect to register.
+ */
+.v-theme--darkGlass {
+  /**
+   * Only frost surfaces that have no colour of their own: `[class*='bg-']`
+   * means the author passed `color=""`, and the text/plain card variants are
+   * meant to be transparent.
+   */
+  & :is(.v-card, .v-app-bar, .v-navigation-drawer, .v-toolbar):not(
+    [class*='bg-'],
+    .v-card--variant-text,
+    .v-card--variant-plain
+  ) {
+    background-color: rgba(var(--v-theme-surface), 0.62);
+    backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(var(--v-border-color), 0.14);
+  }
+
+  /* Outer depth plus the inset highlight that sells the glass reading. */
+  & .v-card.v-card--variant-elevated {
+    box-shadow:
+      inset 0 1px 0 rgba(var(--v-theme-primary), 0.28),
+      0 8px 32px rgba(0, 0, 0, 0.45);
+  }
+
+  & :is(.v-menu, .v-dialog) > .v-overlay__content {
+    backdrop-filter: blur(18px) saturate(160%);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+  }
+
+  & .v-field.v-field--variant-solo-filled .v-field__overlay {
+    background-color: rgba(var(--v-theme-surface-bright), 0.45);
+  }
+
+  & .v-btn.v-btn--variant-flat:not(.v-btn--disabled) {
+    box-shadow: 0 4px 20px rgba(var(--v-theme-primary), 0.35);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .v-theme--darkGlass :is(.v-card, .v-app-bar, .v-navigation-drawer, .v-toolbar):not(
+    [class*='bg-'],
+    .v-card--variant-text,
+    .v-card--variant-plain
+  ) {
+    background-color: rgb(var(--v-theme-surface));
+    backdrop-filter: none;
+  }
+}

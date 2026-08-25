@@ -1,0 +1,74 @@
+{
+  "name": "vuetiwatch",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Free, plug-and-play themes for Vuetify 4 \u2014 a Bootswatch for Vuetify",
+  "license": "MIT",
+  "author": "j-tap",
+  "homepage": "https://github.com/j-tap/vuetiwatch#readme",
+  "bugs": "https://github.com/j-tap/vuetiwatch/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j-tap/vuetiwatch.git",
+    "directory": "packages/vuetiwatch"
+  },
+  "keywords": [
+    "vuetiwatch",
+    "vue",
+    "vue3",
+    "vuetify",
+    "vuetify4",
+    "theme",
+    "themes",
+    "dark-mode",
+    "design-system"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./styles": "./dist/styles.css",
+    "./styles.css": "./dist/styles.css",
+    "./styles.min.css": "./dist/styles.min.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run build:types && npm run build:styles",
+    "build:types": "tsc",
+    "build:styles": "node scripts/build-styles.mjs",
+    "clean": "node --eval \"fs.rmSync('dist', { recursive: true, force: true })\"",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0",
+    "vuetify": "^4.0.0"
+  },
+  "devDependencies": {
+    "browserslist": "^4.28.0",
+    "lightningcss": "^1.33.0",
+    "typescript": "^5.9.3",
+    "vue": "^3.5.41",
+    "vuetify": "^4.1.11"
+  },
+  "browserslist": [
+    ">0.5%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

@@ -1,34 +1,46 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useTheme } from 'vuetify'
-import DemoButtons from '@/components/demo/DemoButtons.vue'
-import DemoDialog from '@/components/demo/DemoDialog.vue'
-import DemoNavbars from '@/components/demo/DemoNavbars.vue'
-import DemoFeedback from '@/components/demo/DemoFeedback.vue'
-import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
-import DemoForm from '@/components/demo/DemoForm.vue'
-import DemoTable from '@/components/demo/DemoTable.vue'
 
-const { global: theme } = useTheme()
+import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
+import DemoButtons from '@/components/demo/DemoButtons.vue'
+import DemoCards from '@/components/demo/DemoCards.vue'
+import DemoDialog from '@/components/demo/DemoDialog.vue'
+import DemoFeedback from '@/components/demo/DemoFeedback.vue'
+import DemoForm from '@/components/demo/DemoForm.vue'
+import DemoNavbars from '@/components/demo/DemoNavbars.vue'
+import DemoNavigation from '@/components/demo/DemoNavigation.vue'
+import DemoTable from '@/components/demo/DemoTable.vue'
+import DemoTypography from '@/components/demo/DemoTypography.vue'
+
+const theme = useTheme()
 </script>
 
 <template>
-  <VApp :theme="theme.name.value">
-    <VAppBar>
-      <VToolbarTitle>Vuetify Playground</VToolbarTitle>
-      <VSpacer />
+  <!-- No :theme binding needed — the global theme cascades from the plugin. -->
+  <v-app>
+    <v-app-bar>
+      <v-toolbar-title>Vuetiwatch</v-toolbar-title>
+      <v-spacer />
       <ThemeSwitcher />
-    </VAppBar>
-    <VMain>
-      <VContainer fluid>
-        <!-- DEMO -->
+    </v-app-bar>
+
+    <v-main>
+      <v-container fluid>
+        <p class="text-medium-emphasis mb-6">
+          Every component below is unstyled demo markup — the whole difference
+          between themes comes from <code>{{ theme.global.name.value }}</code>.
+        </p>
+
+        <DemoTypography />
         <DemoNavbars />
         <DemoButtons />
+        <DemoCards />
+        <DemoNavigation />
         <DemoForm />
         <DemoDialog />
         <DemoFeedback />
         <DemoTable />
-      </VContainer>
-    </VMain>
-  </VApp>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>

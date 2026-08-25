@@ -2,7 +2,7 @@
 import CardPreview from '@/components/CardPreview.vue'
 
 const colors = ['primary', 'secondary', 'success', 'info', 'warning', 'error']
-const variants = ['elevated', 'flat', 'tonal', 'outlined', 'text', 'plain']
+const variants = ['elevated', 'flat', 'tonal', 'outlined', 'text', 'plain'] as const
 </script>
 
 <template>

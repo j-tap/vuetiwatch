@@ -1,0 +1,48 @@
+/**
+ * Soft — diffuse, tinted shadows instead of Material's grey elevation, and
+ * a lift on hover so cards feel physical rather than printed.
+ */
+.v-theme--soft {
+  & .v-card.v-card--variant-elevated {
+    box-shadow:
+      0 2px 4px rgba(var(--v-theme-primary), 0.06),
+      0 12px 28px rgba(var(--v-theme-primary), 0.1);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  & .v-card.v-card--variant-elevated.v-card--link:hover {
+    box-shadow:
+      0 4px 8px rgba(var(--v-theme-primary), 0.08),
+      0 20px 40px rgba(var(--v-theme-primary), 0.14);
+    transform: translateY(-2px);
+  }
+
+  & .v-btn.v-btn--variant-flat:not(.v-btn--disabled) {
+    box-shadow: 0 2px 8px rgba(var(--v-theme-primary), 0.24);
+  }
+
+  & :is(.v-menu, .v-dialog) > .v-overlay__content {
+    box-shadow: 0 16px 48px rgba(var(--v-theme-primary), 0.18);
+  }
+
+  /**
+   * `solo-filled` paints itself `surface`, which sits a couple of percent
+   * from this theme's `background`. Without the shadow the field has no
+   * edge at all, so it keeps one — in the theme's own tint.
+   */
+  & .v-field.v-field--variant-solo-filled {
+    box-shadow:
+      0 1px 2px rgba(var(--v-theme-primary), 0.08),
+      0 4px 12px rgba(var(--v-theme-primary), 0.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v-theme--soft .v-card.v-card--variant-elevated {
+    transition: none;
+  }
+
+  .v-theme--soft .v-card.v-card--variant-elevated.v-card--link:hover {
+    transform: none;
+  }
+}
