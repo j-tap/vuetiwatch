@@ -46,6 +46,55 @@
     border-radius: var(--v-vw-radius-btn, var(--v-vw-radius, 4px));
   }
 
+  /**
+   * Vuetify's square-inset switch hardcodes 6px and 4px, so a theme with no
+   * corners at all still got a rounded toggle. Only this variant follows the
+   * theme — the pill inset is meant to stay a pill.
+   */
+  & .v-switch--inset-square .v-switch__track {
+    border-radius: var(--v-vw-radius, 6px);
+  }
+
+  & .v-switch--inset-square .v-switch__thumb {
+    border-radius: var(--v-vw-radius, 4px);
+  }
+
+  /**
+   * A side utility squares one edge so two controls can be attached — a
+   * field and the button on its end. Those elements are excluded from the
+   * rule above by the `rounded-` guard, which left the corners they do
+   * *not* touch at Vuetify's stock 4px instead of the theme's. Give them
+   * the theme radius, then re-assert the squared edge on top.
+   */
+  & :is(.v-btn, .v-field, .v-card, .v-chip, .v-alert):is(
+    .rounded-s-0,
+    .rounded-e-0,
+    .rounded-t-0,
+    .rounded-b-0
+  ) {
+    border-radius: var(--v-vw-radius-btn, var(--v-vw-radius, 4px));
+  }
+
+  & .rounded-s-0.rounded-s-0 {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  & .rounded-e-0.rounded-e-0 {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  & .rounded-t-0.rounded-t-0 {
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+  }
+
+  & .rounded-b-0.rounded-b-0 {
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+
   /* The group keeps the corners its children gave up. */
   & .v-btn-group.v-btn-group:not([class*='rounded-']) {
     border-radius: var(--v-vw-radius, 4px);
