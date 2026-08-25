@@ -68,7 +68,10 @@ export const brutalist = defineTheme({
       VSheet: { border: true },
       VNavigationDrawer: { border: 'e' },
       VSwitch: { inset: 'square' },
-      VSlider: { thumbSize: 18, trackSize: 6 },
+      // Lime is this theme's "active" colour — it already marks the table
+      // heads and the current page, so the slider joins them.
+      VSlider: { thumbSize: 18, trackSize: 6, color: 'secondary' },
+      VRangeSlider: { color: 'secondary' },
     },
     fields({ variant: 'outlined' }),
     bars({ flat: true, border: 'b' }),

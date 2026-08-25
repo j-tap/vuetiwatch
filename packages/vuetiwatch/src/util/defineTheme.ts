@@ -97,6 +97,19 @@ const base: Record<'light' | 'dark', ThemeDefinition> = {
   },
 }
 
+/**
+ * Applied under every theme's own defaults.
+ *
+ * A slider with no `color` falls back to `surface-variant`, which reads as
+ * dead grey whatever the palette — so the controls whose whole job is to
+ * show a value are coloured here once. A theme overrides this the way it
+ * overrides anything else.
+ */
+const baseDefaults: VuetiwatchDefaults = {
+  VSlider: { color: 'primary' },
+  VRangeSlider: { color: 'primary' },
+}
+
 export interface DefineThemeOptions<Name extends string = string> {
   name: Name
   meta: VuetiwatchMeta
@@ -111,6 +124,6 @@ export function defineTheme<const Name extends string> (
     name: options.name,
     meta: options.meta,
     theme: mergeDeep(base[options.theme.dark ? 'dark' : 'light'], options.theme),
-    defaults: options.defaults ?? {},
+    defaults: mergeDeep(baseDefaults as Record<string, any>, options.defaults) as VuetiwatchDefaults,
   }
 }
