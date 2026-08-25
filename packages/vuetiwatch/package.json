@@ -37,6 +37,7 @@
     "./styles": "./dist/styles.css",
     "./styles.css": "./dist/styles.css",
     "./styles.min.css": "./dist/styles.min.css",
+    "./styles/*": "./dist/styles/*",
     "./package.json": "./package.json"
   },
   "files": [

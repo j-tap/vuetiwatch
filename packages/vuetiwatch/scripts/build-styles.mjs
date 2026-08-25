@@ -1,8 +1,12 @@
-// Flattens the authored stylesheets (CSS nesting, @import) into a single
-// browser-ready file, plus a minified twin. Run by `npm run build`, after
-// `build:types` — it reads the compiled registry so the theme list baked
-// into the stylesheet can never drift from the one the package exports.
+// Flattens the authored stylesheets (CSS nesting, @import) into browser-ready
+// files. Run by `npm run build`, after `build:types` — it reads the compiled
+// registry so the theme list baked into the stylesheet can never drift from
+// the one the package exports.
+//
+// Two shapes are published: one combined file, and the core layer plus each
+// theme separately, so an app that ships three themes need not carry fourteen.
 import { mkdir, writeFile } from 'node:fs/promises'
+import { existsSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
@@ -10,7 +14,6 @@ import browserslist from 'browserslist'
 import { browserslistToTargets, bundle, transform } from 'lightningcss'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const entry = resolve(root, 'src/styles/index.css')
 const outDir = resolve(root, 'dist')
 const targets = browserslistToTargets(browserslist())
 
@@ -19,20 +22,37 @@ const targets = browserslistToTargets(browserslist())
 const { themeList } = await import(pathToFileURL(resolve(outDir, 'registry.js')).href)
 const themeClasses = themeList.map(theme => theme.name).join(', .v-theme--')
 
-// Resolve and parse the import graph once; the minified twin is a
-// transform of that result rather than a second full bundle.
-const bundled = bundle({ filename: entry, targets, errorRecovery: false }).code
 const expand = code => code.toString().replaceAll('VUETIWATCH_THEMES', themeClasses)
 
-const readable = expand(bundled)
-const minified = expand(
-  transform({ filename: 'styles.css', code: bundled, targets, minify: true }).code,
-)
+/** Resolve and parse one import graph; minify from that result, not a second pass. */
+const build = filename => {
+  const code = bundle({ filename, targets, errorRecovery: false }).code
 
-await mkdir(outDir, { recursive: true })
-await Promise.all([
-  writeFile(resolve(outDir, 'styles.css'), readable),
-  writeFile(resolve(outDir, 'styles.min.css'), minified),
-])
+  return {
+    readable: expand(code),
+    minified: expand(transform({ filename, code, targets, minify: true }).code),
+  }
+}
 
-console.log(`✔ dist/styles.css, dist/styles.min.css (${themeList.length} themes)`)
+const write = async (name, { readable, minified }) => {
+  await writeFile(resolve(outDir, `${name}.css`), readable)
+  await writeFile(resolve(outDir, `${name}.min.css`), minified)
+}
+
+await mkdir(resolve(outDir, 'styles'), { recursive: true })
+
+// The whole set, for apps that want a picker over everything.
+await write('styles', build(resolve(root, 'src/styles/index.css')))
+
+// The pieces. `core` is required; each theme layer is optional and only
+// exists for themes that need more than their `ThemeDefinition` can express.
+const parts = [
+  ['styles/core', resolve(root, 'src/styles/core.css')],
+  ...themeList
+    .map(theme => [`styles/${theme.name}`, resolve(root, `src/styles/themes/${theme.name}.css`)])
+    .filter(([, file]) => existsSync(file)),
+]
+
+await Promise.all(parts.map(([name, file]) => write(name, build(file))))
+
+console.log(`✔ dist/styles.css and ${parts.length} pieces (${themeList.length} themes)`)

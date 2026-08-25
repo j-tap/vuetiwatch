@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import { createVuetiwatch } from 'vuetiwatch'
+import { createVuetiwatch, themeList } from 'vuetiwatch'
 
 import App from './App.vue'
 import { vuetify } from './plugins/vuetify'
@@ -8,5 +8,5 @@ import './assets/styles/app.css'
 createApp(App)
   .use(vuetify)
   // Swaps Vuetify's global component defaults whenever the theme changes.
-  .use(createVuetiwatch(vuetify))
+  .use(createVuetiwatch(vuetify, { themes: themeList }))
   .mount('#app')

@@ -1,7 +1,6 @@
 import { watch } from 'vue'
 import type { App, Plugin } from 'vue'
 import type { VuetiwatchDefaults, VuetiwatchTheme } from './types.js'
-import { themeList } from './registry.js'
 import { combine } from './util/defaults.js'
 
 /**
@@ -16,10 +15,14 @@ interface VuetifyLike {
 
 export interface VuetiwatchOptions {
   /**
-   * Themes to manage. Defaults to every theme in the package — pass a
-   * subset if you only ship a few.
+   * Themes to manage — normally the package's `themeList`, or just the ones
+   * an app ships.
+   *
+   * Required rather than defaulted, because a default would mean importing
+   * the registry here, and a static import cannot be shaken out: every app
+   * would carry all fourteen themes even after passing one.
    */
-  themes?: readonly VuetiwatchTheme[]
+  themes: readonly VuetiwatchTheme[]
   /**
    * Apply each theme's component defaults on top of your own.
    * @default true
@@ -50,10 +53,10 @@ export interface VuetiwatchOptions {
  */
 export function createVuetiwatch (
   vuetify: unknown,
-  options: VuetiwatchOptions = {},
+  options: VuetiwatchOptions,
 ): Plugin {
   const {
-    themes = themeList,
+    themes,
     defaults: applyDefaults = true,
     attribute = true,
   } = options

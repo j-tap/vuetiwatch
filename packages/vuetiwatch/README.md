@@ -140,17 +140,31 @@ import 'vuetify/styles'
 import 'vuetiwatch/styles.css'   // radius, borders, per-theme surface treatment
 ```
 
+Shipping only a few themes? Import the core layer and just those, instead of
+all fourteen — around a third of the CSS and a third of the JavaScript:
+
+```ts
+import 'vuetiwatch/styles/core.css'
+import 'vuetiwatch/styles/paper.css'
+```
+
+`core.css` is required; a theme file exists only for themes that need more
+than a `ThemeDefinition` can express, so `classic` has none. Every file also
+ships pre-minified as `*.min.css`.
+
 ```ts
 // main.ts
 import { createApp } from 'vue'
-import { createVuetiwatch } from 'vuetiwatch'
+import { createVuetiwatch, themeList } from 'vuetiwatch'
 
 import App from './App.vue'
 import { vuetify } from './plugins/vuetify'
 
 createApp(App)
   .use(vuetify)
-  .use(createVuetiwatch(vuetify))   // must come after Vuetify
+  // Must come after Vuetify. Pass only the themes you ship — the rest are
+  // then dropped from the bundle.
+  .use(createVuetiwatch(vuetify, { themes: themeList }))
   .mount('#app')
 ```
 
