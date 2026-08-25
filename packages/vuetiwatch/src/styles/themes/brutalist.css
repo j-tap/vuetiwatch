@@ -6,11 +6,11 @@
 .v-theme--brutalist {
   --vw-brut-offset: 4px;
 
-  & :is(.v-card, .v-btn, .v-alert, .v-chip, .v-table):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain) {
+  & :is(.v-card, .v-btn, .v-alert, .v-chip, .v-table, .v-btn-group):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain) {
     box-shadow: var(--vw-brut-offset) var(--vw-brut-offset) 0 rgb(var(--v-shadow-color));
   }
 
-  & :is(.v-btn, .v-chip):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain):not(.v-btn--disabled) {
+  & :is(.v-btn, .v-chip, .v-btn-group):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain):not(.v-btn--disabled, .v-btn-group *) {
     border: var(--v-vw-border-width) solid rgb(var(--v-shadow-color));
     transition: transform 0.08s steps(2, end), box-shadow 0.08s steps(2, end);
   }
@@ -21,7 +21,7 @@
     box-shadow: 0 0 0 rgb(var(--v-shadow-color));
   }
 
-  & .v-btn:not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain):hover:not(.v-btn--disabled) {
+  & .v-btn:not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain):hover:not(.v-btn--disabled, .v-btn-group *) {
     transform: translate(-1px, -1px);
     box-shadow: 5px 5px 0 rgb(var(--v-shadow-color));
   }

@@ -14,7 +14,7 @@
     inset 3px 3px 7px rgba(var(--v-shadow-color), 0.55),
     inset -3px -3px 7px rgba(255, 255, 255, 0.9);
 
-  & :is(.v-card, .v-btn, .v-chip, .v-alert, .v-sheet--variant-flat):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain) {
+  & :is(.v-card, .v-btn, .v-chip, .v-alert, .v-btn-group, .v-sheet--variant-flat):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain) {
     box-shadow: var(--vw-morph-raised);
   }
 

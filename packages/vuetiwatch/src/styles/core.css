@@ -51,6 +51,17 @@
     border-radius: var(--v-vw-radius, 4px);
   }
 
+  /**
+   * The same containers join their buttons into one shape, so a per-button
+   * shadow draws a seam down every join. Decoration belongs on the
+   * container — this out-specifies the theme layers that give `.v-btn` a
+   * relief, and a theme that wants a decorated group styles
+   * `.v-btn-group` itself.
+   */
+  & :is(.v-btn-group, .v-toolbar-items) .v-btn.v-btn {
+    box-shadow: none;
+  }
+
   & :is(
     .v-card.v-card:not([class*='rounded-']),
     .v-table.v-table
