@@ -52,6 +52,15 @@
   }
 
   /**
+   * Pagination items are `icon` buttons so the rule above leaves them
+   * round, but they read as a row of tiles rather than icons — they follow
+   * the button radius instead.
+   */
+  & .v-pagination .v-btn.v-btn {
+    border-radius: var(--v-vw-radius-btn, var(--v-vw-radius, 4px));
+  }
+
+  /**
    * The same containers join their buttons into one shape, so a per-button
    * shadow draws a seam down every join. Decoration belongs on the
    * container — this out-specifies the theme layers that give `.v-btn` a
@@ -194,5 +203,16 @@
   &.v-application {
     -webkit-font-smoothing: var(--v-vw-font-smoothing, antialiased);
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /**
+   * Vuetify styles anchors it renders itself, but never a bare `<a>` in
+   * content — which left every theme showing browser blue. Components keep
+   * their own colours because they all carry classes.
+   */
+  & a:not([class]) {
+    color: rgb(var(--v-theme-primary));
+    text-decoration: var(--v-vw-link-decoration, underline);
+    text-underline-offset: 0.15em;
   }
 }

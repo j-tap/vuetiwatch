@@ -18,7 +18,14 @@
     background-attachment: fixed;
   }
 
-  & :is(.v-card, .v-app-bar, .v-toolbar, .v-navigation-drawer):not(
+  & :is(
+    .v-card,
+    .v-app-bar,
+    .v-toolbar,
+    .v-navigation-drawer,
+    .v-table,
+    .v-expansion-panels
+  ):not(
     [class*='bg-'],
     .v-card--variant-text,
     .v-card--variant-plain
@@ -73,10 +80,34 @@
   }
 
   /* Hairline separators, not borders. */
-  & .v-divider {
-    opacity: 1;
+  & :is(.v-divider, .v-table tbody td, .v-data-table__td) {
     border-color: rgba(60, 60, 67, 0.14);
   }
+
+  & .v-divider {
+    opacity: 1;
+  }
+
+  /**
+   * A grouped list, not a data grid: the header is a quiet label above the
+   * rows rather than a bold band, and the table itself is transparent so
+   * the pane behind it shows through.
+   */
+  & :is(.v-table, .v-table__wrapper, .v-table > .v-table__wrapper > table) {
+    background: transparent;
+  }
+
+  & :is(.v-table thead th, .v-data-table__th) {
+    background: transparent;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: rgba(var(--v-theme-on-surface), 0.5);
+    border-bottom: 1px solid rgba(60, 60, 67, 0.14);
+  }
+
+  /* Apple keeps links in the accent colour and leaves them unlined. */
+  --v-vw-link-decoration: none;
 }
 
 @media (prefers-reduced-transparency: reduce) {
@@ -84,7 +115,14 @@
     background-image: none;
   }
 
-  .v-theme--liquidGlass :is(.v-card, .v-app-bar, .v-toolbar, .v-navigation-drawer):not(
+  .v-theme--liquidGlass :is(
+    .v-card,
+    .v-app-bar,
+    .v-toolbar,
+    .v-navigation-drawer,
+    .v-table,
+    .v-expansion-panels
+  ):not(
     [class*='bg-'],
     .v-card--variant-text,
     .v-card--variant-plain
