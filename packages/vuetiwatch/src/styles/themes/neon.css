@@ -47,4 +47,31 @@
   & .v-app-bar {
     box-shadow: inset 0 -1px 0 rgba(var(--v-theme-primary), 0.3);
   }
+
+  /* Every control is square and lit from within. */
+  & :is(.v-slider-thumb__surface, .v-slider-track) {
+    border-radius: 0;
+  }
+
+  & .v-slider-thumb__surface {
+    box-shadow: 0 0 12px rgba(var(--v-theme-primary), 0.6);
+  }
+
+  & .v-tab__slider {
+    height: 3px;
+    box-shadow: 0 0 14px rgba(var(--v-theme-primary), 0.9);
+  }
+
+  & .v-selection-control--dirty .v-switch__track {
+    box-shadow: 0 0 14px rgba(var(--v-theme-primary), 0.55);
+  }
+
+  & .v-list-item.v-list-item--active {
+    box-shadow: inset 2px 0 0 rgb(var(--v-theme-primary));
+  }
+
+  .v-locale--is-rtl & .v-list-item.v-list-item--active {
+    box-shadow: inset -2px 0 0 rgb(var(--v-theme-primary));
+  }
+
 }

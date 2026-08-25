@@ -1,4 +1,4 @@
-import { bars, fields } from '../util/defaults.js'
+import { bars, combine, fields } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -52,16 +52,24 @@ export const paper = defineTheme({
       'vw-btn-weight': '600',
     },
   },
-  defaults: {
-    VBtn: { variant: 'outlined' },
-    VCard: { variant: 'outlined' },
-    VAlert: { variant: 'outlined' },
-    VChip: { variant: 'outlined' },
-    VSheet: { border: true },
-    VNavigationDrawer: { border: 'e' },
-    ...fields({ variant: 'outlined' }),
-    ...bars({ flat: true, border: 'b' }),
-  },
+  defaults: combine(
+    {
+      VBtn: { variant: 'outlined' },
+      VCard: { variant: 'outlined' },
+      VAlert: { variant: 'outlined' },
+      VChip: { variant: 'outlined' },
+      VSheet: { border: true },
+      VNavigationDrawer: { border: 'e' },
+    },
+    fields({ variant: 'outlined' }),
+    bars({ flat: true, border: 'b' }),
+    {
+      // Square hardware rather than Material pills — the switch and the
+      // slider should read as parts of a printed form.
+      VSwitch: { inset: 'square' },
+      VSlider: { thumbSize: 14, trackSize: 2 },
+    },
+  ),
 })
 
 export default paper

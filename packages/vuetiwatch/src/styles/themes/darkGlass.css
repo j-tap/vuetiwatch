@@ -40,6 +40,21 @@
   & .v-btn.v-btn--variant-flat:not(.v-btn--disabled) {
     box-shadow: 0 4px 20px rgba(var(--v-theme-primary), 0.35);
   }
+
+  /* The active tab glows rather than underlines. */
+  & .v-tab__slider {
+    box-shadow: 0 0 12px rgba(var(--v-theme-primary), 0.8);
+  }
+
+  /* A halo around the thumb, the same idea as the frosted panels. */
+  & .v-slider-thumb__surface {
+    box-shadow: 0 0 0 6px rgba(var(--v-theme-primary), 0.16);
+  }
+
+  & .v-switch__track {
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(var(--v-border-color), 0.16);
+  }
 }
 
 @media (prefers-reduced-transparency: reduce) {

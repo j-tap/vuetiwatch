@@ -1,4 +1,4 @@
-import { bars, controls, fields, tables } from '../util/defaults.js'
+import { bars, combine, controls, fields, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -52,17 +52,25 @@ export const slate = defineTheme({
       'vw-btn-weight': '600',
     },
   },
-  defaults: {
-    VBtn: { variant: 'flat', density: 'comfortable' },
-    VCard: { variant: 'outlined' },
-    VAlert: { variant: 'tonal', density: 'compact' },
-    VChip: { variant: 'tonal', size: 'small' },
-    VNavigationDrawer: { border: 'e' },
-    ...fields({ variant: 'outlined', density: 'compact' }),
-    ...controls({ density: 'compact' }),
-    ...tables('compact'),
-    ...bars({ flat: true, border: 'b' }),
-  },
+  defaults: combine(
+    {
+      VBtn: { variant: 'flat', density: 'comfortable' },
+      VCard: { variant: 'outlined' },
+      VAlert: { variant: 'tonal', density: 'compact' },
+      VChip: { variant: 'tonal', size: 'small' },
+      VNavigationDrawer: { border: 'e' },
+    },
+    fields({ variant: 'outlined', density: 'compact' }),
+    controls({ density: 'compact' }),
+    tables('compact'),
+    bars({ flat: true, border: 'b' }),
+    {
+      // Small, square and out of the way — controls should not outweigh the
+      // data they sit next to.
+      VSwitch: { inset: 'square' },
+      VSlider: { thumbSize: 14, trackSize: 2 },
+    },
+  ),
 })
 
 export default slate

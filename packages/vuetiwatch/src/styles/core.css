@@ -75,6 +75,25 @@
     border-radius: var(--v-vw-radius-chip, 9999px);
   }
 
+  /* --------------------------------------------------- overlay surfaces */
+
+  /**
+   * A floating surface has to be opaque. Vuetify renders the outlined, text,
+   * plain and tonal card variants transparent, so a theme that defaults
+   * `VCard` to one of them leaves dialogs and menus showing the page through
+   * them. Elevated and flat cards already paint themselves — and `darkGlass`
+   * depends on that to stay translucent — so they are left alone, as is any
+   * card given an explicit `color`.
+   */
+  & .v-overlay__content > .v-card:is(
+    .v-card--variant-outlined,
+    .v-card--variant-text,
+    .v-card--variant-plain,
+    .v-card--variant-tonal
+  ):not([class*='bg-']) {
+    background-color: rgb(var(--v-theme-surface));
+  }
+
   /* -------------------------------------------------------- border width */
 
   & :is(

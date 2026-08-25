@@ -1,4 +1,4 @@
-import { bars, fields } from '../util/defaults.js'
+import { bars, checkboxes, combine, fields } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -51,14 +51,24 @@ export const soft = defineTheme({
       'vw-btn-weight': '700',
     },
   },
-  defaults: {
-    VBtn: { variant: 'flat' },
-    VCard: { variant: 'elevated', elevation: 0 },
-    VAlert: { variant: 'tonal' },
-    VChip: { variant: 'tonal' },
-    ...fields({ variant: 'solo-filled' }),
-    ...bars({ flat: true }),
-  },
+  defaults: combine(
+    {
+      VBtn: { variant: 'flat' },
+      VCard: { variant: 'elevated', elevation: 0 },
+      VAlert: { variant: 'tonal' },
+      VChip: { variant: 'tonal' },
+    },
+    fields({ variant: 'solo-filled' }),
+    bars({ flat: true }),
+    {
+      // Everything here rounds off: an inset pill switch, a fat slider, a
+      // pill behind the active tab instead of an underline, round tick boxes.
+      VSwitch: { inset: true },
+      VSlider: { thumbSize: 22, trackSize: 8 },
+      VTabs: { inset: true },
+    },
+    checkboxes({ trueIcon: 'mdi-check-circle', falseIcon: 'mdi-circle-outline' }),
+  ),
 })
 
 export default soft

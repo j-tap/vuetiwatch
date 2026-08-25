@@ -35,6 +35,21 @@
       0 1px 2px rgba(var(--v-theme-primary), 0.08),
       0 4px 12px rgba(var(--v-theme-primary), 0.06);
   }
+
+  /* Controls get the same tinted lift as the cards. */
+  & .v-slider-thumb__surface {
+    box-shadow: 0 2px 8px rgba(var(--v-theme-primary), 0.35);
+  }
+
+  & .v-switch__thumb {
+    box-shadow: 0 2px 6px rgba(var(--v-theme-primary), 0.3);
+  }
+
+  /* `VTabs` runs inset here, so the pill behind the active tab is the
+     indicator — the underline would be a second one. */
+  & .v-tabs--inset .v-tab__slider {
+    box-shadow: 0 2px 10px rgba(var(--v-theme-primary), 0.2);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

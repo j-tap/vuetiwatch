@@ -1,4 +1,4 @@
-import { bars, fields, tables } from '../util/defaults.js'
+import { bars, checkboxes, combine, fields, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -57,17 +57,26 @@ export const neon = defineTheme({
       'vw-btn-weight': '600',
     },
   },
-  defaults: {
-    VBtn: { variant: 'outlined' },
-    VCard: { variant: 'outlined' },
-    VAlert: { variant: 'outlined' },
-    VChip: { variant: 'outlined' },
-    VSheet: { border: true },
-    VNavigationDrawer: { border: 'e' },
-    ...fields({ variant: 'outlined', density: 'compact' }),
-    ...tables('compact'),
-    ...bars({ flat: true, border: 'b' }),
-  },
+  defaults: combine(
+    {
+      VBtn: { variant: 'outlined' },
+      VCard: { variant: 'outlined' },
+      VAlert: { variant: 'outlined' },
+      VChip: { variant: 'outlined' },
+      VSheet: { border: true },
+      VNavigationDrawer: { border: 'e' },
+    },
+    fields({ variant: 'outlined', density: 'compact' }),
+    tables('compact'),
+    bars({ flat: true, border: 'b' }),
+    {
+      // Nothing filled and nothing round: a square switch, a square slider
+      // thumb, and a checkbox that stays hollow when checked.
+      VSwitch: { inset: 'square' },
+      VSlider: { thumbSize: 14, trackSize: 2 },
+    },
+    checkboxes({ trueIcon: 'mdi-checkbox-marked-outline', falseIcon: 'mdi-checkbox-blank-outline' }),
+  ),
 })
 
 export default neon

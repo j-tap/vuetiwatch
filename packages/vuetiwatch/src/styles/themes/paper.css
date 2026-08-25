@@ -29,4 +29,29 @@
   ) {
     letter-spacing: -0.01em;
   }
+
+  /* A printed rule under the active tab, not a Material underline. */
+  & .v-tab__slider {
+    height: 3px;
+  }
+
+  /* The thumb follows the theme's corner, so the slider reads as hardware. */
+  & .v-slider-thumb__surface {
+    border-radius: var(--v-vw-radius);
+  }
+
+  & .v-slider-track {
+    border-radius: var(--v-vw-radius);
+  }
+
+  /* The switch gets an outline for the same reason cards do. */
+  & .v-switch__track {
+    border: var(--v-vw-border-width, 1px) solid rgba(var(--v-border-color), 0.3);
+  }
+
+  /* A double rule under the table head, the way print sets one. */
+  & :is(.v-table thead th, .v-data-table__th) {
+    border-bottom: 3px double rgba(var(--v-border-color), 0.45);
+  }
+
 }

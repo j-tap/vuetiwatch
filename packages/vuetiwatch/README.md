@@ -22,6 +22,22 @@ bun add vuetiwatch      # or: npm i vuetiwatch / yarn add vuetiwatch / pnpm add 
 | `darkGlass`  | dark  | Frosted translucent surfaces on a deep violet ground, backdrop blur |
 | `neon`       | dark  | Terminal black, cyan and magenta glow, zero radius, monospace headings |
 
+### Component details
+
+Themes differ below the palette too — a switch, a tab indicator or a checkbox
+glyph carries as much character as a colour. Vuetify 4 exposes most of this as
+props (`VSwitch.inset`, `VTabs.inset`, `VSlider.thumbSize`), so `createVuetiwatch()`
+delivers it through defaults and only the rest needs CSS.
+
+| | Switch | Tab indicator | Slider | Extras |
+| --- | --- | --- | --- | --- |
+| `classic` | Material | 2px underline | round thumb | — |
+| `paper` | square inset, outlined | 3px rule | square thumb and track | double rule under table heads |
+| `slate` | square inset, compact | 3px rule | thin, square | accent bar on the active row |
+| `soft` | pill inset, lifted | pill behind the tab | fat track, big thumb | round checkboxes |
+| `darkGlass` | pill inset, frosted | glowing underline | haloed thumb | — |
+| `neon` | square inset, glowing | 3px glowing rule | square, glowing | hollow checkboxes, accent bar |
+
 ## Usage
 
 ### Colors and fonts only

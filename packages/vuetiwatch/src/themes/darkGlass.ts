@@ -1,4 +1,4 @@
-import { bars, fields } from '../util/defaults.js'
+import { bars, combine, fields } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -51,14 +51,20 @@ export const darkGlass = defineTheme({
       'vw-btn-weight': '600',
     },
   },
-  defaults: {
-    VBtn: { variant: 'flat' },
-    VCard: { variant: 'elevated', elevation: 0 },
-    VAlert: { variant: 'tonal' },
-    VChip: { variant: 'tonal' },
-    ...fields({ variant: 'solo-filled', flat: true }),
-    ...bars({ flat: true }),
-  },
+  defaults: combine(
+    {
+      VBtn: { variant: 'flat' },
+      VCard: { variant: 'elevated', elevation: 0 },
+      VAlert: { variant: 'tonal' },
+      VChip: { variant: 'tonal' },
+    },
+    fields({ variant: 'solo-filled', flat: true }),
+    bars({ flat: true }),
+    {
+      VSwitch: { inset: true },
+      VSlider: { thumbSize: 18, trackSize: 4 },
+    },
+  ),
 })
 
 export default darkGlass
