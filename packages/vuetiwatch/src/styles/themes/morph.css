@@ -14,8 +14,16 @@
     inset 3px 3px 7px rgba(var(--v-shadow-color), 0.55),
     inset -3px -3px 7px rgba(255, 255, 255, 0.9);
 
-  & :is(.v-card, .v-btn, .v-chip, .v-alert, .v-btn-group, .v-expansion-panels, .v-sheet--variant-flat):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain) {
+  & :is(.v-card, .v-btn, .v-alert, .v-btn-group, .v-expansion-panels, .v-sheet--variant-flat):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain, .v-btn--size-small, .v-btn--size-x-small) {
     box-shadow: var(--vw-morph-raised);
+  }
+
+  /* Relief scaled to the element: a pill is too small to carry the full
+     pair, and a row of them merges into one pale band. */
+  & :is(.v-chip, .v-btn--size-small, .v-btn--size-x-small):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain) {
+    box-shadow:
+      3px 3px 7px rgba(var(--v-shadow-color), 0.38),
+      -3px -3px 6px rgba(255, 255, 255, 0.6);
   }
 
   /* Inputs are recesses, not tiles. */

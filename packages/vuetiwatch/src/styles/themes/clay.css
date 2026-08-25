@@ -10,8 +10,20 @@
     inset -4px -4px 12px rgba(var(--v-shadow-color), 0.06),
     inset 4px 4px 10px rgba(255, 255, 255, 0.7);
 
-  & :is(.v-card, .v-btn, .v-chip, .v-alert, .v-btn-group, .v-expansion-panels):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain) {
+  & :is(.v-card, .v-btn, .v-alert, .v-btn-group, .v-expansion-panels):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain, .v-btn--size-small, .v-btn--size-x-small) {
     box-shadow: var(--vw-clay-lift);
+  }
+
+  /**
+   * The full lift is built for card-sized surfaces. On a pill the inner
+   * highlight fills most of the shape, and the white glow of a row of them
+   * pools into a pale band with visible edges — so small controls get a
+   * scaled-down version with no inset at all.
+   */
+  & :is(.v-chip, .v-btn--size-small, .v-btn--size-x-small):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain) {
+    box-shadow:
+      3px 3px 7px rgba(var(--v-shadow-color), 0.13),
+      -2px -2px 5px rgba(255, 255, 255, 0.6);
   }
 
   & .v-btn:active:not(.v-btn--disabled) {

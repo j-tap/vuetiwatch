@@ -93,9 +93,20 @@
     border-radius: calc(var(--v-vw-radius) - 2px);
   }
 
+  /**
+   * The selected label goes back to the normal text colour: Vuetify pairs
+   * the active button's `color` with its `on-` counterpart, which is white
+   * here — and this pill is white too. Its state overlay is dropped for the
+   * same reason, so nothing tints the pill grey.
+   */
   & .v-btn-group.v-btn-toggle > .v-btn--active {
     background-color: rgb(var(--v-theme-surface));
+    color: rgb(var(--v-theme-on-surface));
     box-shadow: 0 2px 6px rgba(27, 58, 107, 0.16);
+  }
+
+  & .v-btn-group.v-btn-toggle > .v-btn--active > .v-btn__overlay {
+    opacity: 0;
   }
 
   & .v-slider-thumb__surface {

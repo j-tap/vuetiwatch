@@ -5,7 +5,9 @@ import CardPreview from '@/components/CardPreview.vue'
 const name = ref('')
 const select = ref(null)
 const checkbox = ref(false)
-const radio = ref(null)
+// Preselected, so the active state of the toggle and the radio group is
+// visible at a glance rather than only after a click.
+const radio = ref('Value B')
 const switcher = ref(true)
 
 const options = ['First value', 'Second value', 'Third value']
