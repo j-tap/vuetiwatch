@@ -65,7 +65,9 @@ export const soft = defineTheme({
       // pill behind the active tab instead of an underline, round tick boxes.
       VSwitch: { inset: true },
       VSlider: { thumbSize: 22, trackSize: 8 },
-      VTabs: { inset: true },
+      // `VTabs` owns its own inset radius, so the theme sets it here
+      // rather than through the shared `--v-vw-radius`.
+      VTabs: { inset: true, insetRadius: 12 },
     },
     checkboxes({ trueIcon: 'mdi-check-circle', falseIcon: 'mdi-circle-outline' }),
   ),

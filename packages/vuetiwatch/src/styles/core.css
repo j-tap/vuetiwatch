@@ -25,8 +25,29 @@
 :is([data-vuetiwatch], .v-theme--VUETIWATCH_THEMES) {
   /* -------------------------------------------------------------- radius */
 
-  /* An explicit `rounded` prop always wins — hence the :not() guards. */
-  & .v-btn.v-btn:not(.v-btn--icon, .v-btn--rounded, [class*='rounded-']) {
+  /**
+   * An explicit `rounded` prop always wins — hence the first three guards.
+   *
+   * The last three keep out of containers that own their children's
+   * corners: `v-btn-group` squares every child and hands the first and last
+   * an inherited radius, `v-toolbar-items` makes buttons full-bleed, and
+   * `v-tabs` drives its own radius from `--v-tabs-inset-radius`. Rounding
+   * those children individually turns a joined group into separate pills
+   * and a full-height toolbar button into a rounded slab.
+   */
+  & .v-btn.v-btn:not(
+    .v-btn--icon,
+    .v-btn--rounded,
+    [class*='rounded-'],
+    .v-btn-group *,
+    .v-toolbar-items *,
+    .v-tabs *
+  ) {
+    border-radius: var(--v-vw-radius, 4px);
+  }
+
+  /* The group keeps the corners its children gave up. */
+  & .v-btn-group.v-btn-group:not([class*='rounded-']) {
     border-radius: var(--v-vw-radius, 4px);
   }
 
@@ -50,7 +71,6 @@
   & :is(
     .v-alert.v-alert:not([class*='rounded-']),
     .v-field.v-field:not([class*='rounded-']),
-    .v-btn-group.v-btn-group,
     .v-list-item.v-list-item:not([class*='rounded-']),
     .v-snackbar__wrapper,
     .v-menu > .v-overlay__content,
