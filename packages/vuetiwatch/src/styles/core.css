@@ -60,39 +60,41 @@
   }
 
   /**
-   * A side utility squares one edge so two controls can be attached — a
-   * field and the button on its end. Those elements are excluded from the
-   * rule above by the `rounded-` guard, which left the corners they do
-   * *not* touch at Vuetify's stock 4px instead of the theme's. Give them
-   * the theme radius, then re-assert the squared edge on top.
+   * A side utility squares one edge so two controls sit flush — a field and
+   * the button on its end. It says nothing about the other corners, which
+   * were left at Vuetify's stock 4px because the `rounded-` guard above
+   * treats any such class as the author taking over.
+   *
+   * So set only the corners the utility leaves alone. Vuetify's own rule
+   * keeps owning the squared edge, which means nothing here has to fight
+   * it, and the logical properties keep that edge leading in RTL.
    */
-  & :is(.v-btn, .v-field, .v-card, .v-chip, .v-alert):is(
-    .rounded-s-0,
-    .rounded-e-0,
-    .rounded-t-0,
-    .rounded-b-0
-  ) {
-    border-radius: var(--v-vw-radius-btn, var(--v-vw-radius, 4px));
+  & :is(.rounded-s-0, .rounded-e-0, .rounded-t-0, .rounded-b-0) {
+    --vw-attached: var(--v-vw-radius, 4px);
   }
 
-  & .rounded-s-0.rounded-s-0 {
-    border-start-start-radius: 0;
-    border-end-start-radius: 0;
+  & .v-btn:is(.rounded-s-0, .rounded-e-0, .rounded-t-0, .rounded-b-0) {
+    --vw-attached: var(--v-vw-radius-btn, var(--v-vw-radius, 4px));
   }
 
-  & .rounded-e-0.rounded-e-0 {
-    border-start-end-radius: 0;
-    border-end-end-radius: 0;
+  & .rounded-s-0 {
+    border-start-end-radius: var(--vw-attached);
+    border-end-end-radius: var(--vw-attached);
   }
 
-  & .rounded-t-0.rounded-t-0 {
-    border-start-start-radius: 0;
-    border-start-end-radius: 0;
+  & .rounded-e-0 {
+    border-start-start-radius: var(--vw-attached);
+    border-end-start-radius: var(--vw-attached);
   }
 
-  & .rounded-b-0.rounded-b-0 {
-    border-end-start-radius: 0;
-    border-end-end-radius: 0;
+  & .rounded-t-0 {
+    border-end-start-radius: var(--vw-attached);
+    border-end-end-radius: var(--vw-attached);
+  }
+
+  & .rounded-b-0 {
+    border-start-start-radius: var(--vw-attached);
+    border-start-end-radius: var(--vw-attached);
   }
 
   /* The group keeps the corners its children gave up. */
