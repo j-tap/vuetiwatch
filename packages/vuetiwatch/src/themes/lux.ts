@@ -1,4 +1,4 @@
-import { bars, combine, controls, fields, icons, tables } from '../util/defaults.js'
+import { bars, controls, fields, icons, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -52,9 +52,15 @@ export const lux = defineTheme({
       'vw-btn-transform': 'uppercase',
       'vw-btn-tracking': '0.2em',
       'vw-btn-weight': '400',
+      'vw-heading-weight': '300',
+      'vw-heading-tracking': '0.06em',
+      'vw-heading-transform': 'uppercase',
+      'vw-list-bar': '2px',
+      'vw-list-bar-color': 'rgb(var(--v-theme-secondary))',
+      'vw-tab-slider-height': '1px',
     },
   },
-  defaults: combine(
+  defaults: [
     {
       VBtn: { variant: 'outlined', size: 'large' },
       VCard: { variant: 'outlined' },
@@ -81,7 +87,5 @@ export const lux = defineTheme({
       // An em dash rather than a slash — the one flourish the theme allows.
       breadcrumbDivider: '—',
     }),
-  ),
+  ],
 })
-
-export default lux

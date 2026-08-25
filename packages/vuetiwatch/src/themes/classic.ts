@@ -18,10 +18,6 @@ export const classic = defineTheme({
     dark: false,
     variables: {
       'font-body': "'Roboto', system-ui, sans-serif",
-      'vw-radius': '4px',
-      'vw-radius-lg': '4px',
     },
   },
 })
-
-export default classic

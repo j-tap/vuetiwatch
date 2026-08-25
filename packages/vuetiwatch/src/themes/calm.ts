@@ -1,4 +1,4 @@
-import { bars, combine, controls, fields, icons, tables } from '../util/defaults.js'
+import { bars, controls, fields, icons, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -54,9 +54,12 @@ export const calm = defineTheme({
       'vw-btn-transform': 'none',
       'vw-btn-tracking': '0.01em',
       'vw-btn-weight': '500',
+      'vw-heading-weight': '500',
+      'vw-heading-tracking': '-0.01em',
+      'vw-tab-slider-height': '2px',
     },
   },
-  defaults: combine(
+  defaults: [
     {
       VBtn: { variant: 'text' },
       VCard: { variant: 'flat' },
@@ -81,7 +84,5 @@ export const calm = defineTheme({
       ratingEmpty: 'mdi-circle-outline',
       close: 'mdi-close',
     }),
-  ),
+  ],
 })
-
-export default calm

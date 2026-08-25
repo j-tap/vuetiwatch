@@ -22,7 +22,7 @@ export {
 } from './registry.js'
 export { createVuetiwatch } from './plugin.js'
 export { defineTheme } from './util/defineTheme.js'
-export { bars, combine, controls, fields, icons, tables } from './util/defaults.js'
+export { bars, combine, controls, fields, icons, surfaces, tables } from './util/defaults.js'
 
 export type { VuetiwatchOptions } from './plugin.js'
 export type { VuetiwatchThemeName } from './registry.js'

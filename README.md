@@ -257,6 +257,20 @@ Alongside Vuetify's own variables, the stylesheet reads:
 | `vw-btn-weight`      | `500`     | Button font weight |
 | `vw-btn-tracking`    | `0.089em` | Button letter spacing |
 | `vw-btn-transform`   | `uppercase` | Button text transform |
+| `vw-heading-weight`  | Vuetify's | Weight of headings and the display / headline / title-large scale |
+| `vw-heading-tracking`| Vuetify's | Letter spacing of the same |
+| `vw-heading-transform`| `none`   | Text transform of the same |
+| `vw-th-weight`       | Vuetify's | Table header weight |
+| `vw-th-tracking`     | Vuetify's | Table header letter spacing |
+| `vw-th-transform`    | `none`    | Table header text transform |
+| `vw-tab-slider-height`| `2px`    | Thickness of the active tab indicator |
+| `vw-overlay-shadow`  | Vuetify's | Shadow on menus, dialogs and tooltips |
+| `vw-overlay-border`  | `none`    | Border on the same |
+| `vw-list-bar`        | `0`       | Accent bar on the active list item, on the leading edge |
+| `vw-list-bar-color`  | `currentColor` | Its colour |
+| `vw-pagination-active-color` | `currentColor` | Fill behind the current page |
+| `vw-pagination-active-opacity` | `--v-activated-opacity` | Its strength |
+| `vw-link-decoration` | `underline` | Decoration on bare `<a>` elements |
 | `font-body`          | `Roboto`  | Body font (native to Vuetify 4) |
 | `font-heading`       | `font-body` | Heading font (native to Vuetify 4) |
 

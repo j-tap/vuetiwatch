@@ -1,4 +1,4 @@
-import { bars, combine, fields, icons } from '../util/defaults.js'
+import { bars, fields, icons, surfaces } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -52,17 +52,17 @@ export const paper = defineTheme({
       'vw-btn-transform': 'none',
       'vw-btn-tracking': '0',
       'vw-btn-weight': '600',
+      'vw-heading-tracking': '-0.01em',
+      'vw-tab-slider-height': '3px',
     },
   },
-  defaults: combine(
+  defaults: [
     {
       VBtn: { variant: 'outlined' },
-      VCard: { variant: 'outlined' },
-      VAlert: { variant: 'outlined' },
-      VChip: { variant: 'outlined' },
       VSheet: { border: true },
       VNavigationDrawer: { border: 'e' },
     },
+    surfaces({ variant: 'outlined' }),
     fields({ variant: 'outlined' }),
     bars({ flat: true, border: 'b' }),
     {
@@ -84,7 +84,5 @@ export const paper = defineTheme({
       sortDesc: 'mdi-arrow-down',
       close: 'mdi-close',
     }),
-  ),
+  ],
 })
-
-export default paper

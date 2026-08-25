@@ -20,7 +20,7 @@
    * pools into a pale band with visible edges — so small controls get a
    * scaled-down version with no inset at all.
    */
-  & :is(.v-chip, .v-btn--size-small, .v-btn--size-x-small):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain) {
+  & :is(.v-chip, .v-btn--size-small, .v-btn--size-x-small):not(.v-btn--variant-text, .v-btn--variant-plain) {
     box-shadow:
       3px 3px 7px rgba(var(--v-shadow-color), 0.13),
       -2px -2px 5px rgba(255, 255, 255, 0.6);
@@ -55,7 +55,6 @@
   }
 
   & .v-tab__slider {
-    height: 5px;
     border-radius: 5px;
   }
 }

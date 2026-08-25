@@ -1,4 +1,4 @@
-import { bars, combine, controls, fields, icons, tables } from '../util/defaults.js'
+import { bars, controls, fields, icons, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -72,9 +72,13 @@ export const liquidGlass = defineTheme({
       'vw-btn-transform': 'none',
       'vw-btn-tracking': '0',
       'vw-btn-weight': '590',
+      // Apple leaves links in the accent colour, unlined.
+      'vw-link-decoration': 'none',
+      'vw-heading-weight': '700',
+      'vw-heading-tracking': '-0.022em',
     },
   },
-  defaults: combine(
+  defaults: [
     {
       VBtn: { variant: 'flat' },
       VCard: { variant: 'elevated', elevation: 0 },
@@ -103,7 +107,5 @@ export const liquidGlass = defineTheme({
       sortAsc: 'mdi-chevron-up',
       sortDesc: 'mdi-chevron-down',
     }),
-  ),
+  ],
 })
-
-export default liquidGlass

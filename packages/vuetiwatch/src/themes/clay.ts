@@ -1,4 +1,4 @@
-import { bars, combine, fields, icons } from '../util/defaults.js'
+import { bars, fields, icons } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -53,9 +53,10 @@ export const clay = defineTheme({
       'vw-btn-transform': 'none',
       'vw-btn-tracking': '0',
       'vw-btn-weight': '700',
+      'vw-tab-slider-height': '5px',
     },
   },
-  defaults: combine(
+  defaults: [
     {
       VBtn: { variant: 'flat', size: 'large' },
       VCard: { variant: 'flat' },
@@ -75,7 +76,5 @@ export const clay = defineTheme({
       ratingEmpty: 'mdi-star-outline',
       close: 'mdi-close-circle',
     }),
-  ),
+  ],
 })
-
-export default clay

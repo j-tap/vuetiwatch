@@ -29,20 +29,6 @@
   }
 
   /* Monospace headings want to read as labels, not prose. */
-  /**
-   * Vuetify 4's heading scale is `text-display-*`, `text-headline-*` and
-   * `text-title-large` (plus responsive `text-md-*` forms) — the substring
-   * match covers both.
-   */
-  & :is(
-    h1, h2, h3, h4, h5, h6,
-    [class*='-display-'],
-    [class*='-headline-'],
-    [class*='-title-large']
-  ) {
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
 
   & .v-app-bar {
     box-shadow: inset 0 -1px 0 rgba(var(--v-theme-primary), 0.3);
@@ -53,7 +39,6 @@
   }
 
   & .v-tab__slider {
-    height: 3px;
     box-shadow: 0 0 14px rgba(var(--v-theme-primary), 0.9);
   }
 
@@ -61,13 +46,7 @@
     box-shadow: 0 0 14px rgba(var(--v-theme-primary), 0.55);
   }
 
-  & .v-list-item.v-list-item--active {
-    box-shadow: inset 2px 0 0 rgb(var(--v-theme-primary));
-  }
 
-  .v-locale--is-rtl & .v-list-item.v-list-item--active {
-    box-shadow: inset -2px 0 0 rgb(var(--v-theme-primary));
-  }
 
 
   & .v-expansion-panels {

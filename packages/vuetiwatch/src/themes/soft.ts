@@ -1,4 +1,4 @@
-import { bars, combine, fields, icons } from '../util/defaults.js'
+import { bars, fields, icons } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -52,7 +52,7 @@ export const soft = defineTheme({
       'vw-btn-weight': '700',
     },
   },
-  defaults: combine(
+  defaults: [
     {
       VBtn: { variant: 'flat' },
       VCard: { variant: 'elevated', elevation: 0 },
@@ -80,7 +80,5 @@ export const soft = defineTheme({
       ratingEmpty: 'mdi-heart-outline',
       close: 'mdi-close-circle',
     }),
-  ),
+  ],
 })
-
-export default soft

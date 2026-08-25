@@ -16,24 +16,8 @@
     box-shadow: none;
   }
 
-  /**
-   * Vuetify 4's heading scale is `text-display-*`, `text-headline-*` and
-   * `text-title-large` (plus responsive `text-md-*` forms) — the substring
-   * match covers both.
-   */
-  & :is(
-    h1, h2, h3, h4, h5, h6,
-    [class*='-display-'],
-    [class*='-headline-'],
-    [class*='-title-large']
-  ) {
-    letter-spacing: -0.01em;
-  }
 
   /* A printed rule under the active tab, not a Material underline. */
-  & .v-tab__slider {
-    height: 3px;
-  }
 
   /* The switch gets an outline for the same reason cards do. */
   & .v-switch__track {

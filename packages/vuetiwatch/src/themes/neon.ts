@@ -1,4 +1,4 @@
-import { bars, combine, fields, icons, tables } from '../util/defaults.js'
+import { bars, fields, icons, surfaces, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -57,17 +57,20 @@ export const neon = defineTheme({
       'vw-btn-transform': 'uppercase',
       'vw-btn-tracking': '0.12em',
       'vw-btn-weight': '600',
+      'vw-heading-tracking': '0.04em',
+      'vw-heading-transform': 'uppercase',
+      'vw-list-bar': '2px',
+      'vw-list-bar-color': 'rgb(var(--v-theme-primary))',
+      'vw-tab-slider-height': '3px',
     },
   },
-  defaults: combine(
+  defaults: [
     {
       VBtn: { variant: 'outlined' },
-      VCard: { variant: 'outlined' },
-      VAlert: { variant: 'outlined' },
-      VChip: { variant: 'outlined' },
       VSheet: { border: true },
       VNavigationDrawer: { border: 'e' },
     },
+    surfaces({ variant: 'outlined' }),
     fields({ variant: 'outlined', density: 'compact' }),
     tables('compact'),
     bars({ flat: true, border: 'b' }),
@@ -89,7 +92,5 @@ export const neon = defineTheme({
       sortDesc: 'mdi-chevron-down',
       close: 'mdi-close',
     }),
-  ),
+  ],
 })
-
-export default neon

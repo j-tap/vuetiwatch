@@ -1,4 +1,4 @@
-import { bars, combine, fields, icons } from '../util/defaults.js'
+import { bars, fields, icons } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -57,12 +57,13 @@ export const aurora = defineTheme({
       'vw-btn-transform': 'none',
       'vw-btn-tracking': '0.01em',
       'vw-btn-weight': '600',
+      'vw-tab-slider-height': '3px',
       // Shared by every gradient below, so a derived theme restyles the
       // whole surface language by overriding one value.
       'vw-gradient': 'linear-gradient(135deg, #7C5CFF 0%, #00D4FF 55%, #FF5CAA 100%)',
     },
   },
-  defaults: combine(
+  defaults: [
     {
       VBtn: { variant: 'flat' },
       VCard: { variant: 'elevated', elevation: 0 },
@@ -81,7 +82,5 @@ export const aurora = defineTheme({
       ratingFull: 'mdi-star',
       ratingEmpty: 'mdi-star-outline',
     }),
-  ),
+  ],
 })
-
-export default aurora

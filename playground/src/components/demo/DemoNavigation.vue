@@ -12,43 +12,36 @@ import CardPreview from '@/components/CardPreview.vue'
  * hairlines.
  */
 const theme = useTheme()
-const outlined = computed(() =>
+const suffix = computed(() =>
   vuetiwatchMeta[theme.global.name.value as keyof typeof vuetiwatchMeta]
-    ?.iconStyle === 'outline',
+    ?.iconStyle === 'outline' ? '-outline' : '',
 )
-const icon = (name: string) => computed(() => outlined.value ? `${name}-outline` : name)
-
-const dashboardIcon = icon('mdi-view-dashboard')
-const cogIcon = icon('mdi-cog')
-const inboxIcon = icon('mdi-inbox')
-const archiveIcon = icon('mdi-archive')
-const starIcon = icon('mdi-star')
-const eyeIcon = icon('mdi-eye')
-const pencilIcon = icon('mdi-pencil')
+const icon = (name: string) => `${name}${suffix.value}`
 
 const tab = ref('overview')
 const pill = ref('all')
 const selectedTags = ref(['design'])
 
 const tabs = computed(() => [
-  { value: 'overview', title: 'Overview', icon: dashboardIcon.value },
+  { value: 'overview', title: 'Overview', icon: icon('mdi-view-dashboard') },
   { value: 'activity', title: 'Activity', icon: 'mdi-pulse' },
-  { value: 'settings', title: 'Settings', icon: cogIcon.value },
+  { value: 'settings', title: 'Settings', icon: icon('mdi-cog') },
 ])
 
+const avatarColors = ['primary', 'secondary', 'success']
 const filters = ['all', 'open', 'closed']
 const tags = ['design', 'code', 'docs', 'infra']
 
 const nav = computed(() => [
-  { title: 'Inbox', icon: inboxIcon.value, badge: '12' },
-  { title: 'Starred', icon: starIcon.value, badge: '' },
-  { title: 'Archive', icon: archiveIcon.value, badge: '' },
+  { title: 'Inbox', icon: icon('mdi-inbox'), badge: '12' },
+  { title: 'Starred', icon: icon('mdi-star'), badge: '' },
+  { title: 'Archive', icon: icon('mdi-archive'), badge: '' },
 ])
 
 const timeline = computed(() => [
   { title: 'Theme published', color: 'success', icon: 'mdi-check' },
-  { title: 'Review requested', color: 'info', icon: eyeIcon.value },
-  { title: 'Draft created', color: 'warning', icon: pencilIcon.value },
+  { title: 'Review requested', color: 'info', icon: icon('mdi-eye') },
+  { title: 'Draft created', color: 'warning', icon: icon('mdi-pencil') },
 ])
 </script>
 
@@ -80,7 +73,7 @@ const timeline = computed(() => [
             </template>
           </v-list-item>
           <v-divider class="my-2" />
-          <v-list-item title="Settings" :prepend-icon="cogIcon" />
+          <v-list-item title="Settings" :prepend-icon="icon('mdi-cog')" />
         </v-list>
       </v-col>
 
@@ -106,7 +99,7 @@ const timeline = computed(() => [
         <div class="d-flex align-center ga-4">
           <div class="v-avatar-group d-flex">
             <v-avatar
-              v-for="(color, index) in ['primary', 'secondary', 'success']"
+              v-for="(color, index) in avatarColors"
               :key="color"
               :color="color"
               size="40"

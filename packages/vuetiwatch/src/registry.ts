@@ -40,18 +40,25 @@ export const themeList = [
 
 export type VuetiwatchThemeName = (typeof themeList)[number]['name']
 
-const fromList = <T>(pick: (theme: VuetiwatchTheme) => T) =>
-  Object.fromEntries(themeList.map(theme => [theme.name, pick(theme)])) as
-    Record<VuetiwatchThemeName, T>
+type ByName<T> = Record<VuetiwatchThemeName, T>
+
+const themes = {} as ByName<ThemeDefinition>
+const defaults = {} as ByName<VuetiwatchDefaults>
+const meta = {} as ByName<VuetiwatchMeta>
+
+for (const theme of themeList) {
+  const name = theme.name as VuetiwatchThemeName
+
+  themes[name] = theme.theme
+  defaults[name] = theme.defaults
+  meta[name] = theme.meta
+}
 
 /** Ready for `createVuetify({ theme: { themes: vuetiwatchThemes } })`. */
-export const vuetiwatchThemes: Record<VuetiwatchThemeName, ThemeDefinition> =
-  fromList(theme => theme.theme)
+export const vuetiwatchThemes: ByName<ThemeDefinition> = themes
 
 /** Per-theme component defaults, applied for you by `createVuetiwatch()`. */
-export const vuetiwatchDefaults: Record<VuetiwatchThemeName, VuetiwatchDefaults> =
-  fromList(theme => theme.defaults)
+export const vuetiwatchDefaults: ByName<VuetiwatchDefaults> = defaults
 
 /** Titles, descriptions and preview swatches, for building a theme picker. */
-export const vuetiwatchMeta: Record<VuetiwatchThemeName, VuetiwatchMeta> =
-  fromList(theme => theme.meta)
+export const vuetiwatchMeta: ByName<VuetiwatchMeta> = meta

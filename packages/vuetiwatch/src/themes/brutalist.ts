@@ -1,4 +1,4 @@
-import { bars, combine, fields, icons } from '../util/defaults.js'
+import { bars, fields, icons } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -58,9 +58,16 @@ export const brutalist = defineTheme({
       'vw-btn-transform': 'uppercase',
       'vw-btn-tracking': '0.04em',
       'vw-btn-weight': '700',
+      // Lime marks the current page: darkening it would sink the number
+      // into its own highlight.
+      'vw-pagination-active-color': 'rgb(var(--v-theme-secondary))',
+      'vw-pagination-active-opacity': '1',
+      'vw-heading-weight': '700',
+      'vw-heading-tracking': '-0.02em',
+      'vw-tab-slider-height': '4px',
     },
   },
-  defaults: combine(
+  defaults: [
     {
       VBtn: { variant: 'flat' },
       VCard: { variant: 'outlined' },
@@ -92,7 +99,5 @@ export const brutalist = defineTheme({
       sortDesc: 'mdi-menu-down',
       close: 'mdi-close-thick',
     }),
-  ),
+  ],
 })
-
-export default brutalist

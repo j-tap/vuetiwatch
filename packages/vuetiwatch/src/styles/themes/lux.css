@@ -7,13 +7,6 @@
     box-shadow: none;
   }
 
-  /* Small caps and wide tracking are the theme, applied wherever a label
-     is short enough to survive it. */
-  & :is(h1, h2, h3, h4, h5, h6, [class*='-display-'], [class*='-headline-']) {
-    font-weight: 300;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
 
   & :is(.v-toolbar-title, .v-card-title, .v-list-subheader) {
     letter-spacing: 0.16em;
@@ -33,16 +26,6 @@
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.08);
   }
 
-  & .v-tab__slider {
-    height: 1px;
-  }
 
-  /* A gold hairline is the one piece of ornament the theme allows itself. */
-  & .v-list-item.v-list-item--active {
-    box-shadow: inset 2px 0 0 rgb(var(--v-theme-secondary));
-  }
 
-  .v-locale--is-rtl & .v-list-item.v-list-item--active {
-    box-shadow: inset -2px 0 0 rgb(var(--v-theme-secondary));
-  }
 }

@@ -1,4 +1,4 @@
-import { bars, combine, fields, icons } from '../util/defaults.js'
+import { bars, fields, icons, surfaces } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -59,19 +59,18 @@ export const sketchy = defineTheme({
       'vw-btn-transform': 'none',
       'vw-btn-tracking': '0.02em',
       'vw-btn-weight': '400',
+      'vw-tab-slider-height': '3px',
     },
   },
-  defaults: combine(
+  defaults: [
     {
       VBtn: { variant: 'outlined' },
-      VCard: { variant: 'outlined' },
-      VAlert: { variant: 'outlined' },
-      VChip: { variant: 'outlined' },
       VSheet: { border: true },
       VNavigationDrawer: { border: 'e' },
       VSwitch: { inset: 'square' },
       VSlider: { thumbSize: 18, trackSize: 4 },
     },
+    surfaces({ variant: 'outlined' }),
     fields({ variant: 'outlined' }),
     bars({ flat: true, border: 'b' }),
     icons({
@@ -85,7 +84,5 @@ export const sketchy = defineTheme({
       ratingEmpty: 'mdi-star-outline',
       close: 'mdi-close-thick',
     }),
-  ),
+  ],
 })
-
-export default sketchy

@@ -1,4 +1,4 @@
-import { bars, combine, fields, icons } from '../util/defaults.js'
+import { bars, fields, icons } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -52,7 +52,7 @@ export const darkGlass = defineTheme({
       'vw-btn-weight': '600',
     },
   },
-  defaults: combine(
+  defaults: [
     {
       VBtn: { variant: 'flat' },
       VCard: { variant: 'elevated', elevation: 0 },
@@ -73,7 +73,5 @@ export const darkGlass = defineTheme({
       ratingFull: 'mdi-star',
       ratingEmpty: 'mdi-star-outline',
     }),
-  ),
+  ],
 })
-
-export default darkGlass

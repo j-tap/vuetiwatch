@@ -13,6 +13,13 @@ const FIELD_COMPONENTS = [
   'VFileInput',
 ] as const
 
+/** The subset of those that opens a menu, and so draws a dropdown glyph. */
+const MENU_COMPONENTS = [
+  'VSelect',
+  'VAutocomplete',
+  'VCombobox',
+] as const
+
 /** Selection controls that share the `density` prop. */
 const CONTROL_COMPONENTS = [
   'VCheckbox',
@@ -24,6 +31,13 @@ const CONTROL_COMPONENTS = [
 const BAR_COMPONENTS = [
   'VAppBar',
   'VToolbar',
+] as const
+
+/** Surfaces that share the `variant` prop with cards. */
+const SURFACE_COMPONENTS = [
+  'VCard',
+  'VAlert',
+  'VChip',
 ] as const
 
 const spread = (names: readonly string[], props: Props): VuetiwatchDefaults =>
@@ -44,6 +58,10 @@ export const controls = (props: Props): VuetiwatchDefaults =>
 export const bars = (props: Props): VuetiwatchDefaults =>
   spread(BAR_COMPONENTS, props)
 
+/** Applies the same props to cards, alerts and chips. */
+export const surfaces = (props: Props): VuetiwatchDefaults =>
+  spread(SURFACE_COMPONENTS, props)
+
 /** Applies the same `density` to lists and both table components. */
 export const tables = (density: 'default' | 'comfortable' | 'compact'): VuetiwatchDefaults => ({
   VList: { density },
@@ -57,10 +75,7 @@ export const tables = (density: 'default' | 'comfortable' | 'compact'): Vuetiwat
  * by `{ VSwitch: { inset } }` keeps both.
  */
 export const combine = (...parts: VuetiwatchDefaults[]): VuetiwatchDefaults =>
-  parts.reduce<VuetiwatchDefaults>(
-    (acc, part) => mergeDeep(acc as Record<string, any>, part as Record<string, any>),
-    {},
-  )
+  parts.reduce<VuetiwatchDefaults>((acc, part) => mergeDeep(acc, part), {})
 
 /**
  * Glyphs a theme can swap.
@@ -100,57 +115,50 @@ export interface VuetiwatchIcons {
   breadcrumbDivider?: string
 }
 
-/** Drops the keys a theme left unset, so they fall through to Vuetify's own. */
-const compact = (props: Props): Props | null => {
-  const out = Object.fromEntries(
-    Object.entries(props).filter(([, value]) => value !== undefined),
-  )
-
-  return Object.keys(out).length ? out : null
-}
-
 /** Spreads one semantic icon set across every component that draws it. */
 export function icons (set: VuetiwatchIcons): VuetiwatchDefaults {
-  const menu = compact({ menuIcon: set.dropdown })
-  const disclosure = compact({ expandIcon: set.dropdown, collapseIcon: set.collapse })
-  const paging = compact({
+  const out: Record<string, Props> = {}
+
+  /**
+   * Merges rather than assigns, because a component can draw more than one
+   * of these glyphs — a select carries both `menuIcon` and `clearIcon`, and
+   * assigning would drop whichever came first. Props the theme left unset
+   * are skipped so they fall through to Vuetify's own.
+   */
+  const put = (names: readonly string[], props: Props) => {
+    const given = Object.entries(props).filter(([, value]) => value !== undefined)
+
+    if (!given.length) return
+
+    for (const name of names) {
+      out[name] = { ...out[name], ...Object.fromEntries(given) }
+    }
+  }
+
+  const paging = {
     nextIcon: set.next,
     prevIcon: set.prev,
     firstIcon: set.first,
     lastIcon: set.last,
+  }
+
+  put(FIELD_COMPONENTS, { clearIcon: set.clear })
+  put(MENU_COMPONENTS, { menuIcon: set.dropdown })
+  put(['VExpansionPanelTitle', 'VList'], {
+    expandIcon: set.dropdown,
+    collapseIcon: set.collapse,
   })
-  const checkbox = compact({ trueIcon: set.checkboxOn, falseIcon: set.checkboxOff })
-  const radio = compact({ trueIcon: set.radioOn, falseIcon: set.radioOff })
-  const clear = compact({ clearIcon: set.clear })
-  const close = compact({ closeIcon: set.close })
+  put(['VPagination', 'VDataTable'], paging)
+  put(['VDataTable'], { sortAscIcon: set.sortAsc, sortDescIcon: set.sortDesc })
+  put(['VSlideGroup'], { nextIcon: set.next, prevIcon: set.prev })
+  put(['VCheckbox', 'VCheckboxBtn'], {
+    trueIcon: set.checkboxOn,
+    falseIcon: set.checkboxOff,
+  })
+  put(['VRadio'], { trueIcon: set.radioOn, falseIcon: set.radioOff })
+  put(['VRating'], { fullIcon: set.ratingFull, emptyIcon: set.ratingEmpty })
+  put(['VChip', 'VAlert'], { closeIcon: set.close })
+  put(['VBreadcrumbs'], { divider: set.breadcrumbDivider })
 
-  const entries: Array<[string, Props | null]> = [
-    ...FIELD_COMPONENTS.map(name => [name, clear] as [string, Props | null]),
-    ...['VSelect', 'VAutocomplete', 'VCombobox'].map(
-      name => [name, menu] as [string, Props | null],
-    ),
-    ['VExpansionPanelTitle', disclosure],
-    ['VList', disclosure],
-    ['VPagination', paging],
-    ['VSlideGroup', compact({ nextIcon: set.next, prevIcon: set.prev })],
-    ['VCheckbox', checkbox],
-    ['VCheckboxBtn', checkbox],
-    ['VRadio', radio],
-    ['VRating', compact({ fullIcon: set.ratingFull, emptyIcon: set.ratingEmpty })],
-    ['VChip', close],
-    ['VAlert', close],
-    ['VBreadcrumbs', compact({ divider: set.breadcrumbDivider })],
-    ['VDataTable', compact({
-      nextIcon: set.next,
-      prevIcon: set.prev,
-      firstIcon: set.first,
-      lastIcon: set.last,
-      sortAscIcon: set.sortAsc,
-      sortDescIcon: set.sortDesc,
-    })],
-  ]
-
-  return Object.fromEntries(
-    entries.filter((entry): entry is [string, Props] => entry[1] !== null),
-  )
+  return out
 }

@@ -56,7 +56,6 @@
   }
 
   & .v-tab__slider {
-    height: 3px;
     background: var(--v-vw-gradient);
     box-shadow: 0 0 16px rgba(124, 92, 255, 0.8);
   }

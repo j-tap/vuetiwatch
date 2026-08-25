@@ -20,17 +20,7 @@
     box-shadow: none;
   }
 
-  /* The active row is marked in the margin rather than filled in. */
-  & .v-list-item.v-list-item--active {
-    box-shadow: inset 3px 0 0 rgb(var(--v-theme-primary));
-  }
 
-  .v-locale--is-rtl & .v-list-item.v-list-item--active {
-    box-shadow: inset -3px 0 0 rgb(var(--v-theme-primary));
-  }
 
-  & .v-tab__slider {
-    height: 3px;
-  }
 
 }

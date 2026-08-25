@@ -2,7 +2,7 @@ import { watch } from 'vue'
 import type { App, Plugin } from 'vue'
 import type { VuetiwatchDefaults, VuetiwatchTheme } from './types.js'
 import { themeList } from './registry.js'
-import { mergeDeep } from './util/merge.js'
+import { combine } from './util/defaults.js'
 
 /**
  * The `defaults` ref exposed by `createVuetify()`, plus the theme instance
@@ -58,7 +58,10 @@ export function createVuetiwatch (
     attribute = true,
   } = options
 
-  const byName = new Map(themes.map(theme => [theme.name, theme]))
+  // Only the defaults are ever read here, so the closure holds those rather
+  // than the whole theme objects — palettes and metadata for every theme
+  // would otherwise stay pinned for the life of the app.
+  const defaultsByName = new Map(themes.map(theme => [theme.name, theme.defaults]))
 
   return {
     install (_app: App) {
@@ -74,15 +77,29 @@ export function createVuetiwatch (
       // Whatever the app configured itself — theme defaults layer on top of it.
       const userDefaults = instance.defaults.value ?? {}
 
+      // The merge is a pure function of the theme name, so it is computed at
+      // most once per theme however often the app switches.
+      const merged = new Map<string, VuetiwatchDefaults>()
+      const defaultsFor = (name: string) => {
+        const themeDefaults = defaultsByName.get(name)
+
+        if (!themeDefaults) return userDefaults
+
+        let result = merged.get(name)
+
+        if (!result) {
+          result = combine(userDefaults, themeDefaults)
+          merged.set(name, result)
+        }
+
+        return result
+      }
+
       watch(
         () => instance.theme.global.name.value,
         name => {
-          const theme = byName.get(name)
-
           if (applyDefaults) {
-            instance.defaults.value = theme
-              ? mergeDeep(userDefaults as Record<string, any>, theme.defaults as Record<string, any>) as VuetiwatchDefaults
-              : userDefaults
+            instance.defaults.value = defaultsFor(name)
           }
 
           if (attribute && typeof document !== 'undefined') {

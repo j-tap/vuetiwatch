@@ -1,4 +1,4 @@
-import { bars, combine, fields, icons } from '../util/defaults.js'
+import { bars, fields, icons } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -55,9 +55,10 @@ export const morph = defineTheme({
       'vw-btn-transform': 'none',
       'vw-btn-tracking': '0.01em',
       'vw-btn-weight': '700',
+      'vw-tab-slider-height': '4px',
     },
   },
-  defaults: combine(
+  defaults: [
     {
       VBtn: { variant: 'flat' },
       VCard: { variant: 'flat' },
@@ -77,7 +78,5 @@ export const morph = defineTheme({
       ratingFull: 'mdi-circle',
       ratingEmpty: 'mdi-circle-outline',
     }),
-  ),
+  ],
 })
-
-export default morph

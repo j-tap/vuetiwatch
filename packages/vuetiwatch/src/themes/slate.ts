@@ -1,4 +1,4 @@
-import { bars, combine, controls, fields, icons, tables } from '../util/defaults.js'
+import { bars, controls, fields, icons, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -52,9 +52,12 @@ export const slate = defineTheme({
       'vw-btn-transform': 'none',
       'vw-btn-tracking': '0.01em',
       'vw-btn-weight': '600',
+      'vw-list-bar': '3px',
+      'vw-list-bar-color': 'rgb(var(--v-theme-primary))',
+      'vw-tab-slider-height': '3px',
     },
   },
-  defaults: combine(
+  defaults: [
     {
       VBtn: { variant: 'flat', density: 'comfortable' },
       VCard: { variant: 'outlined' },
@@ -82,7 +85,5 @@ export const slate = defineTheme({
       sortAsc: 'mdi-menu-up',
       sortDesc: 'mdi-menu-down',
     }),
-  ),
+  ],
 })
-
-export default slate

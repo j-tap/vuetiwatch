@@ -116,7 +116,7 @@
    * set it.
    */
   & .v-slider-track.v-slider-track {
-    border-radius: var(--v-vw-radius, 6px);
+    border-radius: var(--v-vw-radius, 4px);
   }
 
   & .v-slider-thumb__surface {
@@ -137,6 +137,7 @@
    * variable for an activated item, so use that instead.
    */
   & .v-pagination .v-pagination__item--is-active .v-btn__overlay {
+    background: var(--v-vw-pagination-active-color, currentColor);
     opacity: var(--v-vw-pagination-active-opacity, var(--v-activated-opacity));
   }
 
@@ -165,8 +166,7 @@
     .v-btn--variant-outlined,
     .v-card--variant-outlined,
     .v-alert--variant-outlined,
-    .v-chip--variant-outlined,
-    .v-sheet--variant-outlined
+    .v-chip--variant-outlined
   ) {
     border-width: var(--v-vw-border-width, thin);
   }
@@ -189,6 +189,40 @@
     text-transform: var(--v-vw-btn-transform, uppercase);
   }
 
+  /* ------------------------------------------------- shared theme surfaces */
+
+  /**
+   * Five ideas below were written out in seven to ten theme stylesheets
+   * each, and several copies had already drifted apart. Core owns the
+   * selector once; a theme supplies a value from its `variables`, and a
+   * theme built with `defineTheme()` gets the same knobs for free.
+   */
+
+  /* Every floating surface, so a tooltip is not left behind by a menu. */
+  & :is(.v-menu, .v-dialog, .v-tooltip) > .v-overlay__content {
+    border: var(--v-vw-overlay-border, none);
+    box-shadow: var(--v-vw-overlay-shadow, revert-layer);
+  }
+
+  & .v-tab__slider {
+    height: var(--v-vw-tab-slider-height, 2px);
+  }
+
+  & :is(.v-table thead th, .v-data-table__th) {
+    font-weight: var(--v-vw-th-weight, revert-layer);
+    letter-spacing: var(--v-vw-th-tracking, revert-layer);
+    text-transform: var(--v-vw-th-transform, none);
+  }
+
+  /**
+   * A logical property, so the bar sits on the leading edge in both
+   * directions — the three themes that hand-rolled this each carried a
+   * manual RTL mirror that only won by accident of specificity.
+   */
+  & .v-list-item.v-list-item--active {
+    border-inline-start: var(--v-vw-list-bar, 0) solid var(--v-vw-list-bar-color, currentColor);
+  }
+
   /* ------------------------------------------------------------ headings */
 
   /**
@@ -196,12 +230,20 @@
    * `text-display-*` / `text-headline-*` utilities. Bare heading tags are not, so they
    * pick it up here.
    */
-  & :is(h1, h2, h3, h4, h5, h6) {
+  & :is(
+    h1, h2, h3, h4, h5, h6,
+    [class*='-display-'],
+    [class*='-headline-'],
+    [class*='-title-large']
+  ) {
     font-family: var(--v-font-heading, var(--v-font-body, inherit));
+    font-weight: var(--v-vw-heading-weight, revert-layer);
+    letter-spacing: var(--v-vw-heading-tracking, revert-layer);
+    text-transform: var(--v-vw-heading-transform, none);
   }
 
   &.v-application {
-    -webkit-font-smoothing: var(--v-vw-font-smoothing, antialiased);
+    -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 

@@ -10,7 +10,7 @@
     box-shadow: var(--vw-brut-offset) var(--vw-brut-offset) 0 rgb(var(--v-shadow-color));
   }
 
-  & :is(.v-btn, .v-chip, .v-btn-group):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain):not(.v-btn--disabled, .v-btn-group *) {
+  & :is(.v-btn, .v-chip, .v-btn-group):not(.v-btn--variant-text, .v-btn--variant-plain):not(.v-btn--disabled, .v-btn-group *) {
     border: var(--v-vw-border-width) solid rgb(var(--v-shadow-color));
     transition: transform 0.08s steps(2, end), box-shadow 0.08s steps(2, end);
   }
@@ -21,7 +21,7 @@
     box-shadow: 0 0 0 rgb(var(--v-shadow-color));
   }
 
-  & .v-btn:not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain):hover:not(.v-btn--disabled, .v-btn-group *) {
+  & .v-btn:not(.v-btn--variant-text, .v-btn--variant-plain):hover:not(.v-btn--disabled, .v-btn-group *) {
     transform: translate(-1px, -1px);
     box-shadow: 5px 5px 0 rgb(var(--v-shadow-color));
   }
@@ -38,26 +38,13 @@
     font-weight: 700;
   }
 
-  & .v-tab__slider {
-    height: 4px;
-  }
 
-  & :is(h1, h2, h3, h4, h5, h6, [class*='-display-'], [class*='-headline-']) {
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
 
   /* Panels are cards here, so they wear the same rule as one. */
   & .v-expansion-panels {
     border: var(--v-vw-border-width) solid rgb(var(--v-shadow-color));
   }
 
-  /* The active page is marked in lime rather than darkened until the
-     number disappears into it. */
-  & .v-pagination__item--is-active .v-btn__overlay {
-    background: rgb(var(--v-theme-secondary));
-    opacity: 1;
-  }
 
 }
 

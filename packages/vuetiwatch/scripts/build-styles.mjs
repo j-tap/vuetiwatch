@@ -7,7 +7,7 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
 import browserslist from 'browserslist'
-import { browserslistToTargets, bundle } from 'lightningcss'
+import { browserslistToTargets, bundle, transform } from 'lightningcss'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const entry = resolve(root, 'src/styles/index.css')
@@ -19,15 +19,20 @@ const targets = browserslistToTargets(browserslist())
 const { themeList } = await import(pathToFileURL(resolve(outDir, 'registry.js')).href)
 const themeClasses = themeList.map(theme => theme.name).join(', .v-theme--')
 
-const build = minify =>
-  bundle({ filename: entry, targets, minify, errorRecovery: false })
-    .code.toString()
-    .replaceAll('VUETIWATCH_THEMES', themeClasses)
+// Resolve and parse the import graph once; the minified twin is a
+// transform of that result rather than a second full bundle.
+const bundled = bundle({ filename: entry, targets, errorRecovery: false }).code
+const expand = code => code.toString().replaceAll('VUETIWATCH_THEMES', themeClasses)
+
+const readable = expand(bundled)
+const minified = expand(
+  transform({ filename: 'styles.css', code: bundled, targets, minify: true }).code,
+)
 
 await mkdir(outDir, { recursive: true })
 await Promise.all([
-  writeFile(resolve(outDir, 'styles.css'), build(false)),
-  writeFile(resolve(outDir, 'styles.min.css'), build(true)),
+  writeFile(resolve(outDir, 'styles.css'), readable),
+  writeFile(resolve(outDir, 'styles.min.css'), minified),
 ])
 
 console.log(`✔ dist/styles.css, dist/styles.min.css (${themeList.length} themes)`)
