@@ -69,6 +69,30 @@ delivers it through defaults and only the rest needs CSS.
 | `aurora` | gradient track | gradient rule | iridescent rims, radial glow, gradient display text |
 | `neon` | square inset, glowing | glowing rule | glow instead of elevation, hollow checkbox glyphs |
 
+Glyphs move with the theme too. Vuetify's icon *set* is global
+configuration and cannot vary per theme, but which glyph a component reaches
+for is an ordinary prop — so outlines go to the themes that draw in
+hairlines (`paper`, `lux`, `calm`, `neon`), solids to the loud and tactile
+ones (`brutalist`, `slate`, `soft`, `clay`), and `sketchy` ticks a drawn box
+with a bare marker stroke. `calm` rates in dots rather than stars, `soft` in
+hearts, and `liquidGlass` clears a field with the filled circle iOS uses.
+
+```ts
+import { icons } from 'vuetiwatch'
+
+icons({
+  dropdown: 'mdi-chevron-down',
+  checkboxOn: 'mdi-check-circle',
+  checkboxOff: 'mdi-circle-outline',
+  ratingFull: 'mdi-heart',
+  ratingEmpty: 'mdi-heart-outline',
+})
+```
+
+Every key is optional and spreads across each component that draws it —
+`dropdown` reaches selects, expansion panels and list groups at once. Names
+must exist in whatever set the app installed; a missing one renders blank.
+
 ## Usage
 
 ### Colors and fonts only

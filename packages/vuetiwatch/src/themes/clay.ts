@@ -1,4 +1,4 @@
-import { bars, checkboxes, combine, fields } from '../util/defaults.js'
+import { bars, combine, fields, icons } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -65,7 +65,15 @@ export const clay = defineTheme({
     },
     fields({ variant: 'solo', flat: true }),
     bars({ flat: true }),
-    checkboxes({ trueIcon: 'mdi-check-circle', falseIcon: 'mdi-circle-outline' }),
+    icons({
+      dropdown: 'mdi-chevron-down',
+      collapse: 'mdi-chevron-up',
+      checkboxOn: 'mdi-check-circle',
+      checkboxOff: 'mdi-circle-outline',
+      ratingFull: 'mdi-star',
+      ratingEmpty: 'mdi-star-outline',
+      close: 'mdi-close-circle',
+    }),
   ),
 })
 

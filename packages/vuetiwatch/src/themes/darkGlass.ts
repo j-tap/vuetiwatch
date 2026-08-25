@@ -1,4 +1,4 @@
-import { bars, combine, fields } from '../util/defaults.js'
+import { bars, combine, fields, icons } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -64,6 +64,14 @@ export const darkGlass = defineTheme({
       VSwitch: { inset: true },
       VSlider: { thumbSize: 18, trackSize: 4 },
     },
+    icons({
+      dropdown: 'mdi-chevron-down',
+      collapse: 'mdi-chevron-up',
+      checkboxOn: 'mdi-check-circle',
+      checkboxOff: 'mdi-circle-outline',
+      ratingFull: 'mdi-star',
+      ratingEmpty: 'mdi-star-outline',
+    }),
   ),
 })
 

@@ -4,7 +4,8 @@ import CardPreview from '@/components/CardPreview.vue'
 
 const name = ref('')
 const select = ref(null)
-const checkbox = ref(false)
+// Checked, so each theme's `checkboxOn` glyph is visible without a click.
+const checkbox = ref(true)
 // Preselected, so the active state of the toggle and the radio group is
 // visible at a glance rather than only after a click.
 const radio = ref('Value B')

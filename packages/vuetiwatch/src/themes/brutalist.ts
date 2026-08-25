@@ -1,4 +1,4 @@
-import { bars, combine, fields } from '../util/defaults.js'
+import { bars, combine, fields, icons } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -75,6 +75,22 @@ export const brutalist = defineTheme({
     },
     fields({ variant: 'outlined' }),
     bars({ flat: true, border: 'b' }),
+    icons({
+      // Solid and blunt: filled boxes, bold arrows, a thick cross.
+      dropdown: 'mdi-menu-down',
+      collapse: 'mdi-menu-up',
+      next: 'mdi-arrow-right-bold',
+      prev: 'mdi-arrow-left-bold',
+      first: 'mdi-page-first',
+      last: 'mdi-page-last',
+      checkboxOn: 'mdi-checkbox-marked',
+      checkboxOff: 'mdi-checkbox-blank-outline',
+      ratingFull: 'mdi-star',
+      ratingEmpty: 'mdi-star-outline',
+      sortAsc: 'mdi-menu-up',
+      sortDesc: 'mdi-menu-down',
+      close: 'mdi-close-thick',
+    }),
   ),
 })
 

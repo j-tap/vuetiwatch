@@ -1,4 +1,4 @@
-import { bars, combine, controls, fields, tables } from '../util/defaults.js'
+import { bars, combine, controls, fields, icons, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -86,6 +86,22 @@ export const liquidGlass = defineTheme({
     controls({ density: 'comfortable' }),
     tables('comfortable'),
     bars({ flat: true }),
+    icons({
+      // Chevrons everywhere, as SF does, and the clear affordance is the
+      // filled circle iOS puts inside a field.
+      dropdown: 'mdi-chevron-down',
+      collapse: 'mdi-chevron-up',
+      next: 'mdi-chevron-right',
+      prev: 'mdi-chevron-left',
+      checkboxOn: 'mdi-check-circle',
+      checkboxOff: 'mdi-circle-outline',
+      ratingFull: 'mdi-star',
+      ratingEmpty: 'mdi-star-outline',
+      clear: 'mdi-close-circle',
+      close: 'mdi-close-circle',
+      sortAsc: 'mdi-chevron-up',
+      sortDesc: 'mdi-chevron-down',
+    }),
   ),
 })
 

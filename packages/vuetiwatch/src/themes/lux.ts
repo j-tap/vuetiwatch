@@ -1,4 +1,4 @@
-import { bars, combine, controls, fields, tables } from '../util/defaults.js'
+import { bars, combine, controls, fields, icons, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -67,6 +67,19 @@ export const lux = defineTheme({
     controls({ density: 'comfortable' }),
     tables('comfortable'),
     bars({ flat: true, border: 'b' }),
+    icons({
+      dropdown: 'mdi-chevron-down',
+      collapse: 'mdi-chevron-up',
+      checkboxOn: 'mdi-checkbox-marked-outline',
+      checkboxOff: 'mdi-checkbox-blank-outline',
+      ratingFull: 'mdi-star',
+      ratingEmpty: 'mdi-star-outline',
+      sortAsc: 'mdi-arrow-up',
+      sortDesc: 'mdi-arrow-down',
+      close: 'mdi-close',
+      // An em dash rather than a slash — the one flourish the theme allows.
+      breadcrumbDivider: '—',
+    }),
   ),
 })
 

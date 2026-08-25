@@ -1,4 +1,4 @@
-import { bars, combine, fields } from '../util/defaults.js'
+import { bars, combine, fields, icons } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -67,6 +67,15 @@ export const morph = defineTheme({
     },
     fields({ variant: 'solo', flat: true }),
     bars({ flat: true }),
+    icons({
+      // Everything round, to match surfaces that have no edges at all.
+      dropdown: 'mdi-chevron-down',
+      collapse: 'mdi-chevron-up',
+      checkboxOn: 'mdi-check-circle',
+      checkboxOff: 'mdi-circle-outline',
+      ratingFull: 'mdi-circle',
+      ratingEmpty: 'mdi-circle-outline',
+    }),
   ),
 })
 

@@ -1,4 +1,4 @@
-import { bars, combine, fields } from '../util/defaults.js'
+import { bars, combine, fields, icons } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -72,6 +72,14 @@ export const aurora = defineTheme({
     },
     fields({ variant: 'solo-filled', flat: true }),
     bars({ flat: true }),
+    icons({
+      dropdown: 'mdi-chevron-down',
+      collapse: 'mdi-chevron-up',
+      checkboxOn: 'mdi-check-circle',
+      checkboxOff: 'mdi-circle-outline',
+      ratingFull: 'mdi-star',
+      ratingEmpty: 'mdi-star-outline',
+    }),
   ),
 })
 

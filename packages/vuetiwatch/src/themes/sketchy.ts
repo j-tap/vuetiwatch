@@ -1,4 +1,4 @@
-import { bars, combine, fields } from '../util/defaults.js'
+import { bars, combine, fields, icons } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -73,6 +73,17 @@ export const sketchy = defineTheme({
     },
     fields({ variant: 'outlined' }),
     bars({ flat: true, border: 'b' }),
+    icons({
+      // A drawn box with a marker tick scrawled over it, rather than the
+      // tidy printed checkbox.
+      dropdown: 'mdi-chevron-down',
+      collapse: 'mdi-chevron-up',
+      checkboxOn: 'mdi-check-bold',
+      checkboxOff: 'mdi-square-outline',
+      ratingFull: 'mdi-star',
+      ratingEmpty: 'mdi-star-outline',
+      close: 'mdi-close-thick',
+    }),
   ),
 })
 

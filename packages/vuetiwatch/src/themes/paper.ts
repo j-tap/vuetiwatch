@@ -1,4 +1,4 @@
-import { bars, combine, fields } from '../util/defaults.js'
+import { bars, combine, fields, icons } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -70,6 +70,19 @@ export const paper = defineTheme({
       VSwitch: { inset: 'square' },
       VSlider: { thumbSize: 14, trackSize: 2 },
     },
+    icons({
+      // Outlines throughout: this theme draws with hairlines, and a solid
+      // glyph would be the heaviest mark on the page.
+      dropdown: 'mdi-chevron-down',
+      collapse: 'mdi-chevron-up',
+      checkboxOn: 'mdi-checkbox-marked-outline',
+      checkboxOff: 'mdi-checkbox-blank-outline',
+      ratingFull: 'mdi-star',
+      ratingEmpty: 'mdi-star-outline',
+      sortAsc: 'mdi-arrow-up',
+      sortDesc: 'mdi-arrow-down',
+      close: 'mdi-close',
+    }),
   ),
 })
 

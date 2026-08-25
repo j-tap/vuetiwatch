@@ -1,4 +1,4 @@
-import { bars, combine, controls, fields, tables } from '../util/defaults.js'
+import { bars, combine, controls, fields, icons, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -71,6 +71,16 @@ export const slate = defineTheme({
       VSwitch: { inset: 'square' },
       VSlider: { thumbSize: 14, trackSize: 2 },
     },
+    icons({
+      // Solid triangles: they read at a glance and take less room than a
+      // chevron, which matters in a dense table.
+      dropdown: 'mdi-menu-down',
+      collapse: 'mdi-menu-up',
+      checkboxOn: 'mdi-checkbox-marked',
+      checkboxOff: 'mdi-checkbox-blank-outline',
+      sortAsc: 'mdi-menu-up',
+      sortDesc: 'mdi-menu-down',
+    }),
   ),
 })
 

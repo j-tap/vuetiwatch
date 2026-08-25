@@ -1,4 +1,4 @@
-import { bars, checkboxes, combine, fields } from '../util/defaults.js'
+import { bars, combine, fields, icons } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -69,7 +69,16 @@ export const soft = defineTheme({
       // rather than through the shared `--v-vw-radius`.
       VTabs: { inset: true, insetRadius: 12 },
     },
-    checkboxes({ trueIcon: 'mdi-check-circle', falseIcon: 'mdi-circle-outline' }),
+    icons({
+      // Round and filled, down to hearts instead of stars.
+      dropdown: 'mdi-chevron-down',
+      collapse: 'mdi-chevron-up',
+      checkboxOn: 'mdi-check-circle',
+      checkboxOff: 'mdi-circle-outline',
+      ratingFull: 'mdi-heart',
+      ratingEmpty: 'mdi-heart-outline',
+      close: 'mdi-close-circle',
+    }),
   ),
 })
 

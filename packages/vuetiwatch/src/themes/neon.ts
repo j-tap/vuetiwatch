@@ -1,4 +1,4 @@
-import { bars, checkboxes, combine, fields, tables } from '../util/defaults.js'
+import { bars, combine, fields, icons, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -76,7 +76,18 @@ export const neon = defineTheme({
       VSwitch: { inset: 'square' },
       VSlider: { thumbSize: 14, trackSize: 2 },
     },
-    checkboxes({ trueIcon: 'mdi-checkbox-marked-outline', falseIcon: 'mdi-checkbox-blank-outline' }),
+    icons({
+      // Nothing is filled in this theme, glyphs included.
+      dropdown: 'mdi-menu-down',
+      collapse: 'mdi-menu-up',
+      checkboxOn: 'mdi-checkbox-marked-outline',
+      checkboxOff: 'mdi-checkbox-blank-outline',
+      ratingFull: 'mdi-star',
+      ratingEmpty: 'mdi-star-outline',
+      sortAsc: 'mdi-chevron-up',
+      sortDesc: 'mdi-chevron-down',
+      close: 'mdi-close',
+    }),
   ),
 })
 

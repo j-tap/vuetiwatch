@@ -1,4 +1,4 @@
-import { bars, combine, controls, fields, tables } from '../util/defaults.js'
+import { bars, combine, controls, fields, icons, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -69,6 +69,17 @@ export const calm = defineTheme({
     controls({ density: 'comfortable' }),
     tables('comfortable'),
     bars({ flat: true }),
+    icons({
+      // Hollow throughout, and the rating is dots rather than stars: a row
+      // of filled stars is the loudest thing a quiet page could carry.
+      dropdown: 'mdi-chevron-down',
+      collapse: 'mdi-chevron-up',
+      checkboxOn: 'mdi-check-circle-outline',
+      checkboxOff: 'mdi-circle-outline',
+      ratingFull: 'mdi-circle',
+      ratingEmpty: 'mdi-circle-outline',
+      close: 'mdi-close',
+    }),
   ),
 })
 
