@@ -3,9 +3,10 @@
 🎨 Free, plug-and-play themes for **Vuetify 4** — what [Bootswatch](https://bootswatch.com/)
 is to Bootstrap.
 
-Vuetify ships one look. Vuetiwatch ships six, and they differ in more than
-hue: radius, border weight, density, component variants and typography all
-move together, so switching a theme actually changes the character of the app.
+Vuetify ships one look. Vuetiwatch ships fourteen, and they differ in more
+than hue: radius, border weight, density, component variants and typography
+all move together, so switching a theme actually changes the character of the
+app.
 
 ```sh
 bun add vuetiwatch      # or: npm i vuetiwatch / yarn add vuetiwatch / pnpm add vuetiwatch
@@ -13,14 +14,36 @@ bun add vuetiwatch      # or: npm i vuetiwatch / yarn add vuetiwatch / pnpm add 
 
 ## Themes
 
-| Name         | Mode  | Character |
-| ------------ | ----- | --------- |
-| `classic`    | light | Stock Vuetify. Material Design, Roboto, familiar elevation |
-| `paper`      | light | Flat editorial — warm paper, ink accents, hairline borders instead of shadows, serif headings |
-| `slate`      | light | Dense dashboard — muted slate blue, compact density, 3px radius, outlined cards |
-| `soft`       | light | Pastel and generous — 14–22px radii, diffuse tinted shadows, rounded grotesque |
-| `darkGlass`  | dark  | Frosted translucent surfaces on a deep violet ground, backdrop blur |
-| `neon`       | dark  | Terminal black, cyan and magenta glow, zero radius, monospace headings |
+Fourteen themes, grouped by how far they stray from a conventional interface.
+
+**Everyday** — safe for products people use all day.
+
+| Name | Mode | Character |
+| --- | --- | --- |
+| `classic` | light | Stock Vuetify. Material Design, Roboto, familiar elevation |
+| `paper` | light | Flat editorial — warm paper, ink accents, hairline borders, serif headings |
+| `slate` | light | Dense dashboard — muted slate blue, compact density, outlined cards |
+| `calm` | light | Low contrast, desaturated naturals, no shadows, a lot of air |
+| `lux` | light | Editorial luxury — hairline rules, wide tracking, small caps, muted gold |
+| `soft` | light | Pastel and generous — large radii, diffuse tinted shadows |
+
+**Tactile** — surfaces you can almost feel.
+
+| Name | Mode | Character |
+| --- | --- | --- |
+| `clay` | light | Inflated pastel shapes with a triple shadow. Toy-like |
+| `morph` | light | Neumorphic — one continuous surface, shaped only by light and shadow |
+
+**Expressive** — themes with a strong opinion.
+
+| Name | Mode | Character |
+| --- | --- | --- |
+| `sketchy` | light | Hand-drawn wobble and pencil greys, for mockups and mirth |
+| `brutalist` | light | Thick black rules, acid lime, hard unblurred shadows |
+| `liquidGlass` | light | Bright refracting glass with specular rims, over a gradient ground |
+| `darkGlass` | dark | Frosted translucent surfaces on a deep violet ground |
+| `aurora` | dark | Iridescent gradients on near-black — the showcase theme |
+| `neon` | dark | Terminal black, cyan and magenta glow, zero radius, monospace headings |
 
 ### Component details
 
@@ -29,14 +52,22 @@ glyph carries as much character as a colour. Vuetify 4 exposes most of this as
 props (`VSwitch.inset`, `VTabs.inset`, `VSlider.thumbSize`), so `createVuetiwatch()`
 delivers it through defaults and only the rest needs CSS.
 
-| | Switch | Tab indicator | Slider | Extras |
-| --- | --- | --- | --- | --- |
-| `classic` | Material | 2px underline | round thumb | — |
-| `paper` | square inset, outlined | 3px rule | square thumb and track | double rule under table heads |
-| `slate` | square inset, compact | 3px rule | thin, square | accent bar on the active row |
-| `soft` | pill inset, lifted | pill behind the tab | fat track, big thumb | round checkboxes |
-| `darkGlass` | pill inset, frosted | glowing underline | haloed thumb | — |
-| `neon` | square inset, glowing | 3px glowing rule | square, glowing | hollow checkboxes, accent bar |
+| | Switch | Tab indicator | Surfaces |
+| --- | --- | --- | --- |
+| `classic` | Material | 2px underline | Material elevation |
+| `paper` | square inset, outlined | 3px rule | flat, double rule under table heads |
+| `slate` | square inset, compact | 3px rule | outlined, accent bar on the active row |
+| `calm` | pill inset | 2px underline | nothing raised, nothing filled |
+| `lux` | square inset | 1px hairline | flat, small caps, gold hairline on the active row |
+| `soft` | pill inset, lifted | pill behind the tab | diffuse tinted shadow, round checkbox glyphs |
+| `clay` | pill inset, recessed track | 5px rounded bar | triple shadow, inflated |
+| `morph` | pill inset, pressed track | raised bar | dual relief, inputs recessed |
+| `sketchy` | square inset | wobbly 3px rule | uneven stroke, redrawn on hover |
+| `brutalist` | square inset | 4px rule | hard offset shadow, presses into it |
+| `liquidGlass` | pill inset | 2px underline | blur + saturate, specular rims |
+| `darkGlass` | pill inset, frosted | glowing underline | frosted translucent |
+| `aurora` | gradient track | gradient rule | iridescent rims, radial glow, gradient display text |
+| `neon` | square inset, glowing | glowing rule | glow instead of elevation, hollow checkbox glyphs |
 
 ## Usage
 

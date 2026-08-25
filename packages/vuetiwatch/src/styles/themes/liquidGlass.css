@@ -1,0 +1,73 @@
+/**
+ * Liquid Glass — thickness, not just blur.
+ *
+ * Three things sell it: `saturate()` in the backdrop filter so colour bends
+ * through the pane, a bright specular rim along the top edge with a darker
+ * one along the bottom, and a gradient ground for the glass to refract.
+ * Remove any one of them and it collapses back into ordinary frosting.
+ */
+.v-theme--liquidGlass {
+  &.v-application {
+    background-image:
+      radial-gradient(50rem 32rem at 10% 0%, rgba(10, 132, 255, 0.22), transparent 62%),
+      radial-gradient(44rem 30rem at 90% 12%, rgba(255, 55, 95, 0.16), transparent 62%),
+      radial-gradient(40rem 30rem at 50% 100%, rgba(48, 209, 88, 0.14), transparent 62%);
+    background-attachment: fixed;
+  }
+
+  & :is(.v-card, .v-app-bar, .v-toolbar, .v-navigation-drawer):not(
+    [class*='bg-'],
+    .v-card--variant-text,
+    .v-card--variant-plain
+  ) {
+    background-color: rgba(var(--v-theme-surface), 0.55);
+    backdrop-filter: blur(24px) saturate(180%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.75),
+      inset 0 -1px 0 rgba(27, 58, 107, 0.1),
+      0 8px 32px rgba(27, 58, 107, 0.12);
+  }
+
+  & :is(.v-menu, .v-dialog) > .v-overlay__content {
+    backdrop-filter: blur(24px) saturate(180%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.75),
+      0 16px 48px rgba(27, 58, 107, 0.18);
+  }
+
+  /* Controls are small panes of the same glass. */
+  & .v-field.v-field--variant-solo-filled {
+    background-color: rgba(var(--v-theme-surface), 0.5);
+    backdrop-filter: blur(16px) saturate(160%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.7),
+      inset 0 -1px 0 rgba(27, 58, 107, 0.08);
+  }
+
+  & .v-btn.v-btn--variant-flat:not(.v-btn--disabled) {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      0 4px 16px rgba(27, 58, 107, 0.2);
+  }
+
+  & .v-slider-thumb__surface {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      0 2px 8px rgba(27, 58, 107, 0.25);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .v-theme--liquidGlass.v-application {
+    background-image: none;
+  }
+
+  .v-theme--liquidGlass :is(.v-card, .v-app-bar, .v-toolbar, .v-navigation-drawer):not(
+    [class*='bg-'],
+    .v-card--variant-text,
+    .v-card--variant-plain
+  ) {
+    background-color: rgb(var(--v-theme-surface));
+    backdrop-filter: none;
+  }
+}

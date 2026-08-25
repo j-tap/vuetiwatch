@@ -1,0 +1,87 @@
+/**
+ * Aurora — the showcase theme, so this file is deliberately the busiest in
+ * the package.
+ *
+ * Two techniques carry it. Gradient rims come from a `border` painted with
+ * two backgrounds and `mask-composite: exclude`, which draws a gradient in
+ * the border box only — a gradient `border-image` cannot follow a rounded
+ * corner. Depth comes from `radial-gradient` glows rather than shadows,
+ * because on a near-black ground a shadow is invisible and light is not.
+ *
+ * Everything reads `--v-vw-gradient`, so overriding that one variable
+ * restyles the entire theme.
+ */
+.v-theme--aurora {
+  /* The lit ground the glows sit on. */
+  &.v-application {
+    background-image:
+      radial-gradient(60rem 40rem at 15% -10%, rgba(124, 92, 255, 0.16), transparent 60%),
+      radial-gradient(50rem 35rem at 95% 5%, rgba(0, 212, 255, 0.12), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  & .v-card.v-card--variant-elevated {
+    background-image: radial-gradient(
+      36rem 18rem at 0% 0%,
+      rgba(124, 92, 255, 0.14),
+      transparent 70%
+    );
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  }
+
+  /* An iridescent rim, drawn in the border box only. */
+  & :is(.v-card, .v-alert)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: var(--v-vw-border-width);
+    background: var(--v-vw-gradient);
+    opacity: 0.45;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Filled buttons are the gradient itself. */
+  & .v-btn.v-btn--variant-flat.bg-primary {
+    background-image: var(--v-vw-gradient);
+    box-shadow: 0 6px 24px rgba(124, 92, 255, 0.45);
+  }
+
+  & .v-btn.v-btn--variant-flat.bg-primary .v-btn__overlay {
+    opacity: 0;
+  }
+
+  & .v-tab__slider {
+    height: 3px;
+    background: var(--v-vw-gradient);
+    box-shadow: 0 0 16px rgba(124, 92, 255, 0.8);
+  }
+
+  & .v-slider-track__fill {
+    background: var(--v-vw-gradient);
+  }
+
+  & .v-slider-thumb__surface {
+    box-shadow: 0 0 0 6px rgba(124, 92, 255, 0.18), 0 0 16px rgba(124, 92, 255, 0.6);
+  }
+
+  & .v-selection-control--dirty .v-switch__track {
+    background-image: var(--v-vw-gradient);
+    box-shadow: 0 0 14px rgba(124, 92, 255, 0.5);
+  }
+
+  & :is(.v-menu, .v-dialog) > .v-overlay__content {
+    box-shadow: 0 0 0 1px rgba(155, 140, 255, 0.16), 0 24px 64px rgba(0, 0, 0, 0.7);
+  }
+
+  /* The display sizes carry the gradient; body text stays legible. */
+  & [class*='-display-'] {
+    background: var(--v-vw-gradient);
+    background-clip: text;
+    color: transparent;
+  }
+}

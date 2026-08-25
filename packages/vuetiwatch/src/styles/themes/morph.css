@@ -1,0 +1,46 @@
+/**
+ * Morph — the entire theme is two shadows. Raised surfaces get a dark one
+ * bottom-right and a light one top-left; anything the user types into or
+ * presses gets the same pair inverted, so it reads as pushed in.
+ *
+ * `--v-shadow-color` carries the dark half so a derived theme can retune
+ * the whole relief by changing one value.
+ */
+.v-theme--morph {
+  --vw-morph-raised:
+    6px 6px 12px rgba(var(--v-shadow-color), 0.5),
+    -6px -6px 12px rgba(255, 255, 255, 0.85);
+  --vw-morph-pressed:
+    inset 3px 3px 7px rgba(var(--v-shadow-color), 0.55),
+    inset -3px -3px 7px rgba(255, 255, 255, 0.9);
+
+  & :is(.v-card, .v-btn, .v-chip, .v-alert, .v-sheet--variant-flat):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain) {
+    box-shadow: var(--vw-morph-raised);
+  }
+
+  /* Inputs are recesses, not tiles. */
+  & :is(.v-field--variant-solo, .v-switch__track, .v-slider-track) {
+    background: rgb(var(--v-theme-background));
+    box-shadow: var(--vw-morph-pressed);
+  }
+
+  & .v-btn:active:not(.v-btn--disabled),
+  & .v-btn--active {
+    box-shadow: var(--vw-morph-pressed);
+  }
+
+  & .v-slider-thumb__surface {
+    box-shadow: var(--vw-morph-raised);
+  }
+
+  /* A divider would be a seam in something meant to be one sheet. */
+  & :is(.v-divider, .v-table tbody td) {
+    border-color: transparent;
+  }
+
+  & .v-tab__slider {
+    height: 4px;
+    border-radius: 4px;
+    box-shadow: var(--vw-morph-raised);
+  }
+}

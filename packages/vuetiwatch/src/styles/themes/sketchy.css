@@ -1,0 +1,35 @@
+/**
+ * Sketchy — the wobble comes from `--v-vw-radius` in the theme itself, so
+ * this file only adds what a pen stroke does that a border cannot: an
+ * uneven weight, and a redrawn line on hover.
+ */
+.v-theme--sketchy {
+  & :is(.v-card, .v-sheet, .v-table, .v-list) {
+    box-shadow: none;
+  }
+
+  /* Ink is never perfectly even — the bottom of a stroke sits heavier. */
+  & :is(.v-btn--variant-outlined, .v-card--variant-outlined, .v-alert--variant-outlined) {
+    border-bottom-width: calc(var(--v-vw-border-width) + 1px);
+  }
+
+  /* Hover redraws the box with the wobble mirrored. */
+  & .v-btn.v-btn--variant-outlined:hover {
+    border-radius: 5px 22px 6px 20px / 20px 6px 22px 5px;
+  }
+
+  & :is(.v-table thead th, .v-data-table__th) {
+    border-bottom: var(--v-vw-border-width) solid rgba(var(--v-border-color), 0.7);
+  }
+
+  & .v-tab__slider {
+    height: 3px;
+    border-radius: 8px 3px 8px 3px / 3px 8px 3px 8px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .v-theme--sketchy .v-btn {
+    transition: border-radius 0.12s steps(2, end);
+  }
+}

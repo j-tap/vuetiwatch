@@ -1,14 +1,40 @@
 import type { ThemeDefinition } from 'vuetify'
 import type { VuetiwatchDefaults, VuetiwatchMeta, VuetiwatchTheme } from './types.js'
-import { classic, darkGlass, neon, paper, slate, soft } from './themes/index.js'
+import {
+  aurora,
+  brutalist,
+  calm,
+  classic,
+  clay,
+  darkGlass,
+  liquidGlass,
+  lux,
+  morph,
+  neon,
+  paper,
+  sketchy,
+  slate,
+  soft,
+} from './themes/index.js'
 
-/** Every theme in the package, in the order a picker should show them. */
+/**
+ * Every theme in the package, in the order a picker should show them:
+ * the everyday ones first, then the niche ones.
+ */
 export const themeList = [
   classic,
   paper,
   slate,
+  calm,
+  lux,
   soft,
+  clay,
+  morph,
+  sketchy,
+  brutalist,
+  liquidGlass,
   darkGlass,
+  aurora,
   neon,
 ] as const satisfies readonly VuetiwatchTheme[]
 

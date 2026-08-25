@@ -1,4 +1,19 @@
-export { classic, darkGlass, neon, paper, slate, soft } from './themes/index.js'
+export {
+  aurora,
+  brutalist,
+  calm,
+  classic,
+  clay,
+  darkGlass,
+  liquidGlass,
+  lux,
+  morph,
+  neon,
+  paper,
+  sketchy,
+  slate,
+  soft,
+} from './themes/index.js'
 export {
   themeList,
   vuetiwatchDefaults,

@@ -2,13 +2,29 @@
  * Every Vuetiwatch stylesheet in one import.
  *
  * The core layer is generic and variable-driven; each theme file adds only
- * the surface treatment — shadows, blur, glow — that a `ThemeDefinition`
- * cannot express. Rules are scoped per theme, so importing the whole file
- * costs nothing for themes you do not use.
+ * the surface treatment — shadows, blur, glow, relief — that a
+ * `ThemeDefinition` cannot express. Rules are scoped per theme, so
+ * importing the whole file costs nothing for themes you do not use.
+ *
+ * `classic` has no file: it is stock Vuetify by definition.
  */
 @import './core.css';
+
+/* Everyday */
 @import './themes/paper.css';
 @import './themes/slate.css';
+@import './themes/calm.css';
+@import './themes/lux.css';
 @import './themes/soft.css';
+
+/* Tactile */
+@import './themes/clay.css';
+@import './themes/morph.css';
+
+/* Expressive */
+@import './themes/sketchy.css';
+@import './themes/brutalist.css';
+@import './themes/liquidGlass.css';
 @import './themes/darkGlass.css';
+@import './themes/aurora.css';
 @import './themes/neon.css';

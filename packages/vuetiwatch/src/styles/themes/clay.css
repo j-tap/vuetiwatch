@@ -1,0 +1,49 @@
+/**
+ * Clay — three shadows make a shape look inflated rather than cut out: a
+ * soft drop below, a white rim above, and an inner one that rounds the
+ * body away from its own edge.
+ */
+.v-theme--clay {
+  --vw-clay-lift:
+    8px 8px 20px rgba(var(--v-shadow-color), 0.18),
+    -6px -6px 16px rgba(255, 255, 255, 0.9),
+    inset -4px -4px 12px rgba(var(--v-shadow-color), 0.06),
+    inset 4px 4px 10px rgba(255, 255, 255, 0.7);
+
+  & :is(.v-card, .v-btn, .v-chip, .v-alert):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain) {
+    box-shadow: var(--vw-clay-lift);
+  }
+
+  & .v-btn:active:not(.v-btn--disabled) {
+    box-shadow:
+      4px 4px 10px rgba(var(--v-shadow-color), 0.16),
+      inset -3px -3px 10px rgba(var(--v-shadow-color), 0.1),
+      inset 3px 3px 8px rgba(255, 255, 255, 0.6);
+  }
+
+  & .v-field.v-field--variant-solo {
+    background: rgb(var(--v-theme-surface));
+    box-shadow:
+      inset 4px 4px 10px rgba(var(--v-shadow-color), 0.12),
+      inset -4px -4px 10px rgba(255, 255, 255, 0.9);
+  }
+
+  & :is(.v-switch__track, .v-slider-track) {
+    box-shadow: inset 2px 2px 6px rgba(var(--v-shadow-color), 0.18);
+  }
+
+  & :is(.v-switch__thumb, .v-slider-thumb__surface) {
+    box-shadow:
+      3px 3px 8px rgba(var(--v-shadow-color), 0.24),
+      -2px -2px 6px rgba(255, 255, 255, 0.9);
+  }
+
+  & :is(.v-menu, .v-dialog) > .v-overlay__content {
+    box-shadow: 12px 12px 40px rgba(var(--v-shadow-color), 0.24);
+  }
+
+  & .v-tab__slider {
+    height: 5px;
+    border-radius: 5px;
+  }
+}

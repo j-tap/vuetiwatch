@@ -1,0 +1,59 @@
+/**
+ * Brutalist — the shadow has no blur, so it is a second shape rather than a
+ * light effect. Hover slides the element into its own shadow, which is the
+ * whole interaction language of the style.
+ */
+.v-theme--brutalist {
+  --vw-brut-offset: 4px;
+
+  & :is(.v-card, .v-btn, .v-alert, .v-chip, .v-table):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain) {
+    box-shadow: var(--vw-brut-offset) var(--vw-brut-offset) 0 rgb(var(--v-shadow-color));
+  }
+
+  & :is(.v-btn, .v-chip):not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain):not(.v-btn--disabled) {
+    border: var(--v-vw-border-width) solid rgb(var(--v-shadow-color));
+    transition: transform 0.08s steps(2, end), box-shadow 0.08s steps(2, end);
+  }
+
+  /* Pressed elements travel the full offset and land flat. */
+  & .v-btn:active:not(.v-btn--disabled) {
+    transform: translate(var(--vw-brut-offset), var(--vw-brut-offset));
+    box-shadow: 0 0 0 rgb(var(--v-shadow-color));
+  }
+
+  & .v-btn:not(.v-btn--variant-text, .v-btn--variant-plain, .v-card--variant-text, .v-card--variant-plain):hover:not(.v-btn--disabled) {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 rgb(var(--v-shadow-color));
+  }
+
+  & :is(.v-menu, .v-dialog) > .v-overlay__content {
+    border: var(--v-vw-border-width) solid rgb(var(--v-shadow-color));
+    box-shadow: 8px 8px 0 rgb(var(--v-shadow-color));
+  }
+
+  & :is(.v-table thead th, .v-data-table__th) {
+    background-color: rgb(var(--v-theme-secondary));
+    border-bottom: var(--v-vw-border-width) solid rgb(var(--v-shadow-color));
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  & .v-tab__slider {
+    height: 4px;
+  }
+
+  & :is(h1, h2, h3, h4, h5, h6, [class*='-display-'], [class*='-headline-']) {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v-theme--brutalist .v-btn {
+    transition: none;
+  }
+
+  .v-theme--brutalist .v-btn:hover:not(.v-btn--disabled) {
+    transform: none;
+  }
+}

@@ -10,6 +10,8 @@
  * The scope is either a Vuetiwatch theme class or the `data-vuetiwatch`
  * attribute `createVuetiwatch()` sets on `<html>` — the latter is what
  * extends this layer to themes you build yourself with `defineTheme()`.
+ * `VUETIWATCH_THEMES` is a placeholder: the build expands it into one class
+ * per registered theme, so this list can never drift from the registry.
  * Importing this file therefore cannot affect an app that is not running a
  * Vuetiwatch theme, and every value falls back to the stock Vuetify one, so
  * a theme only pays for what it overrides.
@@ -20,15 +22,7 @@
  * Authored with CSS nesting; the published file is flattened at build time.
  */
 
-:is(
-  [data-vuetiwatch],
-  .v-theme--classic,
-  .v-theme--paper,
-  .v-theme--slate,
-  .v-theme--soft,
-  .v-theme--darkGlass,
-  .v-theme--neon
-) {
+:is([data-vuetiwatch], .v-theme--VUETIWATCH_THEMES) {
   /* -------------------------------------------------------------- radius */
 
   /* An explicit `rounded` prop always wins — hence the :not() guards. */
@@ -135,7 +129,7 @@
     font-family: var(--v-font-heading, var(--v-font-body, inherit));
   }
 
-  & .v-application {
+  &.v-application {
     -webkit-font-smoothing: var(--v-vw-font-smoothing, antialiased);
     -moz-osx-font-smoothing: grayscale;
   }
