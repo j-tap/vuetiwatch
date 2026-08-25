@@ -40,7 +40,7 @@ Fourteen themes, grouped by how far they stray from a conventional interface.
 | --- | --- | --- |
 | `sketchy` | light | Hand-drawn wobble and pencil greys, for mockups and mirth |
 | `brutalist` | light | Thick black rules, acid lime, hard unblurred shadows |
-| `liquidGlass` | light | Bright refracting glass with specular rims, over a gradient ground |
+| `liquidGlass` | light | Capsule controls and refracting panes over a calm wash, after iOS 26 |
 | `darkGlass` | dark | Frosted translucent surfaces on a deep violet ground |
 | `aurora` | dark | Iridescent gradients on near-black — the showcase theme |
 | `neon` | dark | Terminal black, cyan and magenta glow, zero radius, monospace headings |
@@ -64,7 +64,7 @@ delivers it through defaults and only the rest needs CSS.
 | `morph` | pill inset, pressed track | raised bar | dual relief, inputs recessed |
 | `sketchy` | square inset | wobbly 3px rule | uneven stroke, redrawn on hover |
 | `brutalist` | square inset | 4px rule | hard offset shadow, presses into it |
-| `liquidGlass` | pill inset | 2px underline | blur + saturate, specular rims |
+| `liquidGlass` | pill inset | 2px underline | capsule buttons, blur + saturate, specular rims |
 | `darkGlass` | pill inset, frosted | glowing underline | frosted translucent |
 | `aurora` | gradient track | gradient rule | iridescent rims, radial glow, gradient display text |
 | `neon` | square inset, glowing | glowing rule | glow instead of elevation, hollow checkbox glyphs |
@@ -208,9 +208,11 @@ Alongside Vuetify's own variables, the stylesheet reads:
 
 | Variable             | Default   | Effect |
 | -------------------- | --------- | ------ |
-| `vw-radius`          | `4px`     | Buttons, fields, alerts, lists, menus, snackbars |
+| `vw-radius`          | `4px`     | Fields, alerts, lists, menus, snackbars, slider track |
+| `vw-radius-btn`      | `vw-radius` | Buttons only, for themes whose controls are capsules |
 | `vw-radius-lg`       | `vw-radius` | Cards, tables, expansion panels |
 | `vw-radius-chip`     | `9999px`  | Chips |
+| `vw-radius-thumb`    | `50%`     | Slider thumb |
 | `vw-border-width`    | `thin`    | Outlined variants and field outlines |
 | `vw-btn-weight`      | `500`     | Button font weight |
 | `vw-btn-tracking`    | `0.089em` | Button letter spacing |

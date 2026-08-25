@@ -43,7 +43,7 @@
     .v-toolbar-items *,
     .v-tabs *
   ) {
-    border-radius: var(--v-vw-radius, 4px);
+    border-radius: var(--v-vw-radius-btn, var(--v-vw-radius, 4px));
   }
 
   /* The group keeps the corners its children gave up. */
