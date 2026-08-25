@@ -56,7 +56,7 @@ export const liquidGlass = defineTheme({
       'border-opacity': 0.1,
       'shadow-color': '#1B3A6B',
       'high-emphasis-opacity': 0.92,
-      'medium-emphasis-opacity': 0.55,
+      'medium-emphasis-opacity': 0.6,
       'hover-opacity': 0.04,
       'font-body': "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif",
       'font-heading': "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif",

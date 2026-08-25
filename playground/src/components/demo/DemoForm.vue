@@ -64,7 +64,8 @@ function season (val: number) {
             <v-text-field model-value="example@mail.com" label="Email" class="rounded-e-0">
               <template #append>
                 <v-btn
-                        size="large"
+                  color="info"
+                  size="large"
                   class="h-100 ms-n4 rounded-s-0"
                   text="Process"
                 />
