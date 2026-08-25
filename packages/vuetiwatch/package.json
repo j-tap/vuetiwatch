@@ -54,7 +54,7 @@
     "clean": "node --eval \"fs.rmSync('dist', { recursive: true, force: true })\"",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build"
+    "prepack": "npm run build"
   },
   "peerDependencies": {
     "vue": "^3.5.0",
