@@ -1,6 +1,6 @@
 # Vuetiwatch
 
-🎨 Free, plug-and-play themes for **Vuetify 4** — what [Bootswatch](https://bootswatch.com/)
+🎨 Free, plug-and-play themes for **[Vuetify 4](https://vuetifyjs.com/)** — what [Bootswatch](https://bootswatch.com/)
 is to Bootstrap.
 
 **[See all fourteen themes →](https://j-tap.github.io/vuetiwatch/)**
@@ -241,7 +241,13 @@ bun install
 bun run dev        # build the package, then serve the demo on :5173
 bun run build      # build the package only
 bun run typecheck
+bun run release    # publish the package to npm
 ```
+
+The repository root and the package directory are both called `vuetiwatch`, so
+`npm publish` run from the wrong one fails with `EPRIVATE` — the root is
+marked private on purpose. `bun run release` targets the workspace by name and
+works from anywhere in the repo.
 
 The demo reads `?theme=<name>` from the URL, so any theme is linkable.
 

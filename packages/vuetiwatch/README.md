@@ -1,6 +1,6 @@
 # Vuetiwatch
 
-🎨 Free, plug-and-play themes for **Vuetify 4** — what [Bootswatch](https://bootswatch.com/)
+🎨 Free, plug-and-play themes for **[Vuetify 4](https://vuetifyjs.com/)** — what [Bootswatch](https://bootswatch.com/)
 is to Bootstrap.
 
 **[See all fourteen themes →](https://j-tap.github.io/vuetiwatch/)**

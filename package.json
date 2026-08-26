@@ -10,7 +10,8 @@
   "scripts": {
     "build": "bun run --filter vuetiwatch build",
     "dev": "bun run build && bun run --filter vuetiwatch-playground dev",
-    "typecheck": "bun run --filter \"*\" typecheck"
+    "typecheck": "bun run --filter \"*\" typecheck",
+    "release": "npm publish --workspace vuetiwatch"
   },
   "packageManager": "bun@1.3.14"
 }
