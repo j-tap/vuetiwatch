@@ -1,5 +1,9 @@
 # Vuetiwatch
 
+[![npm](https://img.shields.io/npm/v/vuetiwatch?color=%23c4f82a&label=npm)](https://www.npmjs.com/package/vuetiwatch)
+[![bundle](https://img.shields.io/bundlephobia/minzip/vuetiwatch?label=gzipped)](https://bundlephobia.com/package/vuetiwatch)
+[![license](https://img.shields.io/npm/l/vuetiwatch)](./LICENSE)
+
 🎨 Free, plug-and-play themes for **[Vuetify 4](https://vuetifyjs.com/)** — what [Bootswatch](https://bootswatch.com/)
 is to Bootstrap.
 
