@@ -13,6 +13,8 @@ import DemoTable from '@/components/demo/DemoTable.vue'
 import DemoTypography from '@/components/demo/DemoTypography.vue'
 
 const theme = useTheme()
+
+const repository = 'https://github.com/j-tap/vuetiwatch'
 </script>
 
 <template>
@@ -22,6 +24,19 @@ const theme = useTheme()
       <v-toolbar-title>Vuetiwatch</v-toolbar-title>
       <v-spacer />
       <ThemeSwitcher />
+
+      <v-tooltip text="View on GitHub" location="bottom">
+        <template #activator="{ props }">
+          <v-btn
+            v-bind="props"
+            :href="repository"
+            icon="mdi-github"
+            target="_blank"
+            rel="noopener"
+            aria-label="View the project on GitHub"
+          />
+        </template>
+      </v-tooltip>
     </v-app-bar>
 
     <v-main>
