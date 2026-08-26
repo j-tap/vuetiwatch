@@ -32,11 +32,13 @@ jobs:
 
       - run: bun install --frozen-lockfile
 
-      - name: Typecheck
-        run: bun run typecheck
-
+      # Before the typecheck, not after: the playground resolves `vuetiwatch`
+      # to the workspace package, whose types live in the gitignored `dist`.
       - name: Build the package
         run: bun run --filter vuetiwatch build
+
+      - name: Typecheck
+        run: bun run typecheck
 
       - name: Build the playground
         # A project site lives at /<repo>/, so the assets need that prefix.
