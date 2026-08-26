@@ -1,1 +1,20 @@
 @import "vuetify.css";
+
+/**
+ * Drawer entries and the hero buttons are plain anchors, so the browser does
+ * the scrolling — it only needs to be told to ease it, and to stop short of
+ * the fixed app bar rather than under it.
+ */
+html {
+  scroll-behavior: smooth;
+}
+
+.demo-section {
+  scroll-margin-block-start: 88px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

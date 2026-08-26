@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import CardPreview from '@/components/CardPreview.vue'
 
 const name = ref('')
 const select = ref(null)
@@ -32,119 +31,108 @@ function season (val: number) {
 </script>
 
 <template>
-  <CardPreview title="Form Elements">
-    <v-form validate-on="blur">
-      <v-row dense>
-        <v-col cols="12" md="6">
-          <v-text-field v-model="name" label="Name" placeholder="Enter your name" />
-        </v-col>
+  <v-form validate-on="blur">
+    <v-row density="compact">
+      <v-col cols="12" md="6">
+        <v-text-field v-model="name" label="Name" placeholder="Enter your name" />
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <v-text-field model-value="Readonly value" label="Readonly value" readonly />
-        </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field model-value="Readonly value" label="Readonly value" readonly />
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <v-text-field model-value="Disabled" label="Disabled value" disabled />
-        </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field model-value="Disabled" label="Disabled value" disabled />
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <v-select v-model="select" :items="options" label="Select" placeholder="Choose an option" />
-        </v-col>
+      <v-col cols="12" md="6">
+        <v-select v-model="select" :items="options" label="Select" placeholder="Choose an option" />
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <v-text-field label="Country" error-messages="Country is required" append-inner-icon="mdi-alert-outline"/>
-        </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field label="Country" error-messages="Country is required" append-inner-icon="mdi-alert-outline"/>
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <v-text-field model-value="Country" label="Country" :messages="['Success']" color="success" base-color="success" icon-color="success" append-inner-icon="mdi-check-circle-outline">
-            <template #message="{ message }">
-              <span class="text-success">{{ message }}</span>
-            </template>
-          </v-text-field>
-        </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field model-value="Country" label="Country" :messages="['Success']" color="success" base-color="success" icon-color="success" append-inner-icon="mdi-check-circle-outline">
+          <template #message="{ message }">
+            <span class="text-success">{{ message }}</span>
+          </template>
+        </v-text-field>
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <!--
-            Field and button as flex siblings rather than an `append` slot.
-            That slot reserves a 16px gap outside the field, so cancelling it
-            with a negative margin leaves the pair 16px short of the column
-            while every other field fills it.
-          -->
-          <div class="d-flex">
-            <v-text-field
-              model-value="example@mail.com"
-              label="Email"
-              class="rounded-e-0"
-              hide-details
-            />
-            <v-btn
-              color="info"
-              class="rounded-s-0 h-auto"
-              text="Process"
-            />
-          </div>
-        </v-col>
+      <v-col cols="12" md="6">
+        <!--
+          Field and button as flex siblings rather than an `append` slot.
+          That slot reserves a 16px gap outside the field, so cancelling it
+          with a negative margin leaves the pair 16px short of the column
+          while every other field fills it.
+        -->
+        <div class="d-flex">
+          <v-text-field
+            model-value="example@mail.com"
+            label="Email"
+            class="rounded-e-0"
+            hide-details
+          />
+          <v-btn
+            color="info"
+            class="rounded-s-0 h-auto"
+            text="Process"
+          />
+        </div>
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <v-btn-toggle
-            v-model="radio"
-            color="primary"
-            rounded="lg"
-            divided
-            mandatory
-          >
-            <v-btn v-for="val in radios" :key="val" :value="val">
-              {{ val }}
-            </v-btn>
-          </v-btn-toggle>
-        </v-col>
+      <v-col cols="12" md="6">
+        <v-textarea model-value="Please enter your comments here..." label="Text" prepend-inner-icon="mdi-comment" auto-grow clearable rows="2" />
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <v-textarea model-value="Please enter your comments here..." label="Text" prepend-inner-icon="mdi-comment" auto-grow clearable />
-        </v-col>
+      <v-col cols="12" md="6">
+        <v-radio-group v-model="radio" label="Choose an option" mandatory inline>
+          <v-radio v-for="val in radios" :key="val" :label="val" :value="val" />
+        </v-radio-group>
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <v-radio-group v-model="radio" label="Choose an option" mandatory inline>
-            <v-radio v-for="val in radios" :key="val" :label="val" :value="val" />
-          </v-radio-group>
-        </v-col>
+      <v-col cols="12" md="6" class="d-flex align-center">
+        <!-- The toggle is as wide as its labels, so it scrolls rather than
+             squeezing the column on a phone. -->
+        <v-btn-toggle
+          v-model="radio"
+          color="primary"
+          rounded="lg"
+          class="overflow-x-auto"
+          divided
+          mandatory
+        >
+          <v-btn v-for="val in radios" :key="val" :value="val">
+            {{ val }}
+          </v-btn>
+        </v-btn-toggle>
+      </v-col>
 
-        <v-col cols="12" md="6">
-          <v-range-slider
-            :model-value="[0, 1]"
-            :step="1"
-            :ticks="seasons"
-            class="mt-6"
-            max="3"
-            min="0"
-            show-ticks="always"
-            thumb-label="always"
-            tick-size="4"
-          >
-            <template v-slot:thumb-label="{ modelValue }">
-              <v-icon :icon="season(modelValue)" color="background"/>
-            </template>
-          </v-range-slider>
-        </v-col>
+      <v-col cols="12" md="6">
+        <v-range-slider
+          :model-value="[0, 1]"
+          :step="1"
+          :ticks="seasons"
+          class="mt-8"
+          max="3"
+          min="0"
+          show-ticks="always"
+          thumb-label="always"
+          tick-size="4"
+        >
+          <template v-slot:thumb-label="{ modelValue }">
+            <v-icon :icon="season(modelValue)" color="background"/>
+          </template>
+        </v-range-slider>
+      </v-col>
+    </v-row>
 
-        <v-col cols="12" md="6">
-
-        </v-col>
-      </v-row>
-
-      <v-row align="center">
-        <v-col cols="auto">
-          <v-checkbox v-model="checkbox" label="Accept terms and conditions" />
-        </v-col>
-
-        <v-col cols="auto">
-          <v-switch v-model="switcher" label="Enable feature" color="primary" />
-        </v-col>
-
-        <v-col cols="auto">
-          <v-switch v-model="switcher" label="Enable feature" color="success" base-color="error" />
-        </v-col>
-      </v-row>
-    </v-form>
-  </CardPreview>
+    <div class="d-flex flex-wrap align-center ga-6">
+      <v-checkbox v-model="checkbox" label="Accept terms and conditions" hide-details />
+      <v-switch v-model="switcher" label="Enable feature" color="primary" hide-details />
+      <v-switch v-model="switcher" label="Enable feature" color="success" base-color="error" hide-details />
+    </div>
+  </v-form>
 </template>

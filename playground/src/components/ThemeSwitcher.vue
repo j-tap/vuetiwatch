@@ -3,6 +3,8 @@ import { computed, onMounted } from 'vue'
 import { useTheme } from 'vuetify'
 import { themeList } from 'vuetiwatch'
 
+import ThemeSwatch from '@/components/ThemeSwatch.vue'
+
 const STORAGE_KEY = 'vuetiwatch:theme'
 const QUERY_KEY = 'theme'
 
@@ -34,13 +36,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <v-menu location="bottom end" :close-on-content-click="false">
+  <!-- Picking a theme closes the menu: the page behind it is the preview. -->
+  <v-menu location="bottom end">
     <template #activator="{ props }">
-      <v-btn v-bind="props" variant="text" append-icon="mdi-chevron-down">
-        <span class="swatch me-3">
-          <i v-for="color in current.meta.swatch" :key="color" :style="{ background: color }" />
-        </span>
-        {{ current.meta.title }}
+      <v-btn v-bind="props" variant="text" class="px-2 px-sm-4">
+        <ThemeSwatch :colors="current.meta.swatch" />
+        <!-- On a phone the swatch alone has to carry it; the bar is full. -->
+        <span class="d-none d-sm-inline ms-3">{{ current.meta.title }}</span>
+        <v-icon icon="mdi-chevron-down" end class="d-none d-sm-inline-flex" />
       </v-btn>
     </template>
 
@@ -57,9 +60,12 @@ onMounted(() => {
         @click="select(item.name)"
       >
         <template #prepend>
-          <span class="swatch swatch--stacked me-3">
-            <i v-for="color in item.meta.swatch" :key="color" :style="{ background: color }" />
-          </span>
+          <ThemeSwatch
+            :colors="item.meta.swatch"
+            :width="12"
+            :height="28"
+            class="me-3"
+          />
         </template>
 
         <template #append>
@@ -69,22 +75,3 @@ onMounted(() => {
     </v-list>
   </v-menu>
 </template>
-
-<style scoped>
-.swatch {
-  display: inline-flex;
-  overflow: hidden;
-  border: 1px solid rgba(var(--v-border-color), 0.4);
-  border-radius: 3px;
-}
-
-.swatch i {
-  width: 10px;
-  height: 20px;
-}
-
-.swatch--stacked i {
-  width: 12px;
-  height: 28px;
-}
-</style>

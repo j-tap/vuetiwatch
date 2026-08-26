@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import CardPreview from '@/components/CardPreview.vue'
 
 const page = ref(1)
 
@@ -85,57 +84,55 @@ const statusColor: Record<string, string> = {
 </script>
 
 <template>
-  <CardPreview title="Table elements">
-    <v-breadcrumbs :items="breadcrumbs" class="mb-4" />
+  <v-breadcrumbs :items="breadcrumbs" class="px-0 mb-2" />
 
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      :items-per-page="5"
-      class="mb-4"
-    >
-      <template #item.name="{ item }">
-        <div class="d-flex align-center">
-          <v-avatar size="32" class="me-2">
-            <v-img :src="item.avatar" alt="avatar" />
-          </v-avatar>
-          <span>{{ item.name }}</span>
-        </div>
-      </template>
+  <!-- Below `sm` the table stacks each row into a label/value list of its
+       own, which is the only way six columns fit a phone. -->
+  <v-data-table
+    :headers="headers"
+    :items="items"
+    :items-per-page="5"
+    mobile-breakpoint="sm"
+    hover
+    class="mb-4"
+  >
+    <template #item.name="{ item }">
+      <div class="d-flex align-center ga-2">
+        <v-avatar size="32">
+          <v-img :src="item.avatar" alt="avatar" />
+        </v-avatar>
+        <span>{{ item.name }}</span>
+      </div>
+    </template>
 
-      <template #item.email="{ item }">
-        <v-badge v-if="[1,2,5].includes(item.id)" color="info" floating>
-          <a :href="`mailto:${item.email}`">{{ item.email }}</a>
-          <template #badge>
-            <v-icon>mdi-email</v-icon>
-          </template>
-        </v-badge>
-        <a :href="`mailto:${item.email}`" v-else>{{ item.email }}</a>
-      </template>
+    <template #item.email="{ item }">
+      <v-badge v-if="[1, 2, 5].includes(item.id)" color="info" floating>
+        <a :href="`mailto:${item.email}`">{{ item.email }}</a>
+        <template #badge>
+          <v-icon icon="mdi-email" />
+        </template>
+      </v-badge>
+      <a v-else :href="`mailto:${item.email}`">{{ item.email }}</a>
+    </template>
 
-      <template #item.status="{ item }">
-        <v-chip
-          :color="statusColor[item.status]"
-          variant="flat"
-          size="small"
-        >
-          {{ item.status }}
-        </v-chip>
-      </template>
-    </v-data-table>
+    <template #item.status="{ item }">
+      <v-chip
+        :color="statusColor[item.status]"
+        variant="flat"
+        size="small"
+      >
+        {{ item.status }}
+      </v-chip>
+    </template>
+  </v-data-table>
 
-    <v-pagination v-model="page" :length="5" />
+  <v-pagination v-model="page" :length="5" total-visible="5" class="mb-8" />
 
-    <v-row class="mt-6">
-      <v-col cols="12" md="6">
-        <v-expansion-panels>
-          <v-expansion-panel v-for="val in [1, 2, 3]" :key="val" :title="`Section ${val}`">
-            <v-expansion-panel-text>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </v-col>
-    </v-row>
-  </CardPreview>
+  <v-expansion-panels>
+    <v-expansion-panel v-for="val in [1, 2, 3]" :key="val" :title="`Section ${val}`">
+      <v-expansion-panel-text>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </v-expansion-panel-text>
+    </v-expansion-panel>
+  </v-expansion-panels>
 </template>

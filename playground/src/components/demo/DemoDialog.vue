@@ -1,22 +1,37 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import CardPreview from '@/components/CardPreview.vue'
 
 const dialog = ref(false)
+const fullscreen = ref(false)
 </script>
 
 <template>
-  <CardPreview title="Dialog">
-    <v-btn color="primary" @click="dialog = true">Open dialog</v-btn>
-    <v-dialog v-model="dialog" max-width="400">
-      <v-card>
-        <v-card-title>Title text</v-card-title>
-        <v-card-text>Dialog text content</v-card-text>
-        <v-card-actions>
-          <v-btn @click="dialog = false">Cancel</v-btn>
-          <v-btn @click="dialog = false" color="success">Save</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </CardPreview>
+  <div class="d-flex flex-wrap ga-3">
+    <v-btn color="primary" text="Open dialog" @click="dialog = true" />
+    <!-- The same surface edge to edge, which is where a phone shows it. -->
+    <v-btn variant="tonal" text="Fullscreen" @click="fullscreen = true" />
+  </div>
+
+  <v-dialog v-model="dialog" max-width="440">
+    <v-card title="Title text">
+      <v-card-text>Dialog text content</v-card-text>
+      <v-card-actions>
+        <v-spacer />
+        <v-btn text="Cancel" @click="dialog = false" />
+        <v-btn color="success" text="Save" @click="dialog = false" />
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="fullscreen" fullscreen transition="dialog-bottom-transition">
+    <v-card title="Fullscreen dialog">
+      <template #append>
+        <v-btn icon="mdi-close" variant="text" @click="fullscreen = false" />
+      </template>
+      <v-card-text>
+        On a phone a dialog usually takes the whole screen, so the theme's
+        surface and typography carry it on their own.
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 </template>

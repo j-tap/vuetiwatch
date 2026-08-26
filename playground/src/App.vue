@@ -1,35 +1,62 @@
 <script setup lang="ts">
-import { useTheme } from 'vuetify'
+import { ref, watchEffect } from 'vue'
+import { useDisplay } from 'vuetify'
 
+import AppFooter from '@/components/AppFooter.vue'
+import AppHero from '@/components/AppHero.vue'
+import DemoSection from '@/components/DemoSection.vue'
 import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
-import DemoButtons from '@/components/demo/DemoButtons.vue'
-import DemoCards from '@/components/demo/DemoCards.vue'
-import DemoDialog from '@/components/demo/DemoDialog.vue'
-import DemoFeedback from '@/components/demo/DemoFeedback.vue'
-import DemoForm from '@/components/demo/DemoForm.vue'
-import DemoNavbars from '@/components/demo/DemoNavbars.vue'
-import DemoNavigation from '@/components/demo/DemoNavigation.vue'
-import DemoTable from '@/components/demo/DemoTable.vue'
-import DemoTypography from '@/components/demo/DemoTypography.vue'
+import { demoSections } from '@/components/demo/sections'
+import { useScrollSpy } from '@/composables/useScrollSpy'
+import { links } from '@/config'
 
-const theme = useTheme()
+// The favicon itself, so the tab and the app bar carry one mark. `BASE_URL`
+// keeps it resolvable under the GitHub Pages subdirectory too.
+const logo = `${import.meta.env.BASE_URL}vite.svg`
 
-const repository = 'https://github.com/j-tap/vuetiwatch'
+const { mdAndDown } = useDisplay()
+
+const drawer = ref(false)
+// Wide screens have room for the index; narrow ones open it on demand.
+watchEffect(() => {
+  drawer.value = !mdAndDown.value
+})
+
+const { active, scrolled } = useScrollSpy(demoSections.map(section => section.id))
+
+// Anchors do the scrolling; the drawer only has to get out of the way.
+function onNavigate () {
+  if (mdAndDown.value) drawer.value = false
+}
+
+// Smoothness comes from `scroll-behavior` on the document, as it does for anchors.
+function scrollToTop () {
+  window.scrollTo({ top: 0 })
+}
 </script>
 
 <template>
   <!-- No :theme binding needed — the global theme cascades from the plugin. -->
   <v-app>
     <v-app-bar>
+      <v-app-bar-nav-icon
+        aria-label="Toggle the section index"
+        @click="drawer = !drawer"
+      />
+
+      <img :src="logo" class="ms-1 d-block" width="28" height="28" alt="" />
+
       <v-toolbar-title>Vuetiwatch</v-toolbar-title>
+
       <v-spacer />
+
       <ThemeSwitcher />
 
       <v-tooltip text="View on GitHub" location="bottom">
         <template #activator="{ props }">
           <v-btn
             v-bind="props"
-            :href="repository"
+            :href="links.repository"
             icon="mdi-github"
             target="_blank"
             rel="noopener"
@@ -39,23 +66,62 @@ const repository = 'https://github.com/j-tap/vuetiwatch'
       </v-tooltip>
     </v-app-bar>
 
-    <v-main>
-      <v-container fluid>
-        <p class="text-medium-emphasis mb-6">
-          Every component below is unstyled demo markup — the whole difference
-          between themes comes from <code>{{ theme.global.name.value }}</code>.
-        </p>
+    <v-navigation-drawer v-model="drawer" :temporary="mdAndDown" width="264">
+      <v-list :selected="[active]" density="compact" nav>
+        <v-list-subheader>Components</v-list-subheader>
 
-        <DemoTypography />
-        <DemoNavbars />
-        <DemoButtons />
-        <DemoCards />
-        <DemoNavigation />
-        <DemoForm />
-        <DemoDialog />
-        <DemoFeedback />
-        <DemoTable />
+        <v-list-item
+          v-for="section in demoSections"
+          :key="section.id"
+          :value="section.id"
+          :title="section.title"
+          :prepend-icon="section.icon"
+          :href="`#${section.id}`"
+          @click="onNavigate"
+        />
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-main>
+      <AppHero />
+
+      <v-container class="py-8 py-md-12">
+        <v-row>
+          <v-col
+            v-for="section in demoSections"
+            :key="section.id"
+            cols="12"
+            :lg="section.span ?? 12"
+            class="pb-8 pb-md-12"
+          >
+            <DemoSection
+              :id="section.id"
+              :title="section.title"
+              :subtitle="section.subtitle"
+            >
+              <component :is="section.component" />
+            </DemoSection>
+          </v-col>
+        </v-row>
       </v-container>
     </v-main>
+
+    <AppFooter />
+
+    <!--
+      Declared last, and in `app` mode, so the layout floats it clear of the
+      footer instead of over the links in it.
+    -->
+    <v-fab
+      :active="scrolled"
+      icon="mdi-arrow-up"
+      color="primary"
+      size="small"
+      location="bottom end"
+      aria-label="Back to top"
+      app
+      appear
+      @click="scrollToTop"
+    />
   </v-app>
 </template>

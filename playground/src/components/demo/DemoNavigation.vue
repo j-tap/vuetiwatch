@@ -2,7 +2,6 @@
 import { computed, ref } from 'vue'
 import { useTheme } from 'vuetify'
 import { vuetiwatchMeta } from 'vuetiwatch'
-import CardPreview from '@/components/CardPreview.vue'
 
 /**
  * Content icons belong to the app, not the theme — Vuetify only lets a
@@ -46,90 +45,89 @@ const timeline = computed(() => [
 </script>
 
 <template>
-  <CardPreview title="Navigation & Data Display">
-    <v-tabs v-model="tab" class="mb-4">
-      <v-tab
-        v-for="item in tabs"
-        :key="item.value"
-        :value="item.value"
-        :text="item.title"
-        :prepend-icon="item.icon"
-      />
-    </v-tabs>
+  <!-- `show-arrows` keeps the strip usable once the tabs outgrow a phone. -->
+  <v-tabs v-model="tab" show-arrows class="mb-6">
+    <v-tab
+      v-for="item in tabs"
+      :key="item.value"
+      :value="item.value"
+      :text="item.title"
+      :prepend-icon="item.icon"
+    />
+  </v-tabs>
 
-    <v-row dense>
-      <v-col cols="12" md="4">
-        <v-list>
-          <v-list-subheader>Mailboxes</v-list-subheader>
-          <v-list-item
-            v-for="item in nav"
-            :key="item.title"
-            :title="item.title"
-            :prepend-icon="item.icon"
-            :active="item.title === 'Inbox'"
+  <v-row>
+    <v-col cols="12" sm="6" lg="4">
+      <v-list>
+        <v-list-subheader>Mailboxes</v-list-subheader>
+        <v-list-item
+          v-for="item in nav"
+          :key="item.title"
+          :title="item.title"
+          :prepend-icon="item.icon"
+          :active="item.title === 'Inbox'"
+        >
+          <template #append>
+            <v-chip v-if="item.badge" size="x-small">{{ item.badge }}</v-chip>
+          </template>
+        </v-list-item>
+        <v-divider class="my-2" />
+        <v-list-item title="Settings" :prepend-icon="icon('mdi-cog')" />
+      </v-list>
+    </v-col>
+
+    <v-col cols="12" sm="6" lg="4">
+      <!-- Chip groups show radius and the tonal/outlined variants at a glance. -->
+      <v-chip-group v-model="pill" mandatory class="mb-2">
+        <v-chip v-for="item in filters" :key="item" :value="item" filter>
+          {{ item }}
+        </v-chip>
+      </v-chip-group>
+
+      <v-chip-group v-model="selectedTags" multiple column class="mb-4">
+        <v-chip
+          v-for="item in tags"
+          :key="item"
+          :value="item"
+          variant="outlined"
+        >
+          {{ item }}
+        </v-chip>
+      </v-chip-group>
+
+      <div class="d-flex flex-wrap align-center ga-4">
+        <div class="v-avatar-group d-flex">
+          <v-avatar
+            v-for="(color, index) in avatarColors"
+            :key="color"
+            :color="color"
+            size="40"
+            :class="{ 'ms-n3': index > 0 }"
           >
-            <template #append>
-              <v-chip v-if="item.badge" size="x-small">{{ item.badge }}</v-chip>
-            </template>
-          </v-list-item>
-          <v-divider class="my-2" />
-          <v-list-item title="Settings" :prepend-icon="icon('mdi-cog')" />
-        </v-list>
-      </v-col>
-
-      <v-col cols="12" md="4">
-        <!-- Chip groups show radius and the tonal/outlined variants at a glance. -->
-        <v-chip-group v-model="pill" mandatory class="mb-2">
-          <v-chip v-for="item in filters" :key="item" :value="item" filter>
-            {{ item }}
-          </v-chip>
-        </v-chip-group>
-
-        <v-chip-group v-model="selectedTags" multiple column class="mb-4">
-          <v-chip
-            v-for="item in tags"
-            :key="item"
-            :value="item"
-            variant="outlined"
-          >
-            {{ item }}
-          </v-chip>
-        </v-chip-group>
-
-        <div class="d-flex align-center ga-4">
-          <div class="v-avatar-group d-flex">
-            <v-avatar
-              v-for="(color, index) in avatarColors"
-              :key="color"
-              :color="color"
-              size="40"
-              :class="{ 'ms-n3': index > 0 }"
-            >
-              <span class="text-label-medium">{{ color[0]!.toUpperCase() }}</span>
-            </v-avatar>
-          </div>
-
-          <v-tooltip text="Tooltips inherit the theme radius" location="top">
-            <template #activator="{ props }">
-              <v-btn v-bind="props" variant="tonal" text="Hover me" />
-            </template>
-          </v-tooltip>
+            <span class="text-label-medium">{{ color[0]!.toUpperCase() }}</span>
+          </v-avatar>
         </div>
-      </v-col>
 
-      <v-col cols="12" md="4">
-        <v-timeline side="end" density="compact" truncate-line="both">
-          <v-timeline-item
-            v-for="item in timeline"
-            :key="item.title"
-            :dot-color="item.color"
-            :icon="item.icon"
-            size="small"
-          >
-            <div class="text-body-medium">{{ item.title }}</div>
-          </v-timeline-item>
-        </v-timeline>
-      </v-col>
-    </v-row>
-  </CardPreview>
+        <v-tooltip text="Tooltips inherit the theme radius" location="top">
+          <template #activator="{ props }">
+            <v-btn v-bind="props" variant="tonal" text="Hover me" />
+          </template>
+        </v-tooltip>
+      </div>
+    </v-col>
+
+    <v-col cols="12" lg="4">
+      <v-timeline side="end" density="compact" truncate-line="both">
+        <v-timeline-item
+          v-for="item in timeline"
+          :key="item.title"
+          :dot-color="item.color"
+          :icon="item.icon"
+          size="small"
+        >
+          <div class="text-body-medium">{{ item.title }}</div>
+        </v-timeline-item>
+      </v-timeline>
+    </v-col>
+  </v-row>
 </template>
