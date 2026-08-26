@@ -211,6 +211,23 @@
     background-color: rgb(var(--v-theme-surface));
   }
 
+  /* --------------------------------------------------- nested surfaces */
+
+  /**
+   * A card is the surface; what it wraps is content. Vuetify paints a list
+   * or a table with `theme-surface` of its own, which matches only while the
+   * card is painted the same colour — so under a theme that defaults cards
+   * to outlined or tonal, or gives them a treatment of their own, the inner
+   * block reads as a pale slab that stops where its content does instead of
+   * filling the card.
+   *
+   * Direct children only, so a list inside `v-card-text` or a nested card
+   * keeps whatever it was given, and an explicit `bg-` still wins.
+   */
+  & .v-card > :is(.v-list, .v-table):not([class*='bg-']) {
+    background: transparent;
+  }
+
   /* -------------------------------------------------------- border width */
 
   & :is(
@@ -253,6 +270,33 @@
   & :is(.v-menu, .v-dialog, .v-tooltip) > .v-overlay__content {
     border: var(--v-vw-overlay-border, none);
     box-shadow: var(--v-vw-overlay-shadow, revert-layer);
+  }
+
+  /**
+   * A relief theme paints outside the shape it lifts, and a chip group is a
+   * scroller: it clips to its content box, so the glow around the chips
+   * comes out sheared along a straight edge with a corner where the row
+   * ends. The room has to be inside the clip to do any good, so the themes
+   * that lift their controls say how much the relief needs and the scroller
+   * carries it as padding.
+   */
+  & .v-chip-group .v-slide-group__content {
+    padding: var(--v-vw-relief-inset, 0);
+  }
+
+  /**
+   * The timeline's connecting line is structure, not decoration — it is the
+   * only thing saying the items are one sequence, so it cannot be left to
+   * `--v-border-opacity` alone. The two relief themes hold that variable at
+   * 0.001 so no stray rule can draw an outline anywhere, and the line went
+   * with it; they raise this one instead and get the line back without a
+   * single border returning.
+   */
+  & :is(.v-timeline-divider__before, .v-timeline-divider__after) {
+    background: rgba(
+      var(--v-border-color),
+      var(--v-vw-timeline-line-opacity, var(--v-border-opacity))
+    );
   }
 
   & .v-tab__slider {

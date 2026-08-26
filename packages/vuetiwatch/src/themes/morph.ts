@@ -42,6 +42,10 @@ export const morph = defineTheme({
     variables: {
       'border-color': '#9AA7BC',
       'border-opacity': 0.001,
+      // The relief reaches past the shape it lifts — see core.css.
+      'vw-relief-inset': '7px',
+      // Borders are off, but the timeline line is structure — see core.css.
+      'vw-timeline-line-opacity': 0.28,
       'shadow-color': '#A3B1C6',
       'high-emphasis-opacity': 0.85,
       'medium-emphasis-opacity': 0.6,

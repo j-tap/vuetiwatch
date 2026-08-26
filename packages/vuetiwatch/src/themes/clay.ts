@@ -41,6 +41,10 @@ export const clay = defineTheme({
     variables: {
       'border-color': '#6C5CE7',
       'border-opacity': 0.001,
+      // The relief reaches past the shape it lifts — see core.css.
+      'vw-relief-inset': '7px',
+      // Borders are off, but the timeline line is structure — see core.css.
+      'vw-timeline-line-opacity': 0.28,
       'shadow-color': '#5A46B0',
       'high-emphasis-opacity': 0.9,
       'medium-emphasis-opacity': 0.62,

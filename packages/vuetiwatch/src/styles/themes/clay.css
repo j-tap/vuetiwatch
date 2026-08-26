@@ -26,6 +26,19 @@
       -2px -2px 5px rgba(255, 255, 255, 0.6);
   }
 
+  /**
+   * The lift is composed against this theme's own ground: a white
+   * highlight top-left, a dark shadow bottom-right. Inside a surface that
+   * paints its own colour — `color=` on a card, a coloured bar, a filled
+   * alert — the highlight has nothing to blend into and reads as a halo
+   * around the control, so the relief is dropped there and the control
+   * keeps its flat fill. Vuetify only emits `bg-*` when an author asked
+   * for a colour, so untouched surfaces are unaffected.
+   */
+  & [class*='bg-'] :is(.v-btn.v-btn, .v-chip.v-chip) {
+    box-shadow: none;
+  }
+
   & .v-btn:active:not(.v-btn--disabled) {
     box-shadow:
       4px 4px 10px rgba(var(--v-shadow-color), 0.16),
