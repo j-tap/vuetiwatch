@@ -1,6 +1,6 @@
 {
   "name": "vuetiwatch",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Free, plug-and-play themes for Vuetify 4 \u2014 a Bootswatch for Vuetify",
   "license": "MIT",
