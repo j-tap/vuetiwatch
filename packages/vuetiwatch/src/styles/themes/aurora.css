@@ -12,12 +12,36 @@
  * restyles the entire theme.
  */
 .v-theme--aurora {
-  /* The lit ground the glows sit on. */
+  /* The lit ground the glows sit on, now closed at the bottom by the third
+     colour of the gradient so the page is lit from every corner. */
   &.v-application {
     background-image:
       radial-gradient(60rem 40rem at 15% -10%, rgba(124, 92, 255, 0.16), transparent 60%),
-      radial-gradient(50rem 35rem at 95% 5%, rgba(0, 212, 255, 0.12), transparent 60%);
+      radial-gradient(50rem 35rem at 95% 5%, rgba(0, 212, 255, 0.12), transparent 60%),
+      radial-gradient(45rem 30rem at 50% 105%, rgba(255, 92, 170, 0.1), transparent 60%);
     background-attachment: fixed;
+  }
+
+  /**
+   * The aurora itself: a second field of light that drifts behind the
+   * content for half a minute at a time.
+   *
+   * Only `transform` is animated, so the whole thing lives on the
+   * compositor — the page never repaints for it. It is `position: fixed`
+   * and behind the content, which on a theme this dark means it shows
+   * through every translucent surface rather than over any of them.
+   */
+  &.v-application::before {
+    content: '';
+    position: fixed;
+    inset: -20%;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(35rem 28rem at 25% 25%, rgba(124, 92, 255, 0.14), transparent 60%),
+      radial-gradient(30rem 24rem at 75% 40%, rgba(0, 212, 255, 0.1), transparent 60%),
+      radial-gradient(28rem 22rem at 55% 85%, rgba(255, 92, 170, 0.09), transparent 60%);
+    animation: vw-aurora-drift 34s ease-in-out infinite alternate;
   }
 
   & .v-card.v-card--variant-elevated {
@@ -30,7 +54,7 @@
   }
 
   /* An iridescent rim, drawn in the border box only. */
-  & :is(.v-card, .v-alert)::after {
+  & :is(.v-card, .v-alert, :is(.v-list, .v-sheet, .v-banner):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *))::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -77,10 +101,131 @@
     box-shadow: 0 0 0 1px rgba(155, 140, 255, 0.16), 0 24px 64px rgba(0, 0, 0, 0.7);
   }
 
-  /* The display sizes carry the gradient; body text stays legible. */
-  & [class*='-display-'] {
+  /* Progress is the one element that is literally a moving gradient. */
+  & :is(.v-progress-linear__determinate, .v-progress-linear__indeterminate) {
+    background-image: var(--v-vw-gradient);
+  }
+
+  /**
+   * Tonal surfaces are a flat wash of one colour in stock Vuetify, which on
+   * this theme reads as the one place the palette gave up. The underlay is
+   * a separate element precisely so it can be repainted.
+   */
+  & :is(.v-alert__underlay, .v-chip__underlay) {
+    background-image: var(--v-vw-gradient);
+    opacity: 0.2;
+  }
+
+  /* The chrome is lit from the leading edge, like the ground under it. */
+  & :is(.v-app-bar, .v-toolbar, .v-navigation-drawer) {
+    background-image: linear-gradient(
+      100deg,
+      rgba(124, 92, 255, 0.16),
+      rgba(0, 212, 255, 0.06) 55%,
+      transparent
+    );
+  }
+
+  /**
+   * A rule that fades out at both ends rather than stopping dead.
+   *
+   * `border-image` rather than a background: `VDivider` is an `<hr>` pinned
+   * at `max-height: 0` and drawn entirely by its top border, so a
+   * background has no box to paint in. The image lands on the one edge
+   * that has a width, and a divider is straight, so the usual objection to
+   * `border-image` — that it cannot follow a rounded corner — does not
+   * apply here. The opacity is baked into the gradient because Vuetify
+   * fades the whole element by `--v-border-opacity`.
+   */
+  & .v-divider:not(.v-divider--vertical) {
+    opacity: 1;
+    border-image: linear-gradient(
+      90deg,
+      transparent,
+      rgba(155, 140, 255, 0.45) 25%,
+      rgba(0, 212, 255, 0.35) 75%,
+      transparent
+    ) 1;
+  }
+
+  /* Only the bottom border carries a width, so the image paints there
+     alone — and a table header is square, so the corner problem above
+     never comes up. */
+  & :is(.v-table thead th, .v-data-table__th) {
+    border-bottom: 1px solid transparent;
+    border-image: var(--v-vw-gradient) 1;
+  }
+
+  /* The active row is lit from its leading edge instead of barred. */
+  & .v-list-item.v-list-item--active {
+    background-image: linear-gradient(
+      90deg,
+      rgba(124, 92, 255, 0.22),
+      transparent 45%
+    );
+  }
+
+  & .v-badge__badge {
+    background-image: var(--v-vw-gradient);
+  }
+
+  /* A focused field gets the same rim the cards wear. */
+  & .v-field.v-field--variant-solo-filled.v-field--focused::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: var(--v-vw-border-width);
+    background: var(--v-vw-gradient);
+    opacity: 0.7;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* The display and headline sizes carry the gradient; body text stays
+     legible, which is the whole reason the line is drawn here. */
+  & :is([class*='-display-'], [class*='-headline-large']) {
     background: var(--v-vw-gradient);
     background-clip: text;
     color: transparent;
+  }
+
+  /* The dot is a bead of the same light the line carries. */
+  & .v-timeline-divider__dot {
+    background-image: var(--v-vw-gradient);
+    box-shadow: 0 0 16px rgba(124, 92, 255, 0.55);
+  }
+
+  & .v-timeline-divider__inner-dot {
+    background-color: transparent !important;
+  }
+
+  /* Lit from its own corner, like the cards. */
+  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
+    background-image: radial-gradient(
+      36rem 18rem at 0% 0%,
+      rgba(124, 92, 255, 0.14),
+      transparent 70%
+    );
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  }
+}
+
+@keyframes vw-aurora-drift {
+  from {
+    transform: translate3d(-3%, -2%, 0) scale(1.06);
+  }
+
+  to {
+    transform: translate3d(3%, 2%, 0) scale(1.14);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v-theme--aurora.v-application::before {
+    animation: none;
   }
 }

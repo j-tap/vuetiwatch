@@ -3,6 +3,7 @@ import type { Component } from 'vue'
 import DemoButtons from './DemoButtons.vue'
 import DemoCards from './DemoCards.vue'
 import DemoDialog from './DemoDialog.vue'
+import DemoExtras from './DemoExtras.vue'
 import DemoFeedback from './DemoFeedback.vue'
 import DemoForm from './DemoForm.vue'
 import DemoNavbars from './DemoNavbars.vue'
@@ -87,5 +88,12 @@ export const demoSections: DemoSection[] = [
     subtitle: 'Data table, breadcrumbs, pagination and panels',
     icon: 'mdi-table',
     component: DemoTable,
+  },
+  {
+    id: 'extras',
+    title: 'Less travelled',
+    subtitle: 'Sheets, steppers, pickers — what a theme forgets to cover',
+    icon: 'mdi-shape-outline',
+    component: DemoExtras,
   },
 ]

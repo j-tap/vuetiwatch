@@ -57,6 +57,18 @@ export const calm = defineTheme({
       'vw-heading-weight': '500',
       'vw-heading-tracking': '-0.01em',
       'vw-tab-slider-height': '2px',
+
+      // Slow enough that nothing ever catches the eye.
+      'vw-motion-duration': '320ms',
+      'vw-press-scale': '0.99',
+      'vw-hover-lift': '2px',
+      'vw-pop-scale': '1.08',
+      'vw-pop-duration': '280ms',
+      'vw-theme-transition': '560ms',
+
+      // Barely there, like everything else in this theme.
+      'vw-timeline-line': 'rgba(var(--v-border-color), 0.5)',
+      'vw-timeline-line-width': '1px',
     },
   },
   defaults: [

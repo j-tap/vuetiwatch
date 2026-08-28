@@ -20,9 +20,20 @@ const targets = browserslistToTargets(browserslist())
 // `src/registry.ts` only ever imports types from Vuetify, so the compiled
 // module loads in plain Node with no peer dependency present.
 const { themeList } = await import(pathToFileURL(resolve(outDir, 'registry.js')).href)
-const themeClasses = themeList.map(theme => theme.name).join(', .v-theme--')
 
-const expand = code => code.toString().replaceAll('VUETIWATCH_THEMES', themeClasses)
+// A theme with `meta.stock` renders as stock Vuetify, so the core layer has
+// to miss it by class and by attribute both — see the head of core.css.
+const themed = themeList.filter(theme => !theme.meta.stock)
+const stock = themeList.filter(theme => theme.meta.stock)
+const themeClasses = themed.map(theme => theme.name).join(', .v-theme--')
+const stockAttrs = stock.map(theme => `[data-vuetiwatch="${theme.name}"]`).join(', ')
+
+const expand = code => code
+  .toString()
+  // With no stock theme the guard is dropped rather than left empty, which
+  // would be a parse error.
+  .replaceAll(':not(VUETIWATCH_STOCK)', stockAttrs ? `:not(${stockAttrs})` : '')
+  .replaceAll('VUETIWATCH_THEMES', themeClasses)
 
 /** Resolve and parse one import graph; minify from that result, not a second pass. */
 const build = filename => {

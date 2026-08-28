@@ -11,6 +11,8 @@ export const classic = defineTheme({
     description: 'Vuetify as it ships. Material Design, Roboto, familiar elevation.',
     dark: false,
     iconStyle: 'filled',
+    // The control theme: the core layer skips it entirely — see `stock`.
+    stock: true,
     swatch: ['#FFFFFF', '#EEEEEE', '#1867C0', '#48A9A6'],
     fonts: ['Roboto'],
   },
@@ -18,6 +20,7 @@ export const classic = defineTheme({
     dark: false,
     variables: {
       'font-body': "'Roboto', system-ui, sans-serif",
+
     },
   },
 })

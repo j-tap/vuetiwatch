@@ -60,6 +60,17 @@ export const sketchy = defineTheme({
       'vw-btn-tracking': '0.02em',
       'vw-btn-weight': '400',
       'vw-tab-slider-height': '3px',
+
+      // Drawn frame by frame, like the rest of it.
+      'vw-motion-duration': '120ms',
+      'vw-motion-ease': 'steps(2, end)',
+      'vw-press-scale': '0.97',
+      'vw-pop-scale': '1.25',
+      'vw-pop-duration': '200ms',
+
+      // Dashes of uneven length, as if drawn in one pass.
+      'vw-timeline-line': 'repeating-linear-gradient(to bottom, rgba(var(--v-border-color), 0.7) 0 7px, transparent 7px 11px, rgba(var(--v-border-color), 0.7) 11px 15px, transparent 15px 23px)',
+      'vw-timeline-line-width': '2px',
     },
   },
   defaults: [

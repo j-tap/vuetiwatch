@@ -46,6 +46,18 @@
   }
 
 
+
+  /* The dot is a block on a beam. */
+  & .v-timeline-divider__dot {
+    border: var(--v-vw-border-width) solid rgb(var(--v-shadow-color));
+    box-shadow: var(--vw-brut-offset) var(--vw-brut-offset) 0 rgb(var(--v-shadow-color));
+  }
+
+  /* A block on the page, with the shadow that is a second shape. */
+  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
+    border: var(--v-vw-border-width) solid rgb(var(--v-shadow-color));
+    box-shadow: var(--vw-brut-offset) var(--vw-brut-offset) 0 rgb(var(--v-shadow-color));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

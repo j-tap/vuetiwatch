@@ -63,4 +63,18 @@
     border-radius: 4px;
     box-shadow: var(--vw-morph-raised);
   }
+
+  /* The timeline is the same groove as the inputs, stood on end. */
+  & :is(.v-timeline-divider__before, .v-timeline-divider__after) {
+    box-shadow: var(--vw-morph-pressed);
+  }
+
+  & .v-timeline-divider__dot {
+    box-shadow: var(--vw-morph-raised);
+  }
+
+  /* Raised out of the same sheet as everything else. */
+  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
+    box-shadow: var(--vw-morph-raised);
+  }
 }

@@ -26,6 +26,15 @@ export interface VuetiwatchMeta {
    */
   iconStyle: 'outline' | 'filled'
   /**
+   * Opts the theme out of the Vuetiwatch core stylesheet, so it renders as
+   * stock Vuetify and nothing in this package reaches it.
+   *
+   * Only `classic` sets it. The set needs one theme that is the control —
+   * a reference point you can switch to and see exactly what the others
+   * added — and that only means something if it is untouched.
+   */
+  stock?: boolean
+  /**
    * Web fonts the theme expects. The package never loads them for you —
    * add them yourself (Google Fonts, Fontsource, self-hosted) for the full
    * look, or skip it and fall back to the system stack.

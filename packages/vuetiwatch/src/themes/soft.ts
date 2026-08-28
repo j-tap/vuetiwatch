@@ -50,6 +50,17 @@ export const soft = defineTheme({
       'vw-btn-transform': 'none',
       'vw-btn-tracking': '0',
       'vw-btn-weight': '700',
+
+      // Unhurried, with a little give.
+      'vw-motion-duration': '250ms',
+      'vw-press-scale': '0.97',
+      'vw-hover-lift': '2px',
+      'vw-pop-scale': '1.22',
+      'vw-pop-duration': '260ms',
+
+      // Thick and pastel, matching the radii.
+      'vw-timeline-line': 'rgba(var(--v-theme-primary), 0.25)',
+      'vw-timeline-line-width': '5px',
     },
   },
   defaults: [

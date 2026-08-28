@@ -55,6 +55,13 @@
     backdrop-filter: blur(6px);
     border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
   }
+
+  /* Frosted, like every other surface that holds content. */
+  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
+    background-color: rgba(var(--v-theme-surface), 0.62);
+    backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+  }
 }
 
 @media (prefers-reduced-transparency: reduce) {

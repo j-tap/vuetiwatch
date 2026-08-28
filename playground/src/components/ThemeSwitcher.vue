@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { useTheme } from 'vuetify'
-import { themeList } from 'vuetiwatch'
+import { themeList, useVuetiwatch } from 'vuetiwatch'
 
 import ThemeSwatch from '@/components/ThemeSwatch.vue'
 
@@ -9,6 +9,9 @@ const STORAGE_KEY = 'vuetiwatch:theme'
 const QUERY_KEY = 'theme'
 
 const theme = useTheme()
+// Switching through the plugin rather than through Vuetify wraps the change
+// in a view transition, so the new theme wipes in from the item clicked.
+const vuetiwatch = useVuetiwatch()
 const current = computed(() =>
   themeList.find(item => item.name === theme.global.name.value) ?? themeList[0],
 )
@@ -16,8 +19,8 @@ const current = computed(() =>
 const isKnown = (name: string | null): name is string =>
   !!name && themeList.some(item => item.name === name)
 
-function select (name: string) {
-  theme.change(name)
+function select (name: string, event?: MouseEvent | KeyboardEvent) {
+  vuetiwatch.change(name, event)
   localStorage.setItem(STORAGE_KEY, name)
 
   // Keep the URL shareable — ?theme=neon lands on the theme directly.
@@ -57,7 +60,7 @@ onMounted(() => {
         :title="item.meta.title"
         :subtitle="item.meta.description"
         lines="two"
-        @click="select(item.name)"
+        @click="select(item.name, $event)"
       >
         <template #prepend>
           <ThemeSwatch

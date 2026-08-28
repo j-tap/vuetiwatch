@@ -36,7 +36,7 @@ const alerts = [
 
       <p class="text-label-medium text-medium-emphasis mb-2">Progress</p>
       <v-progress-linear indeterminate color="primary" class="mb-3" />
-      <v-progress-linear model-value="62" color="primary" height="8" rounded class="mb-6" />
+      <v-progress-linear model-value="62" color="primary" height="8" class="mb-6" />
 
       <p class="text-label-medium text-medium-emphasis mb-2">Rating</p>
       <v-rating v-model="rating" hover />

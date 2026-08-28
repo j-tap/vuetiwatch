@@ -7,14 +7,13 @@
     box-shadow:
       0 2px 4px rgba(var(--v-theme-primary), 0.06),
       0 12px 28px rgba(var(--v-theme-primary), 0.1);
-    transition: box-shadow 0.25s ease, transform 0.25s ease;
+    transition: box-shadow var(--v-vw-motion-duration) var(--v-vw-motion-ease);
   }
 
   & .v-card.v-card--variant-elevated.v-card--link:hover {
     box-shadow:
       0 4px 8px rgba(var(--v-theme-primary), 0.08),
       0 20px 40px rgba(var(--v-theme-primary), 0.14);
-    transform: translateY(-2px);
   }
 
   & .v-btn.v-btn--variant-flat:not(.v-btn--disabled) {
@@ -50,14 +49,11 @@
   & .v-tabs--inset .v-tab__slider {
     box-shadow: 0 2px 10px rgba(var(--v-theme-primary), 0.2);
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .v-theme--soft .v-card.v-card--variant-elevated {
-    transition: none;
-  }
-
-  .v-theme--soft .v-card.v-card--variant-elevated.v-card--link:hover {
-    transform: none;
+  /* The same diffuse, tinted lift the cards get. */
+  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
+    box-shadow:
+      0 2px 4px rgba(var(--v-theme-primary), 0.06),
+      0 12px 28px rgba(var(--v-theme-primary), 0.1);
   }
 }

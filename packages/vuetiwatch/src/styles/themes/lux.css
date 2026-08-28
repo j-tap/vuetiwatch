@@ -28,4 +28,8 @@
 
 
 
+  /* A hairline, like every other edge here. */
+  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
+    border: var(--v-vw-border-width) solid rgba(var(--v-border-color), var(--v-border-opacity));
+  }
 }

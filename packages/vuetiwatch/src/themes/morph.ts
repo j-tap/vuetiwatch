@@ -44,8 +44,6 @@ export const morph = defineTheme({
       'border-opacity': 0.001,
       // The relief reaches past the shape it lifts — see core.css.
       'vw-relief-inset': '7px',
-      // Borders are off, but the timeline line is structure — see core.css.
-      'vw-timeline-line-opacity': 0.28,
       'shadow-color': '#A3B1C6',
       'high-emphasis-opacity': 0.85,
       'medium-emphasis-opacity': 0.6,
@@ -60,6 +58,16 @@ export const morph = defineTheme({
       'vw-btn-tracking': '0.01em',
       'vw-btn-weight': '700',
       'vw-tab-slider-height': '4px',
+
+      // The relief does the talking; the movement only has to not contradict it.
+      'vw-motion-duration': '160ms',
+      'vw-press-scale': '0.985',
+      'vw-pop-scale': '1.15',
+      'vw-pop-duration': '220ms',
+
+      // The same groove the fields are, turned on its side.
+      'vw-timeline-line': 'rgb(var(--v-theme-background))',
+      'vw-timeline-line-width': '8px',
     },
   },
   defaults: [

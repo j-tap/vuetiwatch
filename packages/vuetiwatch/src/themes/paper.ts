@@ -54,6 +54,17 @@ export const paper = defineTheme({
       'vw-btn-weight': '600',
       'vw-heading-tracking': '-0.01em',
       'vw-tab-slider-height': '3px',
+
+      // Editorial: quick and flat, nothing bounces off the page.
+      'vw-motion-duration': '140ms',
+      'vw-motion-ease': 'ease-out',
+      'vw-press-scale': '0.99',
+      'vw-pop-scale': '1.1',
+      'vw-pop-duration': '180ms',
+
+      // A line of ink dots, the way a printed rule breaks up.
+      'vw-timeline-line': 'repeating-linear-gradient(to bottom, rgba(var(--v-border-color), 0.55) 0 2px, transparent 2px 6px)',
+      'vw-timeline-line-width': '1px',
     },
   },
   defaults: [

@@ -10,8 +10,12 @@
  * The scope is either a Vuetiwatch theme class or the `data-vuetiwatch`
  * attribute `createVuetiwatch()` sets on `<html>` — the latter is what
  * extends this layer to themes you build yourself with `defineTheme()`.
- * `VUETIWATCH_THEMES` is a placeholder: the build expands it into one class
- * per registered theme, so this list can never drift from the registry.
+ * `VUETIWATCH_THEMES` and `VUETIWATCH_STOCK` are placeholders: the build
+ * expands the first into one class per registered theme and the second into
+ * the attribute value of every theme that declared `meta.stock`, so neither
+ * list can drift from the registry. A stock theme is excluded twice over —
+ * by class and by attribute — which is what makes `classic` a control
+ * rather than another theme.
  * Importing this file therefore cannot affect an app that is not running a
  * Vuetiwatch theme, and every value falls back to the stock Vuetify one, so
  * a theme only pays for what it overrides.
@@ -22,7 +26,7 @@
  * Authored with CSS nesting; the published file is flattened at build time.
  */
 
-:is([data-vuetiwatch], .v-theme--VUETIWATCH_THEMES) {
+:is([data-vuetiwatch]:not(VUETIWATCH_STOCK), .v-theme--VUETIWATCH_THEMES) {
   /* -------------------------------------------------------------- radius */
 
   /**
@@ -35,6 +39,10 @@
    * those children individually turns a joined group into separate pills
    * and a full-height toolbar button into a rounded slab.
    */
+  & .v-btn.v-btn--icon:not([class*='rounded-'], .v-btn-group *) {
+    border-radius: var(--v-vw-radius-icon-btn, 50%);
+  }
+
   & .v-btn.v-btn:not(
     .v-btn--icon,
     .v-btn--rounded,
@@ -44,6 +52,57 @@
     .v-tabs *
   ) {
     border-radius: var(--v-vw-radius-btn, var(--v-vw-radius, 4px));
+  }
+
+  /**
+   * A list standing on its own is a panel and takes the panel corner. One
+   * inside a card, a drawer, a menu or another list is not: that surface
+   * owns the corner already, and rounding the inner box would clip its own
+   * rows for nothing. Vuetify ships `.v-list` at radius 0 with no edge at
+   * all, which is why a bare list was the one surface that stayed stock
+   * whatever theme was running.
+   */
+  & :is(.v-list, .v-sheet, .v-banner, .v-table, .v-skeleton-loader):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
+    border-radius: var(--v-vw-radius-lg, var(--v-vw-radius, 4px));
+  }
+
+  /**
+   * `.v-sheet` is Vuetify's surface primitive, so this one selector reaches
+   * the stepper and the pickers as well — components with enough layout of
+   * their own that no theme had thought to name them.
+   */
+
+  /**
+   * A button group is one control, so the corner belongs to the group and
+   * not to the buttons inside it — which is why the rule above steps over
+   * `.v-btn-group *`. Without this the group kept Vuetify's 8px while every
+   * button in the theme was square.
+   */
+  & :is(.v-btn-group.v-btn-group, .v-btn-toggle.v-btn-toggle):not([class*='rounded-']) {
+    border-radius: var(--v-vw-radius-btn, var(--v-vw-radius, 4px));
+  }
+
+  /* A badge is a very small chip and rounds like one. */
+  & .v-badge__badge {
+    border-radius: var(--v-vw-radius-chip, 9999px);
+  }
+
+  /**
+   * Avatars and timeline dots are circles in Material and stay circles by
+   * default. They get their own knobs because a theme with no curve
+   * anywhere — `brutalist`, `neon` — was still drawing two of them.
+   */
+  & .v-avatar.v-avatar:not([class*='rounded-']) {
+    border-radius: var(--v-vw-radius-avatar, 50%);
+  }
+
+  & :is(.v-timeline-divider__dot, .v-timeline-divider__inner-dot) {
+    border-radius: var(--v-vw-radius-dot, 50%);
+  }
+
+  /* The `rounded` prop is the pill; everything else follows the theme. */
+  & .v-progress-linear:not(.v-progress-linear--rounded, [class*='rounded-']) {
+    border-radius: var(--v-vw-radius, 0);
   }
 
   /**
@@ -234,7 +293,9 @@
     .v-btn--variant-outlined,
     .v-card--variant-outlined,
     .v-alert--variant-outlined,
-    .v-chip--variant-outlined
+    .v-chip--variant-outlined,
+    .v-list--border,
+    .v-sheet--border
   ) {
     border-width: var(--v-vw-border-width, thin);
   }
@@ -251,10 +312,16 @@
 
   /* ---------------------------------------------------- button typography */
 
+  /**
+   * The fallbacks are Vuetify 4's own values, not Material's older ones: v4
+   * dropped the uppercase button and the wide tracking that came with it,
+   * and a fallback that reintroduced them would be this file changing a
+   * theme that never asked it to.
+   */
   & .v-btn.v-btn {
     font-weight: var(--v-vw-btn-weight, 500);
-    letter-spacing: var(--v-vw-btn-tracking, 0.0892857143em);
-    text-transform: var(--v-vw-btn-transform, uppercase);
+    letter-spacing: var(--v-vw-btn-tracking, 0.0071428571em);
+    text-transform: var(--v-vw-btn-transform, none);
   }
 
   /* ------------------------------------------------- shared theme surfaces */
@@ -293,10 +360,28 @@
    * single border returning.
    */
   & :is(.v-timeline-divider__before, .v-timeline-divider__after) {
-    background: rgba(
-      var(--v-border-color),
-      var(--v-vw-timeline-line-opacity, var(--v-border-opacity))
+    background: var(
+      --v-vw-timeline-line,
+      rgba(var(--v-border-color), var(--v-vw-timeline-line-opacity, var(--v-border-opacity)))
     );
+  }
+
+  /**
+   * The whole background is a knob, not just its opacity, because a line is
+   * the one place a theme can say something with almost nothing: a
+   * repeating gradient makes it dashed, `--v-vw-gradient` makes it
+   * iridescent, a flat colour makes it a rule.
+   *
+   * The thickness is set on the segment rather than through Vuetify's
+   * `--v-timeline-line-thickness`, which the component writes inline from
+   * its own prop and would win.
+   */
+  &.v-application .v-timeline--vertical :is(.v-timeline-divider__before, .v-timeline-divider__after) {
+    width: var(--v-vw-timeline-line-width, var(--v-timeline-line-thickness));
+  }
+
+  &.v-application .v-timeline--horizontal :is(.v-timeline-divider__before, .v-timeline-divider__after) {
+    height: var(--v-vw-timeline-line-width, var(--v-timeline-line-thickness));
   }
 
   & .v-tab__slider {
@@ -316,6 +401,70 @@
    */
   & .v-list-item.v-list-item--active {
     border-inline-start: var(--v-vw-list-bar, 0) solid var(--v-vw-list-bar-color, currentColor);
+  }
+
+  /* -------------------------------------------------------------- motion */
+
+  /**
+   * Movement is the fourth axis a theme travels on, after colour, shape and
+   * type — `brutalist` snapping in two steps and `lux` easing over a
+   * quarter-second are as different as their palettes, and until now every
+   * theme moved like stock Vuetify unless it hand-rolled a rule.
+   *
+   * Themes state a character in four values and core spends them on the
+   * same interactions everywhere. Every selector here is wrapped in
+   * `:where()`, so its specificity is the theme class alone and any theme
+   * that wants its own move — brutalist sliding into its shadow, candy
+   * squashing — overrides this without a fight.
+   *
+   * Only `transform` is animated: it runs on the compositor, so none of
+   * this can cost a layout pass however deep the tree.
+   */
+  & :where(.v-btn, .v-chip, .v-list-item, .v-card, .v-tab) {
+    transition: transform var(--v-vw-motion-duration, 160ms) var(--v-vw-motion-ease, cubic-bezier(0.2, 0, 0.2, 1));
+  }
+
+  & :where(.v-btn, .v-chip--link, .v-list-item--link):not(.v-btn--disabled):active {
+    transform:
+      translateY(var(--v-vw-press-shift, 0px))
+      scale(var(--v-vw-press-scale, 0.98));
+  }
+
+  & :where(.v-card--link):hover {
+    transform: translateY(calc(-1 * var(--v-vw-hover-lift, 0px)));
+  }
+
+  /**
+   * The pop: a control that has just been switched on overshoots its own
+   * size and settles back, which is the whole reason a like button feels
+   * like anything at all.
+   *
+   * It rides on the state classes Vuetify already toggles, so it costs no
+   * script and no markup. The tradeoff is that a control rendered already
+   * checked pops once on mount — a form arriving with its defaults ticking
+   * in, which reads as intent rather than as a glitch. A theme that would
+   * rather not can set `vw-pop-duration: 0ms`.
+   */
+  & :where(
+    .v-selection-control--dirty .v-selection-control__input > .v-icon,
+    .v-btn--active > .v-btn__content > .v-icon,
+    .v-rating__item--full .v-icon
+  ) {
+    animation: vw-pop var(--v-vw-pop-duration, 220ms) var(--v-vw-motion-ease, cubic-bezier(0.2, 0, 0.2, 1));
+  }
+
+  /* --------------------------------------------------------------- focus */
+
+  /**
+   * Vuetify marks focus with a wash of `primary` at low opacity, which
+   * disappears on a dark surface and on any element already carrying a
+   * colour. A ring does not: it is drawn outside the shape, so it survives
+   * every background, and it is the one piece of the interface that has to
+   * work for someone who never touches a mouse.
+   */
+  & :where(.v-btn, .v-tab, .v-chip, .v-list-item, .v-selection-control__input):focus-visible {
+    outline: var(--v-vw-focus-ring, 2px solid rgb(var(--v-theme-primary)));
+    outline-offset: var(--v-vw-focus-offset, 2px);
   }
 
   /* ------------------------------------------------------------ headings */
@@ -352,4 +501,68 @@
     text-decoration: var(--v-vw-link-decoration, underline);
     text-underline-offset: 0.15em;
   }
+}
+
+@keyframes vw-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(var(--v-vw-pop-scale, 1.18));
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/**
+ * One switch for every theme at once: the tokens themselves go to zero, so
+ * anything driven by them stops moving — including a theme built with
+ * `defineTheme()` that never wrote a media query of its own.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :is([data-vuetiwatch]:not(VUETIWATCH_STOCK), .v-theme--VUETIWATCH_THEMES) {
+    --v-vw-motion-duration: 1ms;
+    --v-vw-pop-duration: 1ms;
+    --v-vw-press-scale: 1;
+    --v-vw-press-shift: 0px;
+    --v-vw-hover-lift: 0px;
+    --v-vw-theme-transition: 0ms;
+  }
+}
+
+/**
+ * Theme switching, as a transition rather than a jump.
+ *
+ * `createVuetiwatch()` mirrors the active theme onto `<html>`, which is the
+ * same element the view-transition pseudo-elements hang off — so these
+ * rules reach exactly the documents running a Vuetiwatch theme and nothing
+ * else. The plugin writes the click coordinates into `--vw-origin-*` before
+ * it starts the transition, so the new theme opens from the switch the user
+ * actually pressed; with no event to read, it opens from the centre.
+ *
+ * The old snapshot is held still on purpose. Cross-fading both halves turns
+ * two legible screens into one muddy one, while wiping the new theme over a
+ * frozen old one keeps every edge crisp for the whole animation.
+ */
+@keyframes vw-theme-wipe {
+  from {
+    clip-path: circle(0% at var(--vw-origin-x, 50%) var(--vw-origin-y, 50%));
+  }
+
+  to {
+    clip-path: circle(150% at var(--vw-origin-x, 50%) var(--vw-origin-y, 50%));
+  }
+}
+
+html[data-vuetiwatch]::view-transition-old(root) {
+  animation: none;
+}
+
+html[data-vuetiwatch]::view-transition-new(root) {
+  animation: vw-theme-wipe
+    var(--v-vw-theme-transition, 420ms)
+    var(--v-vw-motion-ease, cubic-bezier(0.2, 0, 0.2, 1));
 }

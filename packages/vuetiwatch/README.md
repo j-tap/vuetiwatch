@@ -12,8 +12,8 @@ is to Bootstrap.
 **[See all sixteen themes →](https://j-tap.github.io/vuetiwatch/)**
 
 Vuetify ships one look. Vuetiwatch ships sixteen, and they differ in more
-than hue: radius, border weight, density, component variants, typography and
-icons all move together.
+than hue: radius, border weight, density, component variants, typography,
+icons and motion all move together.
 
 ```sh
 npm i vuetiwatch      # or: bun add / yarn add / pnpm add
@@ -39,6 +39,10 @@ npm i vuetiwatch      # or: bun add / yarn add / pnpm add
 | `darkGlass` | dark | Frosted translucent surfaces on a deep violet ground |
 | `aurora` | dark | Iridescent gradients on near-black — the showcase theme |
 | `neon` | dark | Terminal black, cyan and magenta glow, zero radius, monospace headings |
+
+`classic` is the control. It opts out of the core stylesheet entirely — not
+one rule in this package matches a page running it — so switching to it
+shows exactly what the other fifteen add.
 
 ## How to install and apply a theme in Vuetify 4
 
@@ -79,26 +83,48 @@ treatment.
 
 The plugin swaps Vuetify's **global component defaults** when the theme
 changes, since those are global rather than per-theme. Your own
-`createVuetify({ defaults })` is preserved; theme defaults layer on top.
+`createVuetify({ defaults })` is preserved; theme defaults layer on top. It
+also exposes `useVuetiwatch()` — see [switching themes](#switching-themes) —
+and accepts `defaults`, `attribute` and `transitions` to turn any of it off.
 
 ### Switching themes
 
-Standard Vuetify:
+Vuetify's own `theme.change()` works as it always did. The plugin adds one
+thing on top of it:
 
 ```vue
 <script setup lang="ts">
-import { useTheme } from 'vuetify'
-import { themeList } from 'vuetiwatch'
+import { useVuetiwatch } from 'vuetiwatch'
 
-const theme = useTheme()
+const { themes, current, change } = useVuetiwatch()
 </script>
 
 <template>
-  <button v-for="t in themeList" :key="t.name" @click="theme.change(t.name)">
+  <button v-for="t in themes" :key="t.name" @click="change(t.name, $event)">
     {{ t.meta.title }}
   </button>
 </template>
 ```
+
+Pass the event and the new theme opens as a circle from the control that was
+pressed, through the View Transitions API — Baseline since October 2025.
+Where the API is missing, where the visitor asked for reduced motion, or
+where you passed `transitions: false`, the same call switches instantly, so
+it is always safe to use. Each theme sets its own pace through
+`vw-theme-transition`: `neon` repaints in 180 ms, `calm` takes 560.
+
+### Motion
+
+Movement is the fourth axis these themes travel on, after colour, shape and
+type. `brutalist` snaps in two steps, `lux` eases over a quarter-second,
+`candy` overshoots and settles — and a checkbox, a toggle button or a rating
+star pops when it turns on, the way a like button does.
+
+None of it costs a byte of JavaScript: themes state a character in a handful
+of variables and the core layer spends it on the same interactions
+everywhere. Only `transform` is animated, so it stays on the compositor.
+`prefers-reduced-motion: reduce` zeroes the variables themselves in one
+place, which covers every theme at once — including one you wrote yourself.
 
 ### Fonts
 
@@ -114,7 +140,7 @@ fallback, so skipping this degrades gracefully rather than breaking.
 ### Shipping only a few themes
 
 Pass just those to the plugin and import their stylesheets instead of the
-combined one. A single-theme app drops from about 10.5 kB gzipped to 3.3 kB.
+combined one. A single-theme app drops from about 12.3 kB gzipped to 4.1 kB.
 
 ```ts
 import { createVuetiwatch, paper } from 'vuetiwatch'
@@ -173,23 +199,32 @@ Vuetify's own, it reads:
 
 | Variable | Default | Effect |
 | --- | --- | --- |
-| `vw-radius` | `4px` | Fields, alerts, lists, menus, snackbars, slider track |
-| `vw-radius-btn` | `vw-radius` | Buttons only, for themes whose controls are capsules |
+| `vw-radius` | `4px` | Fields, alerts, lists, menus, snackbars, slider track, progress bars |
+| `vw-radius-btn` | `vw-radius` | Buttons and button groups, for themes whose controls are capsules |
 | `vw-radius-lg` | `vw-radius` | Cards, tables, expansion panels |
-| `vw-radius-chip` | `9999px` | Chips |
+| `vw-radius-chip` | `9999px` | Chips and badges |
 | `vw-radius-thumb` | `50%` | Slider thumb |
+| `vw-radius-icon-btn` | `50%` | Icon buttons, for themes with no curve anywhere |
+| `vw-radius-avatar` / `-dot` | `50%` | Avatars, and the dot on a timeline |
 | `vw-border-width` | `thin` | Outlined variants and field outlines |
 | `vw-btn-weight` / `-tracking` / `-transform` | Vuetify's | Button typography |
 | `vw-heading-weight` / `-tracking` / `-transform` | Vuetify's | Headings and the display / headline / title-large scale |
 | `vw-th-weight` / `-tracking` / `-transform` | Vuetify's | Table headers |
 | `vw-tab-slider-height` | `2px` | Active tab indicator |
-| `vw-timeline-line-opacity` | `border-opacity` | Timeline connector, for themes that hold borders at zero |
+| `vw-timeline-line` / `-width` | hairline | The timeline connector — any background, so a repeating gradient makes it dashed |
+| `vw-timeline-line-opacity` | `border-opacity` | The connector's fade, when `vw-timeline-line` is left alone |
 | `vw-relief-inset` | `0` | Padding inside chip groups, room for controls that lift |
 | `vw-overlay-shadow` / `-border` | Vuetify's | Menus, dialogs and tooltips |
 | `vw-list-bar` / `-color` | `0` | Accent bar on the active list item, leading edge |
 | `vw-pagination-active-color` / `-opacity` | Vuetify's | The current page |
 | `vw-link-decoration` | `underline` | Bare `<a>` elements |
 | `font-body` / `font-heading` | Roboto | Native to Vuetify 4 |
+| `vw-motion-duration` / `-ease` | `160ms` / standard | Press, hover lift, tab slider |
+| `vw-press-scale` / `-shift` | `0.98` / `0` | How far a control squashes and sinks under a press |
+| `vw-hover-lift` | `0` | How far a linked card rises on hover |
+| `vw-pop-scale` / `-duration` | `1.18` / `220ms` | The overshoot when a checkbox, toggle or star turns on |
+| `vw-focus-ring` / `-offset` | `2px solid primary` / `2px` | `:focus-visible` on buttons, tabs, chips, list items |
+| `vw-theme-transition` | `420ms` | The wipe when `change()` switches theme |
 
 An explicit `rounded` prop always wins over `vw-radius`.
 

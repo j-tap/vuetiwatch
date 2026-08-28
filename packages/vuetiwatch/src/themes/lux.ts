@@ -58,6 +58,20 @@ export const lux = defineTheme({
       'vw-list-bar': '2px',
       'vw-list-bar-color': 'rgb(var(--v-theme-secondary))',
       'vw-tab-slider-height': '1px',
+
+      // Expensive things move slowly and stop exactly where they meant to.
+      'vw-motion-duration': '240ms',
+      'vw-motion-ease': 'cubic-bezier(0.2, 0, 0, 1)',
+      'vw-press-scale': '0.995',
+      'vw-hover-lift': '2px',
+      'vw-pop-scale': '1.08',
+      'vw-pop-duration': '220ms',
+      'vw-focus-ring': '1px solid rgb(var(--v-theme-primary))',
+      'vw-theme-transition': '520ms',
+
+      // A gold hairline; the dot stays a circle.
+      'vw-timeline-line': 'rgba(var(--v-theme-primary), 0.55)',
+      'vw-timeline-line-width': '1px',
     },
   },
   defaults: [

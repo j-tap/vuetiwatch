@@ -43,8 +43,6 @@ export const clay = defineTheme({
       'border-opacity': 0.001,
       // The relief reaches past the shape it lifts — see core.css.
       'vw-relief-inset': '7px',
-      // Borders are off, but the timeline line is structure — see core.css.
-      'vw-timeline-line-opacity': 0.28,
       'shadow-color': '#5A46B0',
       'high-emphasis-opacity': 0.9,
       'medium-emphasis-opacity': 0.62,
@@ -58,6 +56,16 @@ export const clay = defineTheme({
       'vw-btn-tracking': '0',
       'vw-btn-weight': '700',
       'vw-tab-slider-height': '5px',
+
+      // Soft mass: it takes a moment to squash and a moment to come back.
+      'vw-motion-duration': '200ms',
+      'vw-press-scale': '0.97',
+      'vw-pop-scale': '1.25',
+      'vw-pop-duration': '280ms',
+
+      // A channel pressed into the ground rather than a line on it.
+      'vw-timeline-line': 'rgb(var(--v-theme-background))',
+      'vw-timeline-line-width': '8px',
     },
   },
   defaults: [

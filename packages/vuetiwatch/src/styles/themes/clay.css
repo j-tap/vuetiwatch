@@ -70,4 +70,20 @@
   & .v-tab__slider {
     border-radius: 5px;
   }
+
+  /* The line is a channel pressed into the ground, not drawn on it. */
+  & :is(.v-timeline-divider__before, .v-timeline-divider__after) {
+    box-shadow:
+      inset 2px 2px 5px rgba(var(--v-shadow-color), 0.18),
+      inset -2px -2px 5px rgba(255, 255, 255, 0.8);
+  }
+
+  & .v-timeline-divider__dot {
+    box-shadow: var(--vw-clay-lift);
+  }
+
+  /* Inflated like the cards it sits beside. */
+  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
+    box-shadow: var(--vw-clay-lift);
+  }
 }

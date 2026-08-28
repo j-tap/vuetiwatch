@@ -61,6 +61,18 @@ export const aurora = defineTheme({
       // Shared by every gradient below, so a derived theme restyles the
       // whole surface language by overriding one value.
       'vw-gradient': 'linear-gradient(135deg, #7C5CFF 0%, #00D4FF 55%, #FF5CAA 100%)',
+
+      // The showcase theme, so the motion shows off too.
+      'vw-motion-duration': '300ms',
+      'vw-press-scale': '0.97',
+      'vw-hover-lift': '3px',
+      'vw-pop-scale': '1.28',
+      'vw-pop-duration': '300ms',
+      'vw-theme-transition': '560ms',
+
+      // The line is the theme's own gradient, top to bottom.
+      'vw-timeline-line': 'var(--v-vw-gradient)',
+      'vw-timeline-line-width': '2px',
     },
   },
   defaults: [

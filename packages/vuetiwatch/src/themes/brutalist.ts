@@ -54,6 +54,8 @@ export const brutalist = defineTheme({
       'vw-radius-lg': '0px',
       'vw-radius-thumb': '0px',
       'vw-radius-chip': '0px',
+      // Nothing here is round, the icon buttons included.
+      'vw-radius-icon-btn': '0px',
       'vw-border-width': '3px',
       'vw-btn-transform': 'uppercase',
       'vw-btn-tracking': '0.04em',
@@ -65,6 +67,23 @@ export const brutalist = defineTheme({
       'vw-heading-weight': '700',
       'vw-heading-tracking': '-0.02em',
       'vw-tab-slider-height': '4px',
+
+      // Two frames, no curve. The press is the theme's own slide into its
+      // shadow, so the shared squash stays out of its way.
+      'vw-motion-duration': '80ms',
+      'vw-motion-ease': 'steps(2, end)',
+      'vw-press-scale': '1',
+      'vw-pop-scale': '1.3',
+      'vw-pop-duration': '100ms',
+      'vw-focus-ring': '3px solid rgb(var(--v-shadow-color))',
+      'vw-focus-offset': '3px',
+      'vw-theme-transition': '200ms',
+
+      // A structural beam, and the dot is a square like everything else.
+      'vw-timeline-line': 'rgb(var(--v-shadow-color))',
+      'vw-timeline-line-width': '4px',
+      'vw-radius-dot': '0px',
+      'vw-radius-avatar': '0px',
     },
   },
   defaults: [

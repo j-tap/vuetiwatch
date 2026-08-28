@@ -74,6 +74,21 @@ export const graphite = defineTheme({
       'vw-overlay-shadow': '0 16px 40px rgba(0, 0, 0, 0.6)',
       // Product UIs colour their links rather than underlining them.
       'vw-link-decoration': 'none',
+
+      // Instant and linear. Easing describes weight, and nothing here has any.
+      'vw-motion-duration': '90ms',
+      'vw-motion-ease': 'linear',
+      'vw-press-scale': '1',
+      'vw-pop-scale': '1.1',
+      'vw-pop-duration': '140ms',
+      'vw-focus-ring': '1px solid rgba(var(--v-theme-primary), 0.85)',
+      'vw-theme-transition': '260ms',
+
+      // Hairline and squared off, like every other edge here.
+      'vw-timeline-line': 'rgba(var(--v-border-color), 0.35)',
+      'vw-timeline-line-width': '1px',
+      'vw-radius-dot': '2px',
+      'vw-radius-avatar': '4px',
     },
   },
   defaults: [

@@ -55,11 +55,26 @@ export const slate = defineTheme({
       'vw-list-bar': '3px',
       'vw-list-bar-color': 'rgb(var(--v-theme-primary))',
       'vw-tab-slider-height': '3px',
+
+      // Dashboard: short, unremarkable, out of the way of the data.
+      'vw-motion-duration': '120ms',
+      'vw-press-scale': '0.98',
+      'vw-pop-scale': '1.12',
+      'vw-pop-duration': '160ms',
+      'vw-focus-ring': '2px solid rgb(var(--v-theme-primary))',
+
+      // Dense and structural: a 2px rule and a square dot.
+      'vw-timeline-line': 'rgba(var(--v-theme-primary), 0.35)',
+      'vw-timeline-line-width': '2px',
+      'vw-radius-dot': '3px',
     },
   },
   defaults: [
     {
-      VBtn: { variant: 'flat', density: 'comfortable' },
+      // No `density` on the button: Vuetify subtracts it from the size
+      // height, and a comfortable `x-small` ends up shorter than its own
+      // label. Everything else in the theme stays compact.
+      VBtn: { variant: 'flat' },
       VCard: { variant: 'outlined' },
       VAlert: { variant: 'tonal', density: 'compact' },
       VChip: { variant: 'tonal', size: 'small' },

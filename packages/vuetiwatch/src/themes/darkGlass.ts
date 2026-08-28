@@ -50,6 +50,17 @@ export const darkGlass = defineTheme({
       'vw-btn-transform': 'none',
       'vw-btn-tracking': '0.01em',
       'vw-btn-weight': '600',
+
+      // Sheets of glass slide rather than snap.
+      'vw-motion-duration': '260ms',
+      'vw-press-scale': '0.97',
+      'vw-hover-lift': '2px',
+      'vw-pop-scale': '1.18',
+      'vw-pop-duration': '240ms',
+
+      // Violet through the glass.
+      'vw-timeline-line': 'rgba(var(--v-theme-primary), 0.45)',
+      'vw-timeline-line-width': '2px',
     },
   },
   defaults: [

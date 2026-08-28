@@ -79,6 +79,22 @@ export const candy = defineTheme({
       // A wobbly underline reads as drawn by hand rather than by a browser.
       'vw-link-decoration': 'underline wavy',
       'vw-overlay-shadow': '0 18px 44px rgba(var(--v-shadow-color), 0.22)',
+
+      // A spring that overshoots: the press squashes, the pop lands loud.
+      'vw-motion-duration': '220ms',
+      'vw-motion-ease': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+      'vw-press-scale': '0.98',
+      'vw-press-shift': '2px',
+      'vw-hover-lift': '4px',
+      'vw-pop-scale': '1.35',
+      'vw-pop-duration': '320ms',
+      'vw-focus-ring': '3px solid rgb(var(--v-theme-primary))',
+      'vw-focus-offset': '3px',
+      'vw-theme-transition': '480ms',
+
+      // A fat ribbon with rounded ends — see the stylesheet.
+      'vw-timeline-line': 'rgba(var(--v-theme-primary), 0.3)',
+      'vw-timeline-line-width': '6px',
     },
   },
   defaults: [

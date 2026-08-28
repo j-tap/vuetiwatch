@@ -29,14 +29,13 @@
 
   & .v-btn.v-btn:is(.v-btn--variant-flat, .v-btn--variant-elevated):not(.v-btn--disabled) {
     box-shadow: var(--vw-candy-pad), var(--vw-candy-rest);
-    transition:
-      box-shadow 0.18s ease,
-      transform 0.18s ease;
+    transition: box-shadow var(--v-vw-motion-duration) var(--v-vw-motion-ease);
   }
 
+  /* The squash itself is `vw-press-scale` and `vw-press-shift` in core; all
+     this has to do is take the shadow down with it. */
   & .v-btn.v-btn:is(.v-btn--variant-flat, .v-btn--variant-elevated):not(.v-btn--disabled):active {
     box-shadow: var(--vw-candy-pad), var(--vw-candy-squash);
-    transform: translateY(2px) scale(0.98);
   }
 
   /* Pills are small enough that the full pad closes up on them, so they
@@ -55,19 +54,16 @@
   }
 
   & .v-card.v-card--variant-elevated {
-    transition:
-      box-shadow 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
-      transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: box-shadow var(--v-vw-motion-duration) var(--v-vw-motion-ease);
   }
 
-  /* The overshoot in that easing is the whole point: something soft that
-     is picked up bounces slightly past where it settles. */
+  /* The lift is `vw-hover-lift`, on the theme's own overshooting easing —
+     something soft that is picked up bounces past where it settles. */
   & .v-card.v-card--variant-elevated.v-card--link:hover {
     box-shadow:
       inset 0 2px 0 rgba(255, 255, 255, 0.6),
       0 10px 22px rgba(var(--v-shadow-color), 0.14),
       0 28px 60px rgba(var(--v-shadow-color), 0.12);
-    transform: translateY(-4px);
   }
 
   /**
@@ -103,15 +99,20 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.5),
       0 4px 12px rgba(var(--v-theme-primary), 0.24);
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .v-theme--candy :is(.v-btn, .v-card.v-card--variant-elevated) {
-    transition: none;
+  /* The timeline is a ribbon, so it gets ends rather than corners. */
+  & :is(.v-timeline-divider__before, .v-timeline-divider__after) {
+    border-radius: 999px;
   }
 
-  .v-theme--candy .v-btn.v-btn:is(.v-btn--variant-flat, .v-btn--variant-elevated):active,
-  .v-theme--candy .v-card.v-card--variant-elevated.v-card--link:hover {
-    transform: none;
+  & .v-timeline-divider__dot {
+    box-shadow:
+      inset 0 2px 0 rgba(255, 255, 255, 0.6),
+      0 3px 8px rgba(var(--v-shadow-color), 0.22);
+  }
+
+  /* Padded like everything else that holds content. */
+  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
+    box-shadow: var(--vw-candy-pad), var(--vw-candy-rest);
   }
 }

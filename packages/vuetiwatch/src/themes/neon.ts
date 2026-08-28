@@ -53,6 +53,8 @@ export const neon = defineTheme({
       'vw-radius-lg': '0px',
       'vw-radius-thumb': '0px',
       'vw-radius-chip': '0px',
+      // A terminal has no round corners, not even on an icon button.
+      'vw-radius-icon-btn': '0px',
       'vw-border-width': '1px',
       'vw-btn-transform': 'uppercase',
       'vw-btn-tracking': '0.12em',
@@ -62,6 +64,21 @@ export const neon = defineTheme({
       'vw-list-bar': '2px',
       'vw-list-bar-color': 'rgb(var(--v-theme-primary))',
       'vw-tab-slider-height': '3px',
+
+      // A terminal repaints; it does not ease.
+      'vw-motion-duration': '110ms',
+      'vw-motion-ease': 'linear',
+      'vw-press-scale': '0.98',
+      'vw-pop-scale': '1.2',
+      'vw-pop-duration': '150ms',
+      'vw-focus-ring': '2px solid rgb(var(--v-theme-secondary))',
+      'vw-theme-transition': '180ms',
+
+      // A lit filament; the glow is in the stylesheet.
+      'vw-timeline-line': 'rgb(var(--v-theme-secondary))',
+      'vw-timeline-line-width': '2px',
+      'vw-radius-dot': '0px',
+      'vw-radius-avatar': '0px',
     },
   },
   defaults: [

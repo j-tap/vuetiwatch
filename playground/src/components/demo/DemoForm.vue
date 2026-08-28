@@ -99,7 +99,6 @@ function season (val: number) {
         <v-btn-toggle
           v-model="radio"
           color="primary"
-          rounded="lg"
           class="overflow-x-auto"
           divided
           mandatory

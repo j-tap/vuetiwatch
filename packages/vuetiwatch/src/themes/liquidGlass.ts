@@ -76,6 +76,19 @@ export const liquidGlass = defineTheme({
       'vw-link-decoration': 'none',
       'vw-heading-weight': '700',
       'vw-heading-tracking': '-0.022em',
+
+      // The iOS curve: fast out, long settle.
+      'vw-motion-duration': '320ms',
+      'vw-motion-ease': 'cubic-bezier(0.32, 0.72, 0, 1)',
+      'vw-press-scale': '0.96',
+      'vw-hover-lift': '2px',
+      'vw-pop-scale': '1.2',
+      'vw-pop-duration': '300ms',
+      'vw-theme-transition': '520ms',
+
+      // Frosted, so the line is a highlight rather than a rule.
+      'vw-timeline-line': 'rgba(var(--v-theme-on-surface), 0.18)',
+      'vw-timeline-line-width': '2px',
     },
   },
   defaults: [

@@ -1,5 +1,5 @@
-import { watch } from 'vue'
-import type { App, Plugin } from 'vue'
+import { computed, inject, watch } from 'vue'
+import type { App, ComputedRef, Plugin } from 'vue'
 import type { VuetiwatchDefaults, VuetiwatchTheme } from './types.js'
 import { combine } from './util/defaults.js'
 
@@ -10,8 +10,74 @@ import { combine } from './util/defaults.js'
  */
 interface VuetifyLike {
   defaults: { value: VuetiwatchDefaults }
-  theme: { global: { name: { value: string } } }
+  theme: {
+    global: { name: { value: string } }
+    /** Present in Vuetify 4; the name ref is assigned directly without it. */
+    change?: (name: string) => void
+  }
 }
+
+/**
+ * Anything that might carry viewport coordinates. Partial on purpose: a
+ * list item hands its handler `MouseEvent | KeyboardEvent`, and a keyboard
+ * activation should not have to be filtered out by every caller.
+ */
+interface Point {
+  clientX?: number
+  clientY?: number
+}
+
+/**
+ * Same-document view transitions, Baseline since October 2025. Declared
+ * here rather than relied on from `lib.dom` so the package builds against
+ * older TypeScript DOM libraries too.
+ */
+type ViewTransitionDocument = Document & {
+  startViewTransition?: (callback: () => void) => unknown
+}
+
+export interface Vuetiwatch {
+  /** The themes handed to the plugin, in the order a picker should show them. */
+  themes: readonly VuetiwatchTheme[]
+  /** The active theme, or `undefined` while a theme outside the list is on. */
+  current: ComputedRef<VuetiwatchTheme | undefined>
+  /**
+   * Switches theme through a view transition when the browser has one.
+   *
+   * Pass the event that triggered it and the new theme opens as a circle
+   * from the pointer; without one it opens from the centre of the screen.
+   * Falls back to an instant change where the API is missing, where the
+   * user asked for reduced motion, or where `transitions` is off — so it is
+   * always safe to call.
+   */
+  change: (name: string, event?: Point | Event | null) => void
+}
+
+const injectionKey = Symbol.for('vuetiwatch')
+
+/**
+ * The plugin's API, for switching themes and reading the active one.
+ *
+ * ```ts
+ * const { themes, current, change } = useVuetiwatch()
+ * ```
+ */
+export function useVuetiwatch (): Vuetiwatch {
+  const api = inject<Vuetiwatch>(injectionKey)
+
+  if (!api) {
+    throw new Error(
+      '[vuetiwatch] useVuetiwatch() was called before the plugin was installed. ' +
+      'Add app.use(createVuetiwatch(vuetify, { themes })) first.',
+    )
+  }
+
+  return api
+}
+
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true
 
 export interface VuetiwatchOptions {
   /**
@@ -34,6 +100,14 @@ export interface VuetiwatchOptions {
    * @default true
    */
   attribute?: boolean
+  /**
+   * Animate theme changes made through `useVuetiwatch().change()`.
+   *
+   * Only that call is affected — an app switching through Vuetify's own
+   * `theme.change()` keeps the instant swap it has today.
+   * @default true
+   */
+  transitions?: boolean
 }
 
 /**
@@ -59,6 +133,7 @@ export function createVuetiwatch (
     themes,
     defaults: applyDefaults = true,
     attribute = true,
+    transitions = true,
   } = options
 
   // Only the defaults are ever read here, so the closure holds those rather
@@ -67,7 +142,7 @@ export function createVuetiwatch (
   const defaultsByName = new Map(themes.map(theme => [theme.name, theme.defaults]))
 
   return {
-    install (_app: App) {
+    install (app: App) {
       const instance = vuetify as VuetifyLike
 
       if (!instance?.theme?.global?.name) {
@@ -97,6 +172,48 @@ export function createVuetiwatch (
 
         return result
       }
+
+      const apply = (name: string) => {
+        if (instance.theme.change) instance.theme.change(name)
+        else instance.theme.global.name.value = name
+      }
+
+      const change: Vuetiwatch['change'] = (name, event) => {
+        const doc = typeof document !== 'undefined'
+          ? document as ViewTransitionDocument
+          : undefined
+
+        if (!transitions || !doc?.startViewTransition || prefersReducedMotion()) {
+          apply(name)
+
+          return
+        }
+
+        /**
+          * Viewport coordinates, because the transition pseudo-elements are
+          * laid out against the viewport rather than against any element.
+          *
+          * A click synthesised by the keyboard reports 0/0, which would open
+          * the wipe from the corner of the screen rather than from anything
+          * the user can see — those fall back to the centre.
+          */
+        const root = doc.documentElement
+        const point = event && 'clientX' in event ? event : undefined
+        const fromPointer = !!point?.clientX || !!point?.clientY
+
+        root.style.setProperty('--vw-origin-x', fromPointer ? `${point?.clientX ?? 0}px` : '50%')
+        root.style.setProperty('--vw-origin-y', fromPointer ? `${point?.clientY ?? 0}px` : '50%')
+
+        doc.startViewTransition(() => { apply(name) })
+      }
+
+      app.provide<Vuetiwatch>(injectionKey, {
+        themes,
+        current: computed(() =>
+          themes.find(theme => theme.name === instance.theme.global.name.value),
+        ),
+        change,
+      })
 
       watch(
         () => instance.theme.global.name.value,
