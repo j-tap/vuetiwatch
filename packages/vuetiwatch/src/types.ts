@@ -5,6 +5,21 @@ export type VuetiwatchDefaults = NonNullable<
   NonNullable<Parameters<typeof createVuetify>[0]>['defaults']
 >
 
+/**
+ * A named set of colours a theme offers as an alternative to its own.
+ *
+ * Presets rather than a colour picker on purpose: an accent has to clear
+ * contrast against the theme's ground, and a slider hands that problem to
+ * whoever drags it. Each entry here is measured.
+ */
+export interface VuetiwatchAccent {
+  /** Shared across a family, so the choice survives a light/dark switch. */
+  id: string
+  title: string
+  /** Written over the theme's own colours — `primary` and its companions. */
+  colors: Record<string, string>
+}
+
 export interface VuetiwatchMeta {
   /** Human readable name, for theme pickers. */
   title: string
@@ -25,6 +40,23 @@ export interface VuetiwatchMeta {
    * the playground's navigation demo.
    */
   iconStyle: 'outline' | 'filled'
+  /**
+   * Themes that are one design on different grounds — `atlas`, `atlasDark`
+   * and `atlasSepia` all carry `family: 'atlas'`.
+   *
+   * It exists so an app can offer the choice: `useVuetiwatch().siblings`
+   * returns the variants of whatever is running, which is everything a
+   * light/dark switch needs. Vuetify's own `ThemeDefinition` is one mode by
+   * definition, so a pair of registered themes is how the switch is built.
+   */
+  family?: string
+  /** This variant's name within its family — 'Light', 'Dark', 'Sepia'. */
+  variant?: string
+  /**
+   * Alternative accents, applied through `useVuetiwatch().setAccent()`.
+   * The first is the theme's own, so a picker can show it selected.
+   */
+  accents?: VuetiwatchAccent[]
   /**
    * Opts the theme out of the Vuetiwatch core stylesheet, so it renders as
    * stock Vuetify and nothing in this package reaches it.

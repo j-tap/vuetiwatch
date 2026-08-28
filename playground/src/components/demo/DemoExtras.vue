@@ -16,6 +16,30 @@ const date = ref(new Date())
 
 const frameworks = ['Vue', 'React', 'Svelte', 'Solid', 'Angular']
 
+const editable = ref('production')
+const colour = ref('#1F6689')
+const time = ref('09:30')
+
+const tree = [
+  {
+    id: 1,
+    title: 'packages',
+    children: [
+      { id: 2, title: 'vuetiwatch' },
+      { id: 3, title: 'playground' },
+    ],
+  },
+  { id: 4, title: 'docs' },
+]
+
+// A list long enough that rendering it whole would be the wrong answer.
+const many = Array.from({ length: 500 }, (_, i) => ({
+  id: i + 1,
+  title: `Job #${(i + 1).toString().padStart(4, '0')}`,
+}))
+
+const traffic = [4, 9, 6, 12, 8, 15, 11, 18, 14, 22, 17, 25]
+
 const rows = [
   { name: 'core.css', size: '2.0 kB', role: 'Always' },
   { name: 'paper.css', size: '0.3 kB', role: 'Optional' },
@@ -111,22 +135,80 @@ const rows = [
     </v-col>
 
     <v-col cols="12" md="6" lg="4">
+      <!-- In a card, like the skeleton beside it: `v-empty-state` paints no
+           surface of its own, and next to blocks that do it reads as a hole
+           rather than as a state. -->
       <p class="text-label-medium text-medium-emphasis mb-2">Empty state</p>
-      <v-empty-state
+      <v-card variant="outlined">
+        <v-empty-state
         class="mb-6"
         icon="mdi-inbox-outline"
         title="Nothing here yet"
         text="An empty state is a surface, a glyph and a button — three things a theme has to agree on."
       >
-        <template #actions>
-          <v-btn text="Create one" color="primary" />
-        </template>
-      </v-empty-state>
+          <template #actions>
+            <v-btn text="Create one" color="primary" />
+          </template>
+        </v-empty-state>
+      </v-card>
     </v-col>
 
     <v-col cols="12" lg="4">
       <p class="text-label-medium text-medium-emphasis mb-2">Loading</p>
-      <v-skeleton-loader type="article, actions" />
+      <v-card variant="outlined">
+        <v-skeleton-loader type="article, actions" />
+      </v-card>
+    </v-col>
+
+    <!-- The heavier machinery: components with enough layout of their own
+         that a theme reaches them only through what it can set globally. -->
+    <v-col cols="12" md="6" lg="4">
+      <p class="text-label-medium text-medium-emphasis mb-2">Tree and virtual list</p>
+      <v-card variant="outlined" class="mb-4">
+        <v-treeview :items="tree" item-value="id" open-all density="compact" />
+      </v-card>
+
+      <v-card variant="outlined">
+        <v-virtual-scroll :items="many" height="180" item-height="40">
+          <template #default="{ item }">
+            <v-list-item :title="item.title" density="compact" />
+          </template>
+        </v-virtual-scroll>
+      </v-card>
+    </v-col>
+
+    <v-col cols="12" md="6" lg="4">
+      <p class="text-label-medium text-medium-emphasis mb-2">Inline edit and shortcuts</p>
+      <v-card variant="outlined" class="pa-4 mb-4">
+        <v-confirm-edit v-model="editable">
+          <template #default="{ model: proxy, actions }">
+            <v-text-field v-model="proxy.value" label="Environment" />
+            <component :is="actions" />
+          </template>
+        </v-confirm-edit>
+      </v-card>
+
+      <div class="d-flex align-center ga-3">
+        <v-hotkey keys="cmd+k" />
+        <span class="text-body-small text-medium-emphasis">opens the palette</span>
+      </div>
+    </v-col>
+
+    <v-col cols="12" md="6" lg="4">
+      <p class="text-label-medium text-medium-emphasis mb-2">Pickers and figures</p>
+      <div class="d-flex flex-wrap ga-4">
+        <v-time-picker v-model="time" format="24hr" />
+        <div>
+          <v-color-picker v-model="colour" width="260" mode="hexa" class="mb-4" />
+          <v-sparkline
+            :model-value="traffic"
+            :gradient="['#1F6689', '#79B4D6']"
+            line-width="3"
+            smooth
+            auto-draw
+          />
+        </div>
+      </div>
     </v-col>
   </v-row>
 </template>

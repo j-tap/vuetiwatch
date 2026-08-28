@@ -1,41 +1,13 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
-import { useTheme } from 'vuetify'
-import { themeList, useVuetiwatch } from 'vuetiwatch'
+import { onMounted } from 'vue'
+import { themeList } from 'vuetiwatch'
 
 import ThemeSwatch from '@/components/ThemeSwatch.vue'
+import { useThemeSelection } from '@/composables/useThemeSelection'
 
-const STORAGE_KEY = 'vuetiwatch:theme'
-const QUERY_KEY = 'theme'
+const { current, select, restore } = useThemeSelection()
 
-const theme = useTheme()
-// Switching through the plugin rather than through Vuetify wraps the change
-// in a view transition, so the new theme wipes in from the item clicked.
-const vuetiwatch = useVuetiwatch()
-const current = computed(() =>
-  themeList.find(item => item.name === theme.global.name.value) ?? themeList[0],
-)
-
-const isKnown = (name: string | null): name is string =>
-  !!name && themeList.some(item => item.name === name)
-
-function select (name: string, event?: MouseEvent | KeyboardEvent) {
-  vuetiwatch.change(name, event)
-  localStorage.setItem(STORAGE_KEY, name)
-
-  // Keep the URL shareable — ?theme=neon lands on the theme directly.
-  const url = new URL(window.location.href)
-  url.searchParams.set(QUERY_KEY, name)
-  window.history.replaceState(null, '', url)
-}
-
-onMounted(() => {
-  const requested = new URL(window.location.href).searchParams.get(QUERY_KEY)
-  const saved = localStorage.getItem(STORAGE_KEY)
-
-  if (isKnown(requested)) select(requested)
-  else if (isKnown(saved)) theme.change(saved)
-})
+onMounted(restore)
 </script>
 
 <template>

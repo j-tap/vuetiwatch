@@ -9,9 +9,9 @@ is to Bootstrap.
 
 [![The same page in two Vuetify 4 themes — Lux and Morph](docs/playground-themes.webp)](https://j-tap.github.io/vuetiwatch/)
 
-**[See all sixteen themes →](https://j-tap.github.io/vuetiwatch/)**
+**[See all nineteen themes →](https://j-tap.github.io/vuetiwatch/)**
 
-Vuetify ships one look. Vuetiwatch ships sixteen, and they differ in more
+Vuetify ships one look. Vuetiwatch ships nineteen, and they differ in more
 than hue: radius, border weight, density, component variants, typography,
 icons and motion all move together.
 
@@ -26,7 +26,9 @@ npm i vuetiwatch      # or: bun add / yarn add / pnpm add
 | `classic` | light | Stock Vuetify. Material Design, Roboto, familiar elevation |
 | `paper` | light | Flat editorial — warm paper, ink accents, hairline borders, serif headings |
 | `slate` | light | Dense dashboard — muted slate blue, compact density, outlined cards |
-| `graphite` | dark | Product dark — near-black, hairline edges, no shadows, mono labels |
+| `atlas` | light | Calm admin — soft neutrals, one cool accent, dense tables, hairlines not shadows |
+| `atlasDark` | dark | The same panel after dark — soft greys, never pure black |
+| `atlasSepia` | light | The same panel on warm paper and brown ink, for tired eyes |
 | `calm` | light | Low contrast, desaturated naturals, no shadows, a lot of air |
 | `lux` | light | Editorial luxury — hairline rules, wide tracking, small caps, muted gold |
 | `soft` | light | Pastel and generous — large radii, diffuse tinted shadows, hearts for stars |
@@ -42,7 +44,7 @@ npm i vuetiwatch      # or: bun add / yarn add / pnpm add
 
 `classic` is the control. It opts out of the core stylesheet entirely — not
 one rule in this package matches a page running it — so switching to it
-shows exactly what the other fifteen add.
+shows exactly what the other eighteen add.
 
 ## How to install and apply a theme in Vuetify 4
 
@@ -106,6 +108,58 @@ const { themes, current, change } = useVuetiwatch()
 </template>
 ```
 
+`useVuetiwatch()` also returns `siblings`: the variants of the theme that is
+running, or an empty array when it has none. A theme declares what it belongs
+to through `meta.family`, so a light/dark switch never has to know which
+themes go together:
+
+```vue
+<script setup lang="ts">
+const { siblings, current, change } = useVuetiwatch()
+</script>
+
+<template>
+  <v-btn-toggle v-if="siblings.length > 1" :model-value="current?.name">
+    <v-btn
+      v-for="t in siblings"
+      :key="t.name"
+      :value="t.name"
+      :text="t.meta.variant"
+      @click="change(t.name, $event)"
+    />
+  </v-btn-toggle>
+</template>
+```
+
+A theme can also offer **accents** — named colour sets it repaints itself
+in, declared in `meta.accents` and applied through `setAccent()`:
+
+```vue
+<script setup lang="ts">
+const { accents, accent, setAccent } = useVuetiwatch()
+</script>
+
+<template>
+  <button
+    v-for="item in accents"
+    :key="item.id"
+    :style="{ background: item.colors.primary }"
+    @click="setAccent(item.id)"
+  />
+</template>
+```
+
+Presets rather than a colour picker, because every one of them is measured
+against the theme's ground — the Atlas accents run 5.8:1 to 8.3:1 on filled
+controls across all three variants, which a dragged slider cannot promise.
+The id is shared across the family, so the choice survives a light/dark
+switch: each variant carries its own tone of the same accent.
+
+`atlas`, `atlasDark` and `atlasSepia` are one family today. Vuetify's
+`ThemeDefinition` is a single mode by definition, so a registered pair is
+how a light/dark switch is built — the design lives in one place and only
+the ground changes.
+
 Pass the event and the new theme opens as a circle from the control that was
 pressed, through the View Transitions API — Baseline since October 2025.
 Where the API is missing, where the visitor asked for reduced motion, or
@@ -140,7 +194,7 @@ fallback, so skipping this degrades gracefully rather than breaking.
 ### Shipping only a few themes
 
 Pass just those to the plugin and import their stylesheets instead of the
-combined one. A single-theme app drops from about 12.3 kB gzipped to 4.1 kB.
+combined one. A single-theme app drops from about 14.1 kB gzipped to 4.5 kB.
 
 ```ts
 import { createVuetiwatch, paper } from 'vuetiwatch'
@@ -207,9 +261,13 @@ Vuetify's own, it reads:
 | `vw-radius-icon-btn` | `50%` | Icon buttons, for themes with no curve anywhere |
 | `vw-radius-avatar` / `-dot` | `50%` | Avatars, and the dot on a timeline |
 | `vw-border-width` | `thin` | Outlined variants and field outlines |
+| `vw-outlined-fill` | `surface` | What an outlined card paints — `transparent` for themes whose surface is the ground |
+| `vw-skeleton-opacity` | clamped | The bones of a loading placeholder, which Vuetify ties to `border-opacity` |
+| `vw-field-border-opacity` | `0.38` | The resting outline of a field — Vuetify's default reads about 2.3:1 |
 | `vw-btn-weight` / `-tracking` / `-transform` | Vuetify's | Button typography |
 | `vw-heading-weight` / `-tracking` / `-transform` | Vuetify's | Headings and the display / headline / title-large scale |
 | `vw-th-weight` / `-tracking` / `-transform` | Vuetify's | Table headers |
+| `vw-numeric` | `normal` | Figures in tables and pagination — `tabular-nums` lines columns up |
 | `vw-tab-slider-height` | `2px` | Active tab indicator |
 | `vw-timeline-line` / `-width` | hairline | The timeline connector — any background, so a repeating gradient makes it dashed |
 | `vw-timeline-line-opacity` | `border-opacity` | The connector's fade, when `vw-timeline-line` is left alone |
@@ -252,7 +310,10 @@ Four levels, loudest first:
 Level 1 is why every rule in the core layer carries `:not([class*='rounded-'])`:
 a component whose author asked for a corner keeps it whatever the theme says.
 Level 2 sits above level 3 on purpose — a theme that could not change a
-variant would not be a theme — but it only overrides the keys it actually
+variant would not be a theme — and `createVuetiwatch(vuetify, { defaults:
+'under' })` swaps the two when the app owns a decision the theme also has an
+opinion on, an admin panel with its own density switch being the usual case.
+It but it only overrides the keys it actually
 sets, so the rest of your configuration survives every switch, including
 defaults you assign at runtime. Level 4 holds because every declaration
 falls back to Vuetify's own value, which is why importing the stylesheet
@@ -277,7 +338,7 @@ points of lightness instead of flipping the label, so the hue survives and
 both models pass; `aurora` keeps its bright gradient for decoration and
 carries a deeper one behind anything with text on it.
 
-The result: in all fifteen themes every filled control clears 4.5:1.
+The result: in all eighteen non-stock themes every filled control clears 4.5:1.
 `classic` does not, and that is the point of it — it is stock Vuetify,
 including this.
 
@@ -352,7 +413,7 @@ The demo reads `?theme=<name>` from the URL, so any theme is linkable.
 New themes are welcome — add a file under `packages/vuetiwatch/src/themes/`,
 register it in `registry.ts`, and check it against every section of the
 playground. A theme earns its place by differing structurally, not only in
-palette: see the sixteen existing ones for the axes that matter.
+palette: see the nineteen existing ones for the axes that matter.
 
 ## License
 

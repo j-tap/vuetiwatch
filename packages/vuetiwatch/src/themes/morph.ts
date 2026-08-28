@@ -50,6 +50,8 @@ export const morph = defineTheme({
       // The relief reaches past the shape it lifts — see core.css.
       'vw-relief-inset': '7px',
       'shadow-color': '#A3B1C6',
+      // The relief is one continuous sheet: a panel that paints itself is a patch on it.
+      'vw-outlined-fill': 'transparent',
       'high-emphasis-opacity': 0.85,
       'medium-emphasis-opacity': 0.6,
       'hover-opacity': 0.03,

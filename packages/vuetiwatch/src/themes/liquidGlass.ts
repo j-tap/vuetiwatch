@@ -61,6 +61,9 @@ export const liquidGlass = defineTheme({
       // iOS separators are hairlines, not borders.
       'border-opacity': 0.1,
       'shadow-color': '#1B3A6B',
+      // The frost rule below owns the colour; core's default would paint
+      // an opaque surface under it and the pane would stop being glass.
+      'vw-outlined-fill': 'rgba(var(--v-theme-surface), 0.6)',
       'high-emphasis-opacity': 0.92,
       'medium-emphasis-opacity': 0.6,
       'hover-opacity': 0.04,

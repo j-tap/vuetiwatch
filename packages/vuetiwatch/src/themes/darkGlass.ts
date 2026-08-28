@@ -44,6 +44,9 @@ export const darkGlass = defineTheme({
       'border-color': '#B9A9FF',
       'border-opacity': 0.16,
       'shadow-color': '#000000',
+      // The frost rule below owns the colour; core's default would paint
+      // an opaque surface under it and the sheet would stop being glass.
+      'vw-outlined-fill': 'rgba(var(--v-theme-surface), 0.62)',
       'high-emphasis-opacity': 0.95,
       'medium-emphasis-opacity': 0.72,
       'hover-opacity': 0.08,

@@ -1,6 +1,6 @@
-import { computed, inject, watch } from 'vue'
-import type { App, ComputedRef, Plugin } from 'vue'
-import type { VuetiwatchDefaults, VuetiwatchTheme } from './types.js'
+import { computed, inject, ref, watch } from 'vue'
+import type { App, ComputedRef, Plugin, Ref } from 'vue'
+import type { VuetiwatchAccent, VuetiwatchDefaults, VuetiwatchTheme } from './types.js'
 import { combine } from './util/defaults.js'
 
 /**
@@ -14,6 +14,8 @@ interface VuetifyLike {
     global: { name: { value: string } }
     /** Present in Vuetify 4; the name ref is assigned directly without it. */
     change?: (name: string) => void
+    /** The live definitions. Reactive, which is what makes accents work. */
+    themes?: { value: Record<string, { colors?: Record<string, string> }> }
   }
 }
 
@@ -33,7 +35,10 @@ interface Point {
  * older TypeScript DOM libraries too.
  */
 type ViewTransitionDocument = Document & {
-  startViewTransition?: (callback: () => void) => unknown
+  startViewTransition?: (callback: () => void) => {
+    finished?: Promise<unknown>
+    ready?: Promise<unknown>
+  }
 }
 
 export interface Vuetiwatch {
@@ -41,6 +46,13 @@ export interface Vuetiwatch {
   themes: readonly VuetiwatchTheme[]
   /** The active theme, or `undefined` while a theme outside the list is on. */
   current: ComputedRef<VuetiwatchTheme | undefined>
+  /**
+   * The variants of the active theme's family, in registration order, or an
+   * empty array when it has none. This is what a light/dark switch iterates
+   * over — the family is declared in each theme's `meta`, so the app never
+   * has to know which themes belong together.
+   */
+  siblings: ComputedRef<readonly VuetiwatchTheme[]>
   /**
    * Switches theme through a view transition when the browser has one.
    *
@@ -51,6 +63,19 @@ export interface Vuetiwatch {
    * always safe to call.
    */
   change: (name: string, event?: Point | Event | null) => void
+  /** The accents the active theme offers, or an empty array. */
+  accents: ComputedRef<readonly VuetiwatchAccent[]>
+  /** The accent in use, by id. `undefined` until one is chosen. */
+  accent: Readonly<Ref<string | undefined>>
+  /**
+   * Repaints the theme in one of its accents.
+   *
+   * The colours are written into Vuetify's live definitions, which are
+   * reactive, so every surface follows within the frame. It is applied to
+   * the whole family at once — each variant has its own tone of the same
+   * accent — so the choice survives a light/dark switch.
+   */
+  setAccent: (id: string) => void
 }
 
 const injectionKey = Symbol.for('vuetiwatch')
@@ -90,10 +115,18 @@ export interface VuetiwatchOptions {
    */
   themes: readonly VuetiwatchTheme[]
   /**
-   * Apply each theme's component defaults on top of your own.
-   * @default true
+   * Apply each theme's component defaults.
+   *
+   * - `'over'` (or `true`) — the theme's values win, so a theme can restyle
+   *   a component the app never thought about.
+   * - `'under'` — yours win, and the theme fills in only what you left
+   *   unset. Use it when the app owns a decision the theme also has an
+   *   opinion on: an admin panel with its own density switch, say.
+   * - `false` — no theme defaults at all.
+   *
+   * @default 'over'
    */
-  defaults?: boolean
+  defaults?: boolean | 'over' | 'under'
   /**
    * Mirror the active theme name onto `<html data-vuetiwatch="...">`, so
    * you can hang your own CSS off it.
@@ -171,7 +204,11 @@ export function createVuetiwatch (
 
         const themeDefaults = defaultsByName.get(name)
 
-        return themeDefaults ? combine(userDefaults, themeDefaults) : userDefaults
+        if (!themeDefaults) return userDefaults
+
+        return applyDefaults === 'under'
+          ? combine(themeDefaults, userDefaults)
+          : combine(userDefaults, themeDefaults)
       }
 
       const apply = (name: string) => {
@@ -205,14 +242,51 @@ export function createVuetiwatch (
         root.style.setProperty('--vw-origin-x', fromPointer ? `${point?.clientX ?? 0}px` : '50%')
         root.style.setProperty('--vw-origin-y', fromPointer ? `${point?.clientY ?? 0}px` : '50%')
 
-        doc.startViewTransition(() => { apply(name) })
+        /**
+          * A transition interrupted by the next one rejects `ready` and
+          * `finished`. Nothing here awaits them, so the rejection would
+          * surface as an unhandled one in the console the first time
+          * somebody clicks twice quickly — which is exactly what a theme
+          * picker invites.
+          */
+        const transition = doc.startViewTransition(() => { apply(name) })
+
+        transition?.ready?.catch(() => {})
+        transition?.finished?.catch(() => {})
+      }
+
+      const current = computed(() =>
+        themes.find(theme => theme.name === instance.theme.global.name.value),
+      )
+
+      const accent = ref<string>()
+
+      const setAccent = (id: string) => {
+        const definitions = instance.theme.themes?.value
+
+        if (!definitions) return
+
+        for (const theme of themes) {
+          const preset = theme.meta.accents?.find(item => item.id === id)
+          const colors = definitions[theme.name]?.colors
+
+          if (preset && colors) Object.assign(colors, preset.colors)
+        }
+
+        accent.value = id
       }
 
       app.provide<Vuetiwatch>(injectionKey, {
         themes,
-        current: computed(() =>
-          themes.find(theme => theme.name === instance.theme.global.name.value),
-        ),
+        current,
+        accents: computed(() => current.value?.meta.accents ?? []),
+        accent,
+        setAccent,
+        siblings: computed(() => {
+          const family = current.value?.meta.family
+
+          return family ? themes.filter(theme => theme.meta.family === family) : []
+        }),
         change,
       })
 

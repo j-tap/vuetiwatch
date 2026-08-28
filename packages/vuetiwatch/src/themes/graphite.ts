@@ -72,6 +72,8 @@ export const graphite = defineTheme({
       'vw-th-weight': '500',
       'vw-th-tracking': '0.09em',
       'vw-th-transform': 'uppercase',
+      // A table of ids, dates and counts is most of what this theme is for.
+      'vw-numeric': 'tabular-nums',
       'vw-tab-slider-height': '2px',
       // Floating surfaces are the one place a shadow survives, and only to
       // separate them from the page — the hairline does the describing.

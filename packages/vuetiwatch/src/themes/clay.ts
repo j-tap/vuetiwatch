@@ -51,6 +51,8 @@ export const clay = defineTheme({
       // The relief reaches past the shape it lifts — see core.css.
       'vw-relief-inset': '7px',
       'shadow-color': '#5A46B0',
+      // Shapes are lifted out of the ground here, not laid on top of it.
+      'vw-outlined-fill': 'transparent',
       'high-emphasis-opacity': 0.9,
       'medium-emphasis-opacity': 0.62,
       'hover-opacity': 0.05,

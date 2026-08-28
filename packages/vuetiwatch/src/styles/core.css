@@ -82,6 +82,22 @@
     border-radius: var(--v-vw-radius-btn, var(--v-vw-radius, 4px));
   }
 
+  /**
+   * Vuetify's outlined card is transparent, so it shows the page through
+   * itself and so does everything nested in it — a list, a table, a tree.
+   * On the stock theme that is invisible, because its background and its
+   * surface are both white; on a theme with a tinted ground it means half
+   * the panels on a screen are panels and half are holes.
+   *
+   * Material 3 gives an outlined card the surface colour, and so does this:
+   * a card is a container, and a container that is not there cannot hold
+   * anything. The relief and glass themes, whose whole idea is that a
+   * surface is the ground, set the knob back to `transparent`.
+   */
+  & .v-card--variant-outlined:not([class*='bg-']) {
+    background-color: var(--v-vw-outlined-fill, rgb(var(--v-theme-surface)));
+  }
+
   /* A badge is a very small chip and rounds like one. */
   & .v-badge__badge {
     border-radius: var(--v-vw-radius-chip, 9999px);
@@ -308,6 +324,15 @@
    */
   & .v-field__outline {
     --v-field-border-width: var(--v-vw-border-width, 1px);
+    /**
+     * Vuetify draws a resting field outline at 0.38 of the ink, which on a
+     * white ground reads around 2.3:1 — under the 3:1 WCAG asks for the
+     * boundary of a control you are meant to find and click. The value is
+     * declared on this element rather than inherited, so a theme cannot
+     * reach it through `variables` alone; the knob is here instead, and it
+     * defaults to Vuetify's own number so nothing moves unasked.
+     */
+    --v-field-border-opacity: var(--v-vw-field-border-opacity, 0.38);
   }
 
   /* ---------------------------------------------------- button typography */
@@ -359,6 +384,74 @@
    * with it; they raise this one instead and get the line back without a
    * single border returning.
    */
+  /**
+   * Vuetify paints a skeleton's bones with `--v-border-opacity`, which ties
+   * "how visible is a loading placeholder" to "how heavy are this theme's
+   * borders". A theme that draws no borders at all — `clay` and `morph` hold
+   * the value at 0.001 so no stray outline can appear — loses its loading
+   * state entirely — while a theme whose borders are solid black paints the
+   * bones solid black, which is a filled box rather than a placeholder.
+   * Clamping both ends keeps the loading state legible in either direction
+   * without touching a single border, and a theme can still overrule it.
+   *
+   * The list is Vuetify's own: `__bone` is the layout class every piece
+   * carries, containers included, so painting that one fills the whole
+   * block instead of drawing bars on it.
+   */
+  & :is(
+    .v-skeleton-loader__avatar,
+    .v-skeleton-loader__button,
+    .v-skeleton-loader__chip,
+    .v-skeleton-loader__divider,
+    .v-skeleton-loader__heading,
+    .v-skeleton-loader__image,
+    .v-skeleton-loader__ossein,
+    .v-skeleton-loader__text
+  ) {
+    background: rgba(
+      var(--v-theme-on-surface),
+      var(--v-vw-skeleton-opacity, clamp(0.08, var(--v-border-opacity), 0.2))
+    );
+  }
+
+  /**
+   * The pieces carry hardcoded pill corners — 12px on a heading, 16 on a
+   * chip, 6 on a line of text — so a theme with square corners loads
+   * rounded bars and a theme with generous ones loads tight bars. A
+   * placeholder should be the shape of the thing it stands in for.
+   */
+  & :is(
+    .v-skeleton-loader__button,
+    .v-skeleton-loader__chip,
+    .v-skeleton-loader__heading,
+    .v-skeleton-loader__image,
+    .v-skeleton-loader__ossein,
+    .v-skeleton-loader__text
+  ) {
+    border-radius: var(--v-vw-radius, 4px);
+  }
+
+  & .v-skeleton-loader__avatar {
+    border-radius: var(--v-vw-radius-avatar, 50%);
+  }
+
+  /**
+   * The month and year controls are a fixed-width row inside a fixed-width
+   * card, so a theme that widens its buttons — wide tracking, a larger
+   * size — or narrows the picker pushes them past the edge. Wrapping is the
+   * one outcome that neither clips them nor forces a scrollbar.
+   */
+  & .v-date-picker-controls {
+    flex-wrap: wrap;
+    row-gap: 4px;
+    /* Vuetify pins the row at 56px, so a wrapped second line lands on the
+       weekday letters underneath. The height has to follow the content the
+       moment wrapping is allowed at all. */
+    height: auto;
+    min-height: var(--v-date-picker-controls-height, 56px);
+    padding-inline: 8px;
+  }
+
   & :is(.v-timeline-divider__before, .v-timeline-divider__after) {
     background: var(
       --v-vw-timeline-line,
@@ -386,6 +479,14 @@
 
   & .v-tab__slider {
     height: var(--v-vw-tab-slider-height, 2px);
+  }
+
+  /**
+   * Figures line up in a column only when every digit is the same width,
+   * which matters on any screen that is mostly numbers and nowhere else.
+   */
+  & :is(.v-table, .v-data-table, .v-pagination) {
+    font-variant-numeric: var(--v-vw-numeric, normal);
   }
 
   & :is(.v-table thead th, .v-data-table__th) {

@@ -1,3 +1,6 @@
+export { atlas } from './atlas.js'
+export { atlasDark } from './atlasDark.js'
+export { atlasSepia } from './atlasSepia.js'
 export { aurora } from './aurora.js'
 export { brutalist } from './brutalist.js'
 export { calm } from './calm.js'

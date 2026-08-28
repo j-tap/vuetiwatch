@@ -1,4 +1,7 @@
 export {
+  atlas,
+  atlasDark,
+  atlasSepia,
   aurora,
   brutalist,
   calm,
@@ -31,6 +34,7 @@ export type { VuetiwatchThemeName } from './registry.js'
 export type { DefineThemeOptions } from './util/defineTheme.js'
 export type { VuetiwatchIcons } from './util/defaults.js'
 export type {
+  VuetiwatchAccent,
   VuetiwatchDefaults,
   VuetiwatchMeta,
   VuetiwatchTheme,

@@ -1,6 +1,9 @@
 import type { ThemeDefinition } from 'vuetify'
 import type { VuetiwatchDefaults, VuetiwatchMeta, VuetiwatchTheme } from './types.js'
 import {
+  atlas,
+  atlasDark,
+  atlasSepia,
   aurora,
   brutalist,
   calm,
@@ -28,6 +31,9 @@ export const themeList = [
   paper,
   slate,
   graphite,
+  atlas,
+  atlasDark,
+  atlasSepia,
   calm,
   lux,
   soft,

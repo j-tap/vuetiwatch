@@ -3,13 +3,36 @@ import { computed } from 'vue'
 import { useTheme } from 'vuetify'
 import { themeList } from 'vuetiwatch'
 
+import AccentSwitcher from '@/components/AccentSwitcher.vue'
 import ThemeSwatch from '@/components/ThemeSwatch.vue'
+import VariantSwitcher from '@/components/VariantSwitcher.vue'
 import { links } from '@/config'
 
 const theme = useTheme()
 const current = computed(() =>
   themeList.find(item => item.name === theme.global.name.value) ?? themeList[0],
 )
+
+/**
+ * Read from the live theme rather than from `meta.swatch`: an accent is
+ * applied at runtime, and a strip still showing the theme's original colour
+ * would be the one thing on the card that is out of date.
+ */
+const swatch = computed(() => {
+  const colors = theme.current.value?.colors
+
+  if (!colors) return current.value.meta.swatch
+
+  // Vuetify's colours are typed loosely enough to include objects; only the
+  // strings are of any use to a swatch.
+  return ['background', 'surface', 'primary', 'secondary'].map((key, index) => {
+    const value = colors[key]
+
+    return typeof value === 'string'
+      ? value
+      : current.value.meta.swatch[index] ?? '#000000'
+  })
+})
 </script>
 
 <template>
@@ -58,7 +81,7 @@ const current = computed(() =>
         <v-col cols="12" md="5" lg="6" class="mt-8 mt-md-0">
           <!-- The active theme, described by its own meta — the page's legend. -->
           <v-card class="hero__card mx-auto">
-            <ThemeSwatch :colors="current.meta.swatch" block :height="12" />
+            <ThemeSwatch :colors="swatch" block :height="12" />
 
             <v-card-item>
               <v-card-title>{{ current.meta.title }}</v-card-title>
@@ -67,14 +90,16 @@ const current = computed(() =>
               </v-card-subtitle>
             </v-card-item>
 
-            <v-card-text class="d-flex flex-wrap ga-2 pt-0">
-              <v-chip
-                size="small"
-                variant="tonal"
-                :prepend-icon="current.meta.dark ? 'mdi-weather-night' : 'mdi-white-balance-sunny'"
-              >
-                {{ current.meta.dark ? 'Dark' : 'Light' }}
-              </v-chip>
+            <!-- Mode and accent belong to the theme, so they live on the
+                 theme's own card rather than in the app bar.
+                 `pt-4` is deliberate: Vuetify zeroes the top padding of a
+                 `v-card-text` that follows a `v-card-item`, and several
+                 themes rule off the title block right above this row, which
+                 leaves the controls sitting on the line. -->
+            <v-card-text class="d-flex flex-wrap align-center ga-2 pt-4">
+              <VariantSwitcher />
+
+              <AccentSwitcher class="ms-1" />
 
               <v-chip
                 v-for="font in current.meta.fonts"

@@ -49,14 +49,6 @@
     border-bottom: 1px solid rgba(var(--v-border-color), 0.2);
   }
 
-  /**
-   * Figures line up in columns only if every digit is the same width, and
-   * a table of ids, dates and counts is most of what this theme is for.
-   */
-  & :is(.v-table, .v-data-table, .v-pagination) {
-    font-variant-numeric: tabular-nums;
-  }
-
   /* A status is a label too, and a breadcrumb trail is a path. */
   & :is(.v-chip.v-chip--size-x-small, .v-chip.v-chip--size-small, .v-breadcrumbs-item) {
     font-family: var(--vw-graphite-label);

@@ -14,6 +14,8 @@
 @import './themes/paper.css';
 @import './themes/slate.css';
 @import './themes/graphite.css';
+/* One stylesheet for the three Atlas variants. */
+@import './themes/_atlas.css';
 @import './themes/calm.css';
 @import './themes/lux.css';
 @import './themes/soft.css';

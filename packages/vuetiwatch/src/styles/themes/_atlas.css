@@ -1,0 +1,143 @@
+/**
+ * Atlas — shared by the three variants, because they are one design with
+ * three grounds rather than three themes that resemble each other.
+ *
+ * The theme says most of what it has to say through variables; what is left
+ * are the two structures a panel needs and a `ThemeDefinition` cannot
+ * express: a header that separates from its rows, and a card whose title
+ * separates from its content. Both are hairlines. Nothing here casts a
+ * shadow — on a screen this quiet a shadow is the loudest thing on it.
+ */
+.v-theme--atlas,
+.v-theme--atlasDark,
+.v-theme--atlasSepia {
+  /**
+   * A table header that keeps its own ground, so a sticky one does not have
+   * rows sliding through it, and a rule under it that reads as structure
+   * rather than as a border round the table.
+   */
+  & :is(.v-table thead th, .v-data-table__th) {
+    background-color: rgb(var(--v-theme-surface));
+    border-bottom: 1px solid rgba(var(--v-border-color), calc(var(--v-border-opacity) * 1.6));
+  }
+
+  /* The title block of a panel, ruled off from what it introduces. */
+  & .v-card--variant-outlined > .v-card-item:not(:last-child) {
+    border-block-end: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+    padding-block-end: 12px;
+  }
+
+  /**
+   * Vuetify zeroes the top padding of a `v-card-text` that follows a
+   * `v-card-item`, which is right when nothing separates them and wrong the
+   * moment the rule above is drawn: the content ends up sitting on the line.
+   */
+  & .v-card--variant-outlined > .v-card-item + :is(.v-card-text, .v-card-actions) {
+    padding-top: 12px;
+  }
+
+  /**
+   * Data runs a size smaller than prose.
+   *
+   * Vuetify sets one body size for the whole application, which is right
+   * for a page someone reads and wrong for a grid someone scans: at 16px a
+   * table of twelve columns stops fitting, and every admin tool worth
+   * copying runs its rows at 13 or 14. The reduction is scoped to the
+   * places that hold records — tables and lists — so forms and prose keep
+   * the size they were designed at.
+   */
+  & :is(.v-table, .v-data-table) {
+    font-size: 0.875rem;
+  }
+
+  & :is(.v-list-item-title, .v-list-item-subtitle) {
+    font-size: 0.875rem;
+  }
+
+  /**
+   * A panel title is a label for what is under it, not a headline. Vuetify's
+   * 1.25rem belongs on a marketing card; a screen with nine panels on it
+   * needs them to sit down.
+   */
+  & .v-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  /**
+   * The pickers, at a size that fits a form.
+   *
+   * Vuetify sizes them for a touch dialog: 328px wide with 44px day cells,
+   * which next to a compact field looks like a component from another
+   * application. 36px cells still clear the 24px minimum for a pointer
+   * target and take a third off the height.
+   */
+  & :is(.v-date-picker, .v-picker) {
+    /* 306, not 296: the month and year controls need that much, and a
+       picker narrower than its own header is a picker that wraps. */
+    width: 306px;
+  }
+
+  /* The time picker sets its own floor, and it is the same 328. */
+  & .v-time-picker {
+    min-width: 296px;
+  }
+
+  & .v-date-picker-month__day {
+    height: 36px;
+  }
+
+  & .v-date-picker-controls {
+    padding-block: 4px;
+  }
+
+  /**
+   * Two nested paddings around five boxes on a control that is one line —
+   * and boxes sized for a thumb on a phone. A code entered with a keyboard
+   * beside compact fields should match them.
+   */
+  & .v-otp-input {
+    padding-block: 0;
+  }
+
+  & .v-otp-input__content {
+    max-width: 240px;
+    padding: 0;
+  }
+
+  & .v-otp-input .v-field {
+    height: 40px;
+  }
+
+  /**
+   * A panel header is a row, and rows here are 40 to 44. Vuetify's 48
+   * growing to 64 on open makes the list jump as much as it discloses.
+   */
+  & .v-expansion-panel-title {
+    min-height: 44px;
+    /* The height comes from the padding, not the minimum: 16px above and
+       below a 24px line is 56 whatever the minimum says. */
+    padding-block: 10px;
+  }
+
+  & .v-expansion-panel-title--active {
+    min-height: 52px;
+  }
+
+  /**
+   * Vuetify's empty state fills its container, which is right for a
+   * full-page one and wrong for the panel-sized ones an admin screen is
+   * full of.
+   */
+  & .v-empty-state {
+    min-height: 0;
+    padding-block: 24px;
+  }
+
+  /* Dense screens read better when the rules between rows are lighter than
+     the ones around the panels that hold them. */
+  & :is(.v-table tbody td, .v-data-table__td) {
+    border-color: rgba(var(--v-border-color), calc(var(--v-border-opacity) * 0.7));
+  }
+}
