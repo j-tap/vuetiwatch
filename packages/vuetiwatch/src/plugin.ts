@@ -152,25 +152,26 @@ export function createVuetiwatch (
         )
       }
 
-      // Whatever the app configured itself — theme defaults layer on top of it.
-      const userDefaults = instance.defaults.value ?? {}
+      /**
+       * Whatever the app configured itself — theme defaults layer on top.
+       *
+       * Re-read rather than captured once, because `defaults` is a public
+       * ref an app is allowed to reassign at runtime. Anything we did not
+       * write ourselves is the app speaking, and becomes the new base;
+       * without the check, the first theme change after such a reassignment
+       * would quietly throw the app's own defaults away.
+       */
+      let userDefaults = instance.defaults.value ?? {}
+      let applied: VuetiwatchDefaults | undefined
 
-      // The merge is a pure function of the theme name, so it is computed at
-      // most once per theme however often the app switches.
-      const merged = new Map<string, VuetiwatchDefaults>()
       const defaultsFor = (name: string) => {
-        const themeDefaults = defaultsByName.get(name)
-
-        if (!themeDefaults) return userDefaults
-
-        let result = merged.get(name)
-
-        if (!result) {
-          result = combine(userDefaults, themeDefaults)
-          merged.set(name, result)
+        if (applied && instance.defaults.value !== applied) {
+          userDefaults = instance.defaults.value ?? {}
         }
 
-        return result
+        const themeDefaults = defaultsByName.get(name)
+
+        return themeDefaults ? combine(userDefaults, themeDefaults) : userDefaults
       }
 
       const apply = (name: string) => {
@@ -219,7 +220,8 @@ export function createVuetiwatch (
         () => instance.theme.global.name.value,
         name => {
           if (applyDefaults) {
-            instance.defaults.value = defaultsFor(name)
+            applied = defaultsFor(name)
+            instance.defaults.value = applied
           }
 
           if (attribute && typeof document !== 'undefined') {

@@ -226,12 +226,40 @@ Vuetify's own, it reads:
 | `vw-focus-ring` / `-offset` | `2px solid primary` / `2px` | `:focus-visible` on buttons, tabs, chips, list items |
 | `vw-theme-transition` | `420ms` | The wipe when `change()` switches theme |
 
-An explicit `rounded` prop always wins over `vw-radius`.
-
 `font-heading` reaches `text-display-*`, `text-headline-*`, `text-title-large`
 and bare `<h1>`–`<h6>`; the rest of the scale takes `font-body`. Vuetify 4
 uses the Material 3 names — `text-h1`…`text-h6`, `text-body-1`, `text-caption`
 and `text-overline` no longer exist.
+
+### What wins
+
+These variables set the *default* a component draws with — the same job
+Vuetify's SASS variables do at build time, moved to runtime so the look can
+be swapped without recompiling. Vuetify draws the same line itself: it ships
+`$button-border-radius` for the default and `$button-rounded-border-radius`
+for what the `rounded` prop asks for.
+
+Four levels, loudest first:
+
+| | Set by | Example |
+| --- | --- | --- |
+| **1. A prop or utility class** | the component's author | `<v-card rounded="xl">`, `class="rounded-0"` |
+| **2. The theme's component defaults** | the theme | `candy` making every `VBtn` `size="large"` |
+| **3. Your `createVuetify({ defaults })`** | you, once | `VDataTable: { hover: true }` |
+| **4. Vuetify** | the framework | the 4px corner every component ships with |
+
+Level 1 is why every rule in the core layer carries `:not([class*='rounded-'])`:
+a component whose author asked for a corner keeps it whatever the theme says.
+Level 2 sits above level 3 on purpose — a theme that could not change a
+variant would not be a theme — but it only overrides the keys it actually
+sets, so the rest of your configuration survives every switch, including
+defaults you assign at runtime. Level 4 holds because every declaration
+falls back to Vuetify's own value, which is why importing the stylesheet
+cannot change an app that is not running a Vuetiwatch theme.
+
+The practical version: if a component looks wrong under a theme, look for a
+`rounded`, `variant`, `elevation` or `density` prop on it first. That prop is
+doing exactly what it is meant to do, and the theme is standing aside.
 
 ### Icons
 
