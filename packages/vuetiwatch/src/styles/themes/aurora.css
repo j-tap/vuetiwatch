@@ -69,9 +69,10 @@
     pointer-events: none;
   }
 
-  /* Filled buttons are the gradient itself. */
+  /* Filled buttons are the gradient itself — the deep one, since they
+     carry a label. */
   & .v-btn.v-btn--variant-flat.bg-primary {
-    background-image: var(--v-vw-gradient);
+    background-image: var(--v-vw-gradient-btn, var(--v-vw-gradient));
     box-shadow: 0 6px 24px rgba(124, 92, 255, 0.45);
   }
 
@@ -165,8 +166,9 @@
     );
   }
 
+  /* A badge is a number on a gradient, so it takes the deep one too. */
   & .v-badge__badge {
-    background-image: var(--v-vw-gradient);
+    background-image: var(--v-vw-gradient-btn, var(--v-vw-gradient));
   }
 
   /* A focused field gets the same rim the cards wear. */

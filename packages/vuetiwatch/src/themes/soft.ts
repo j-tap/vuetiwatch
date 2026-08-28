@@ -13,7 +13,7 @@ export const soft = defineTheme({
     description: 'Pastel palette, large radii and diffuse shadows. Friendly and unhurried.',
     dark: false,
     iconStyle: 'filled',
-    swatch: ['#F7F5FF', '#FFFFFF', '#7C6CF0', '#F08CA8'],
+    swatch: ['#F7F5FF', '#FFFFFF', '#705EEF', '#F08CA8'],
     fonts: ['Nunito'],
   },
   theme: {
@@ -25,7 +25,7 @@ export const soft = defineTheme({
       'surface-light': '#EAE3FF',
       'surface-variant': '#4A4458',
       'on-surface-variant': '#F7F5FF',
-      primary: '#7C6CF0',
+      primary: '#705EEF',
       'primary-darken-1': '#5F4DE0',
       secondary: '#F08CA8',
       'secondary-darken-1': '#DB6C8B',
@@ -35,6 +35,13 @@ export const soft = defineTheme({
       warning: '#F5B851',
       'on-surface': '#2E2A3B',
       'on-background': '#2E2A3B',
+      // Vuetify's automatic pick lands on white here, which is worse by
+      // both models — this reads w6.0/a56 against w2.3/a50.
+      'on-secondary': '#2E2A3B',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: error 2.8:1 → 4.9:1.
+      'on-error': '#2E2A3B',
     },
     variables: {
       'border-color': '#5F4DE0',

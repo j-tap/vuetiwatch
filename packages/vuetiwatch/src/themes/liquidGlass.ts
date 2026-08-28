@@ -25,7 +25,7 @@ export const liquidGlass = defineTheme({
     description: 'Capsule controls and refracting panes over a calm wash, after iOS 26.',
     dark: false,
     iconStyle: 'outline',
-    swatch: ['#F2F2F7', '#FFFFFF', '#007AFF', '#5856D6'],
+    swatch: ['#F2F2F7', '#FFFFFF', '#0071ED', '#5856D6'],
     fonts: ['Inter'],
   },
   theme: {
@@ -38,16 +38,21 @@ export const liquidGlass = defineTheme({
       'surface-light': '#F7F7FA',
       'surface-variant': '#3A3A3C',
       'on-surface-variant': '#F2F2F7',
-      primary: '#007AFF',
+      primary: '#0071ED',
       'primary-darken-1': '#0062CC',
       secondary: '#5856D6',
       'secondary-darken-1': '#4341B5',
       error: '#FF3B30',
-      info: '#007AFF',
+      info: '#0071ED',
       success: '#34C759',
       warning: '#FF9500',
       'on-surface': '#1C1C1E',
       'on-background': '#1C1C1E',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: info 4:1 → 5.2:1, error 3.5:1 → 4.8:1.
+      'on-info': '#000000',
+      'on-error': '#1C1C1E',
       'on-success': '#06140A',
       'on-warning': '#1A1004',
     },

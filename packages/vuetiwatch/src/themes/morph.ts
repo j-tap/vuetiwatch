@@ -16,7 +16,7 @@ export const morph = defineTheme({
     description: 'Neumorphic — one continuous surface, shaped only by light and shadow.',
     dark: false,
     iconStyle: 'filled',
-    swatch: ['#E4EBF5', '#E4EBF5', '#5A7DE0', '#8894AA'],
+    swatch: ['#E4EBF5', '#E4EBF5', '#496FDD', '#677690'],
     fonts: ['Nunito'],
   },
   theme: {
@@ -28,9 +28,9 @@ export const morph = defineTheme({
       'surface-light': '#DAE2EE',
       'surface-variant': '#4A5568',
       'on-surface-variant': '#E4EBF5',
-      primary: '#5A7DE0',
+      primary: '#496FDD',
       'primary-darken-1': '#4763BC',
-      secondary: '#8894AA',
+      secondary: '#677690',
       'secondary-darken-1': '#6D798F',
       error: '#E06C75',
       info: '#5A9FE0',
@@ -38,6 +38,11 @@ export const morph = defineTheme({
       warning: '#E0A85A',
       'on-surface': '#4A5568',
       'on-background': '#4A5568',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: info 2.8:1 → 7.5:1, error 3.2:1 → 6.6:1.
+      'on-info': '#000000',
+      'on-error': '#000000',
     },
     variables: {
       'border-color': '#9AA7BC',

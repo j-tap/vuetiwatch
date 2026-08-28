@@ -35,6 +35,10 @@ export const neon = defineTheme({
       warning: '#FFD23F',
       'on-surface': '#D7E3F4',
       'on-background': '#D7E3F4',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: error 3.5:1 → 6:1.
+      'on-error': '#000000',
       'on-primary': '#05060A',
       'on-secondary': '#05060A',
       'on-success': '#05060A',

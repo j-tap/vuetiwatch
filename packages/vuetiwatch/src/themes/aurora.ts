@@ -16,7 +16,7 @@ export const aurora = defineTheme({
     description: 'Iridescent gradients on near-black. Built to be looked at — the showcase theme.',
     dark: true,
     iconStyle: 'filled',
-    swatch: ['#08080C', '#101018', '#7C5CFF', '#00D4FF'],
+    swatch: ['#08080C', '#101018', '#7857FF', '#00D4FF'],
     fonts: ['Inter'],
   },
   theme: {
@@ -28,7 +28,7 @@ export const aurora = defineTheme({
       'surface-light': '#16161F',
       'surface-variant': '#C9C6E0',
       'on-surface-variant': '#08080C',
-      primary: '#7C5CFF',
+      primary: '#7857FF',
       'primary-darken-1': '#5F3FE0',
       secondary: '#00D4FF',
       'secondary-darken-1': '#00A8CC',
@@ -38,6 +38,10 @@ export const aurora = defineTheme({
       warning: '#FFB86B',
       'on-surface': '#E8E6F5',
       'on-background': '#F0EEFA',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: error 3:1 → 7.1:1.
+      'on-error': '#000000',
       'on-secondary': '#04121A',
       'on-success': '#04140D',
       'on-warning': '#1A1004',
@@ -61,6 +65,13 @@ export const aurora = defineTheme({
       // Shared by every gradient below, so a derived theme restyles the
       // whole surface language by overriding one value.
       'vw-gradient': 'linear-gradient(135deg, #7C5CFF 0%, #00D4FF 55%, #FF5CAA 100%)',
+      /**
+       * The same three hues at a depth that carries a white label: the
+       * showcase gradient runs through a cyan where white text reads at
+       * 1.8:1, which is fine behind a tab slider and unusable behind a
+       * word. Anything with text on it takes this one instead.
+       */
+      'vw-gradient-btn': 'linear-gradient(135deg, #6F4CFF 0%, #007891 55%, #DA0069 100%)',
 
       // The showcase theme, so the motion shows off too.
       'vw-motion-duration': '300ms',

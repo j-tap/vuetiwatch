@@ -19,7 +19,7 @@ export const graphite = defineTheme({
     description: 'Product dark — near-black, hairline edges, no shadows, mono labels.',
     dark: true,
     iconStyle: 'outline',
-    swatch: ['#0A0B0D', '#121417', '#EDEFF2', '#7B8CFF'],
+    swatch: ['#0A0B0D', '#121417', '#EDEFF2', '#4D64FF'],
     fonts: ['Inter', 'JetBrains Mono'],
   },
   theme: {
@@ -33,7 +33,7 @@ export const graphite = defineTheme({
       'on-surface-variant': '#0F1114',
       primary: '#EDEFF2',
       'primary-darken-1': '#C9CDD4',
-      secondary: '#7B8CFF',
+      secondary: '#4D64FF',
       'secondary-darken-1': '#5D6FE8',
       error: '#F2555A',
       info: '#5AA9F0',
@@ -41,6 +41,11 @@ export const graphite = defineTheme({
       warning: '#E8B03D',
       'on-surface': '#E6E9ED',
       'on-background': '#E6E9ED',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: info 2.5:1 → 8.4:1, error 3.4:1 → 6.2:1.
+      'on-info': '#000000',
+      'on-error': '#000000',
     },
     variables: {
       'border-color': '#9AA4B5',

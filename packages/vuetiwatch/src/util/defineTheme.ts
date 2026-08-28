@@ -5,14 +5,17 @@ import { combine } from './defaults.js'
 /**
  * Applied under every theme's own defaults.
  *
- * A slider with no `color` falls back to `surface-variant`, which reads as
- * dead grey whatever the palette — so the controls whose whole job is to
- * show a value are coloured here once. A theme overrides this the way it
- * overrides anything else.
+ * A control with no `color` falls back to `surface-variant`, which reads as
+ * dead grey whatever the palette — and on a date picker Vuetify then writes
+ * `on-surface` over that grey rather than `on-surface-variant`, so the
+ * selected day comes out near-black on dark grey at about 1.6:1. The
+ * controls whose whole job is to show a value are coloured here once, and a
+ * theme overrides this the way it overrides anything else.
  */
 const baseDefaults: VuetiwatchDefaults = {
   VSlider: { color: 'primary' },
   VRangeSlider: { color: 'primary' },
+  VDatePicker: { color: 'primary' },
 }
 
 export interface DefineThemeOptions<Name extends string = string> {
@@ -44,6 +47,9 @@ export function defineTheme<const Name extends string> (
     name: options.name,
     meta: options.meta,
     theme: options.theme,
-    defaults: combine(baseDefaults, ...layers),
+    // A theme that declared itself stock gets nothing at all — not even the
+    // base layer above. It is the control, and a control with one prop set
+    // is not a control.
+    defaults: options.meta.stock ? combine(...layers) : combine(baseDefaults, ...layers),
   }
 }

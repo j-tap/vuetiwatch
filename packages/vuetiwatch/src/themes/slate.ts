@@ -35,6 +35,10 @@ export const slate = defineTheme({
       warning: '#B7791F',
       'on-surface': '#1A202C',
       'on-background': '#1A202C',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: warning 3.6:1 → 4.5:1.
+      'on-warning': '#1A202C',
     },
     variables: {
       'border-color': '#1A202C',

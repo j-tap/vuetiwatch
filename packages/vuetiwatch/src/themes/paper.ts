@@ -35,6 +35,10 @@ export const paper = defineTheme({
       warning: '#B07A1E',
       'on-surface': '#14110E',
       'on-background': '#14110E',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: warning 3.7:1 → 5.1:1.
+      'on-warning': '#14110E',
     },
     variables: {
       'border-color': '#14110E',

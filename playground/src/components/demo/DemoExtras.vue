@@ -65,20 +65,6 @@ const rows = [
         </tbody>
       </v-table>
 
-      <p class="text-label-medium text-medium-emphasis mb-2">Empty state</p>
-      <v-empty-state
-        class="mb-6"
-        icon="mdi-inbox-outline"
-        title="Nothing here yet"
-        text="An empty state is a surface, a glyph and a button — three things a theme has to agree on."
-      >
-        <template #actions>
-          <v-btn text="Create one" color="primary" />
-        </template>
-      </v-empty-state>
-
-      <p class="text-label-medium text-medium-emphasis mb-2">Loading</p>
-      <v-skeleton-loader type="article, actions" />
     </v-col>
 
     <v-col cols="12" lg="6">
@@ -116,8 +102,31 @@ const rows = [
       <p class="text-label-medium text-medium-emphasis mb-2">Slider</p>
       <v-slider v-model="level" color="primary" class="mb-6" thumb-label />
 
+    </v-col>
+    <!-- Three blocks that size themselves very differently: side by side
+         they balance, stacked they leave a column of nothing. -->
+    <v-col cols="12" md="6" lg="4">
       <p class="text-label-medium text-medium-emphasis mb-2">Date picker</p>
       <v-date-picker v-model="date" />
+    </v-col>
+
+    <v-col cols="12" md="6" lg="4">
+      <p class="text-label-medium text-medium-emphasis mb-2">Empty state</p>
+      <v-empty-state
+        class="mb-6"
+        icon="mdi-inbox-outline"
+        title="Nothing here yet"
+        text="An empty state is a surface, a glyph and a button — three things a theme has to agree on."
+      >
+        <template #actions>
+          <v-btn text="Create one" color="primary" />
+        </template>
+      </v-empty-state>
+    </v-col>
+
+    <v-col cols="12" lg="4">
+      <p class="text-label-medium text-medium-emphasis mb-2">Loading</p>
+      <v-skeleton-loader type="article, actions" />
     </v-col>
   </v-row>
 </template>

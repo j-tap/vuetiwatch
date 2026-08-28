@@ -17,7 +17,7 @@ export const calm = defineTheme({
     description: 'Low contrast, desaturated naturals and a lot of air. Nothing competes for attention.',
     dark: false,
     iconStyle: 'outline',
-    swatch: ['#FAFAF7', '#FFFFFF', '#6B7A6B', '#A89684'],
+    swatch: ['#FAFAF7', '#FFFFFF', '#6B7A6B', '#86725F'],
     fonts: ['Inter'],
   },
   theme: {
@@ -31,7 +31,7 @@ export const calm = defineTheme({
       'on-surface-variant': '#FAFAF7',
       primary: '#6B7A6B',
       'primary-darken-1': '#556355',
-      secondary: '#A89684',
+      secondary: '#86725F',
       'secondary-darken-1': '#8B7A69',
       error: '#A86B63',
       info: '#6B7A8A',
@@ -39,6 +39,13 @@ export const calm = defineTheme({
       warning: '#A89464',
       'on-surface': '#3A3A36',
       'on-background': '#3A3A36',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: success 3.8:1 → 5.5:1, info 4.4:1 → 4.8:1, warning 3:1 → 7.1:1, error 4.2:1 → 4.9:1.
+      'on-success': '#000000',
+      'on-info': '#000000',
+      'on-warning': '#000000',
+      'on-error': '#000000',
     },
     variables: {
       'border-color': '#3A3A36',

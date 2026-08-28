@@ -38,6 +38,11 @@ export const brutalist = defineTheme({
       warning: '#FFB300',
       'on-surface': '#0A0A0A',
       'on-background': '#0A0A0A',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: info 3.8:1 → 5.2:1, error 3.3:1 → 6:1.
+      'on-info': '#0A0A0A',
+      'on-error': '#0A0A0A',
       'on-secondary': '#0A0A0A',
       'on-warning': '#0A0A0A',
       'on-success': '#0A0A0A',

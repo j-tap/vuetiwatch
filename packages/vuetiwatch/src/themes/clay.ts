@@ -36,6 +36,13 @@ export const clay = defineTheme({
       warning: '#FDCB6E',
       'on-surface': '#3D3355',
       'on-background': '#3D3355',
+      // Vuetify's automatic pick lands on white here, which is worse by
+      // both models — this reads w8.7/a59 against w2.4/a52.
+      'on-secondary': '#000000',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: error 2.8:1 → 7.6:1.
+      'on-error': '#000000',
       'on-warning': '#3D2E00',
     },
     variables: {

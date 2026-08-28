@@ -14,7 +14,7 @@ export const lux = defineTheme({
     description: 'Editorial luxury — hairline rules, wide tracking, small caps and muted gold.',
     dark: false,
     iconStyle: 'outline',
-    swatch: ['#FFFFFF', '#FAFAFA', '#1A1A1A', '#B39A5B'],
+    swatch: ['#FFFFFF', '#FAFAFA', '#1A1A1A', '#88733F'],
     fonts: ['Jost'],
   },
   theme: {
@@ -28,7 +28,7 @@ export const lux = defineTheme({
       'on-surface-variant': '#FFFFFF',
       primary: '#1A1A1A',
       'primary-darken-1': '#000000',
-      secondary: '#B39A5B',
+      secondary: '#88733F',
       'secondary-darken-1': '#8F7A45',
       error: '#96322A',
       info: '#3D5A73',
@@ -36,6 +36,10 @@ export const lux = defineTheme({
       warning: '#A8791E',
       'on-surface': '#1A1A1A',
       'on-background': '#1A1A1A',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: warning 3.9:1 → 4.5:1.
+      'on-warning': '#1A1A1A',
     },
     variables: {
       'border-color': '#1A1A1A',

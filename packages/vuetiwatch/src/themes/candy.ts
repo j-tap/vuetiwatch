@@ -26,7 +26,7 @@ export const candy = defineTheme({
     description: 'Plush and pillowy — warm cream, padded shapes, controls that squash.',
     dark: false,
     iconStyle: 'filled',
-    swatch: ['#FFF3EC', '#FFFCFA', '#E0457D', '#12988F'],
+    swatch: ['#FFF3EC', '#FFFCFA', '#DC2B6B', '#10837C'],
     fonts: ['Baloo 2', 'Varela Round'],
   },
   theme: {
@@ -39,9 +39,9 @@ export const candy = defineTheme({
       'surface-light': '#FFE6EE',
       'surface-variant': '#5A3340',
       'on-surface-variant': '#FFF6F0',
-      primary: '#E0457D',
+      primary: '#DC2B6B',
       'primary-darken-1': '#C43668',
-      secondary: '#12988F',
+      secondary: '#10837C',
       'secondary-darken-1': '#0C7C75',
       error: '#E5484D',
       info: '#3B8FE5',
@@ -49,10 +49,16 @@ export const candy = defineTheme({
       warning: '#F2A32C',
       'on-surface': '#46262F',
       'on-background': '#46262F',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: success 3:1 → 7:1, info 3.4:1 → 6.2:1, error 3.9:1 → 5.4:1.
+      'on-success': '#000000',
+      'on-info': '#000000',
+      'on-error': '#000000',
       'on-warning': '#3B2600',
     },
     variables: {
-      'border-color': '#E0457D',
+      'border-color': '#DC2B6B',
       'border-opacity': 0.12,
       'shadow-color': '#C2537E',
       'high-emphasis-opacity': 0.92,

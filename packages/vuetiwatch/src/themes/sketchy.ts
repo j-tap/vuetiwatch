@@ -39,6 +39,11 @@ export const sketchy = defineTheme({
       warning: '#C98A15',
       'on-surface': '#2B2B2B',
       'on-background': '#2B2B2B',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: success 4.2:1 → 5:1, warning 2.9:1 → 4.8:1.
+      'on-success': '#000000',
+      'on-warning': '#2B2B2B',
     },
     variables: {
       'border-color': '#2B2B2B',

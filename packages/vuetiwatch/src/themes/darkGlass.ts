@@ -35,6 +35,10 @@ export const darkGlass = defineTheme({
       warning: '#FFB74D',
       'on-surface': '#ECE8F5',
       'on-background': '#F3F0FA',
+      // Vuetify picks the label colour by luminance and settles for
+      // about 3:1, which is the bar for large text rather than for a
+      // button label. Measured on the filled buttons: error 3.1:1 → 6.7:1.
+      'on-error': '#000000',
     },
     variables: {
       'border-color': '#B9A9FF',

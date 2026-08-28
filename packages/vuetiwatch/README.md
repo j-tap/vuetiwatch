@@ -219,6 +219,7 @@ Vuetify's own, it reads:
 | `vw-pagination-active-color` / `-opacity` | Vuetify's | The current page |
 | `vw-link-decoration` | `underline` | Bare `<a>` elements |
 | `font-body` / `font-heading` | Roboto | Native to Vuetify 4 |
+| `vw-gradient` / `-btn` | none | A theme's gradient, and the deeper one used where text sits on it |
 | `vw-motion-duration` / `-ease` | `160ms` / standard | Press, hover lift, tab slider |
 | `vw-press-scale` / `-shift` | `0.98` / `0` | How far a control squashes and sinks under a press |
 | `vw-hover-lift` | `0` | How far a linked card rises on hover |
@@ -260,6 +261,25 @@ cannot change an app that is not running a Vuetiwatch theme.
 The practical version: if a component looks wrong under a theme, look for a
 `rounded`, `variant`, `elevation` or `density` prop on it first. That prop is
 doing exactly what it is meant to do, and the theme is standing aside.
+
+### Contrast
+
+Vuetify picks the label colour for a filled control automatically, by
+whichever of black or white scores higher on [APCA](https://github.com/Myndex/apca-w3) —
+the WCAG 3 draft algorithm. It optimises, but it does not clear a bar: on
+Vuetify's own light theme the filled `warning` button lands at 2.4:1 against
+WCAG 2's 4.5:1 for label text.
+
+Every theme here is measured against both, and states `on-*` explicitly
+wherever the automatic pick falls short — which is the documented way to
+control it. Where the two models disagreed the colour was deepened a few
+points of lightness instead of flipping the label, so the hue survives and
+both models pass; `aurora` keeps its bright gradient for decoration and
+carries a deeper one behind anything with text on it.
+
+The result: in all fifteen themes every filled control clears 4.5:1.
+`classic` does not, and that is the point of it — it is stock Vuetify,
+including this.
 
 ### Icons
 
