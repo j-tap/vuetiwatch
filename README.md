@@ -7,6 +7,8 @@
 🎨 Free, plug-and-play themes for **[Vuetify 4](https://vuetifyjs.com/)** — what [Bootswatch](https://bootswatch.com/)
 is to Bootstrap.
 
+[![The same page in two Vuetify 4 themes — Lux and Morph](docs/playground-themes.webp)](https://j-tap.github.io/vuetiwatch/)
+
 **[See all fourteen themes →](https://j-tap.github.io/vuetiwatch/)**
 
 Vuetify ships one look. Vuetiwatch ships fourteen, and they differ in more
@@ -36,7 +38,10 @@ npm i vuetiwatch      # or: bun add / yarn add / pnpm add
 | `aurora` | dark | Iridescent gradients on near-black — the showcase theme |
 | `neon` | dark | Terminal black, cyan and magenta glow, zero radius, monospace headings |
 
-## Setup
+## How to install and apply a theme in Vuetify 4
+
+Register the themes in `createVuetify`, then add the plugin. `defaultTheme`
+picks the one that loads; `useTheme().change(name)` switches at runtime.
 
 **1. Register the themes.** They are plain Vuetify `ThemeDefinition`s.
 
@@ -176,6 +181,8 @@ Vuetify's own, it reads:
 | `vw-heading-weight` / `-tracking` / `-transform` | Vuetify's | Headings and the display / headline / title-large scale |
 | `vw-th-weight` / `-tracking` / `-transform` | Vuetify's | Table headers |
 | `vw-tab-slider-height` | `2px` | Active tab indicator |
+| `vw-timeline-line-opacity` | `border-opacity` | Timeline connector, for themes that hold borders at zero |
+| `vw-relief-inset` | `0` | Padding inside chip groups, room for controls that lift |
 | `vw-overlay-shadow` / `-border` | Vuetify's | Menus, dialogs and tooltips |
 | `vw-list-bar` / `-color` | `0` | Accent bar on the active list item, leading edge |
 | `vw-pagination-active-color` / `-opacity` | Vuetify's | The current page |

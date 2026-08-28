@@ -48,7 +48,7 @@ export interface VuetiwatchOptions {
  * Install it after Vuetify:
  *
  * ```ts
- * app.use(vuetify).use(createVuetiwatch(vuetify))
+ * app.use(vuetify).use(createVuetiwatch(vuetify, { themes: themeList }))
  * ```
  */
 export function createVuetiwatch (
