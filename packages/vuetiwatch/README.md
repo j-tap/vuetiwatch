@@ -9,9 +9,9 @@ is to Bootstrap.
 
 [![The same page in two Vuetify 4 themes — Lux and Morph](https://raw.githubusercontent.com/j-tap/vuetiwatch/main/docs/playground-themes.webp)](https://j-tap.github.io/vuetiwatch/)
 
-**[See all fourteen themes →](https://j-tap.github.io/vuetiwatch/)**
+**[See all sixteen themes →](https://j-tap.github.io/vuetiwatch/)**
 
-Vuetify ships one look. Vuetiwatch ships fourteen, and they differ in more
+Vuetify ships one look. Vuetiwatch ships sixteen, and they differ in more
 than hue: radius, border weight, density, component variants, typography and
 icons all move together.
 
@@ -26,9 +26,11 @@ npm i vuetiwatch      # or: bun add / yarn add / pnpm add
 | `classic` | light | Stock Vuetify. Material Design, Roboto, familiar elevation |
 | `paper` | light | Flat editorial — warm paper, ink accents, hairline borders, serif headings |
 | `slate` | light | Dense dashboard — muted slate blue, compact density, outlined cards |
+| `graphite` | dark | Product dark — near-black, hairline edges, no shadows, mono labels |
 | `calm` | light | Low contrast, desaturated naturals, no shadows, a lot of air |
 | `lux` | light | Editorial luxury — hairline rules, wide tracking, small caps, muted gold |
 | `soft` | light | Pastel and generous — large radii, diffuse tinted shadows, hearts for stars |
+| `candy` | light | Plush and pillowy — warm cream, padded shapes, controls that squash |
 | `clay` | light | Inflated pastel shapes with a triple shadow. Toy-like |
 | `morph` | light | Neumorphic — one continuous surface, shaped only by light and shadow |
 | `sketchy` | light | Hand-drawn wobble and pencil greys, for mockups and mirth |
@@ -112,7 +114,7 @@ fallback, so skipping this degrades gracefully rather than breaking.
 ### Shipping only a few themes
 
 Pass just those to the plugin and import their stylesheets instead of the
-combined one. A single-theme app drops from about 9.5 kB gzipped to 3.4 kB.
+combined one. A single-theme app drops from about 10.5 kB gzipped to 3.3 kB.
 
 ```ts
 import { createVuetiwatch, paper } from 'vuetiwatch'

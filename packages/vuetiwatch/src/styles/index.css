@@ -13,9 +13,11 @@
 /* Everyday */
 @import './themes/paper.css';
 @import './themes/slate.css';
+@import './themes/graphite.css';
 @import './themes/calm.css';
 @import './themes/lux.css';
 @import './themes/soft.css';
+@import './themes/candy.css';
 
 /* Tactile */
 @import './themes/clay.css';

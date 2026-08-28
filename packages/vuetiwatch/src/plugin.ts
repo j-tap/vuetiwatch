@@ -20,7 +20,7 @@ export interface VuetiwatchOptions {
    *
    * Required rather than defaulted, because a default would mean importing
    * the registry here, and a static import cannot be shaken out: every app
-   * would carry all fourteen themes even after passing one.
+   * would carry all sixteen themes even after passing one.
    */
   themes: readonly VuetiwatchTheme[]
   /**

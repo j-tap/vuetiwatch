@@ -1,0 +1,92 @@
+/**
+ * Graphite — the theme is one subtraction and one rule.
+ *
+ * The subtraction: nothing casts a shadow. On a near-black ground a drop
+ * shadow has nothing to fall on, so every elevation Vuetify draws reads as
+ * a grey smudge. Take them all away and depth has to come from the two
+ * things that survive at this contrast — a surface a few percent lighter,
+ * and a one-pixel line. Floating overlays are the exception and keep a
+ * shadow through `--v-vw-overlay-shadow`, because they have to separate
+ * from the page rather than sit on it.
+ *
+ * The rule: anything the interface says about itself — a column name, a
+ * status, a path — is set in mono at a small size, and anything the user
+ * wrote is not. It is the oldest convention in developer tooling and it
+ * costs nothing but a font, while carrying the whole "built by engineers"
+ * reading that a colour cannot.
+ */
+.v-theme--graphite {
+  --vw-graphite-label: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Menlo', monospace;
+
+  & :is(
+    .v-card.v-card,
+    .v-btn.v-btn,
+    .v-chip.v-chip,
+    .v-alert.v-alert,
+    .v-table.v-table,
+    .v-expansion-panels.v-expansion-panels,
+    .v-list.v-list,
+    .v-sheet.v-sheet
+  ) {
+    box-shadow: none;
+  }
+
+  /**
+   * An elevated card lost the only edge it had, so it draws the line the
+   * outlined variant would have. `border` rather than a ring shadow: the
+   * card owns its box here, and a hairline that rounds with the corner is
+   * the whole visual language of the theme.
+   */
+  & .v-card.v-card--variant-elevated {
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+  }
+
+  /**
+   * State changes are instant and linear. An eased transition describes
+   * weight, and nothing here has any — the ripple is off in the theme's
+   * defaults for the same reason.
+   */
+  & :is(.v-btn, .v-chip, .v-list-item, .v-tab) {
+    transition-duration: 90ms;
+    transition-timing-function: linear;
+  }
+
+  /**
+   * Focus is a ring, not a glow. Vuetify's focus overlay is a wash of
+   * `primary` at low opacity, which at this contrast is nearly invisible
+   * against a surface that is already dark — while a crisp one-pixel ring
+   * in the near-white accent is unmissable and matches every other edge.
+   */
+  & :is(.v-btn, .v-tab, .v-list-item, .v-chip):focus-visible {
+    outline: 1px solid rgba(var(--v-theme-primary), 0.85);
+    outline-offset: 2px;
+  }
+
+  /* Column names are labels the table gives itself: mono, small, spaced. */
+  & :is(.v-table thead th, .v-data-table__th) {
+    font-family: var(--vw-graphite-label);
+    font-size: 0.6875rem;
+    color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
+    border-bottom: 1px solid rgba(var(--v-border-color), 0.2);
+  }
+
+  /**
+   * Figures line up in columns only if every digit is the same width, and
+   * a table of ids, dates and counts is most of what this theme is for.
+   */
+  & :is(.v-table, .v-data-table, .v-pagination) {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* A status is a label too, and a breadcrumb trail is a path. */
+  & :is(.v-chip.v-chip--size-x-small, .v-chip.v-chip--size-small, .v-breadcrumbs-item) {
+    font-family: var(--vw-graphite-label);
+    font-size: 0.6875rem;
+    letter-spacing: 0.02em;
+  }
+
+  & .v-breadcrumbs-divider {
+    font-family: var(--vw-graphite-label);
+    opacity: 0.5;
+  }
+}
