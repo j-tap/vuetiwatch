@@ -53,7 +53,8 @@ export const soft = defineTheme({
        * A screen that has to be read by everyone should reach for a theme
        * that measures; `atlas` and `graphite` exist for that, and `soft` is
        * for the onboarding flow and the marketing page where the palette is
-       * the point. The README says as much next to the claim it qualifies.
+       * the point. `docs/contrast.md` says as much next to the claim it
+       * qualifies.
        *
        * `primary` is not listed because it needs no help: at #705EEF white
        * already reads 4.63:1 and is the automatic pick.

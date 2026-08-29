@@ -6,8 +6,9 @@
 //
 // Two things are checked, and they fail for different reasons:
 //
-//   - a filled control whose label misses 4.5:1, which is the promise the
-//     README makes for everything except `classic` and the exceptions below;
+//   - a filled control whose label misses 4.5:1, which is the promise
+//     `docs/contrast.md` makes for everything except `classic` and the
+//     exceptions below;
 //   - an `on-*` a theme states by hand that is worse than the colour Vuetify
 //     would have picked on its own — the failure mode that is invisible in
 //     review, because the theme looks deliberate either way.
