@@ -1,8 +1,29 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useVuetiwatch } from 'vuetiwatch'
 
 const dialog = ref(false)
 const fullscreen = ref(false)
+
+const { current } = useVuetiwatch()
+
+/**
+ * The phone sheet is the demo's idea, not the theme's, so the demo asks for
+ * it — but only where the theme has no opinion of its own. A `transition`
+ * named on the component beats the theme default outright, which is how
+ * this one used to force a stepped theme through an animation it had
+ * declared it did not want.
+ *
+ * Reading the theme's own defaults rather than checking for `classic` by
+ * name: the question is whether this theme states a dialog transition, and
+ * a theme built with `defineTheme()` deserves the same answer. `classic`
+ * states nothing by design and so keeps the slide it has always had.
+ */
+const sheet = computed(() =>
+  current.value?.defaults?.VDialog?.transition === undefined
+    ? { transition: 'dialog-bottom-transition' }
+    : {},
+)
 </script>
 
 <template>
@@ -23,9 +44,7 @@ const fullscreen = ref(false)
     </v-card>
   </v-dialog>
 
-  <!-- No `transition` here: it is the theme's to choose, and naming one
-       on the component would override whichever the active theme picked. -->
-  <v-dialog v-model="fullscreen" fullscreen>
+  <v-dialog v-model="fullscreen" fullscreen v-bind="sheet">
     <v-card title="Fullscreen dialog">
       <template #append>
         <v-btn icon="mdi-close" variant="text" @click="fullscreen = false" />

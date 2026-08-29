@@ -48,10 +48,20 @@ export const liquidGlass = defineTheme({
       warning: '#FF9500',
       'on-surface': '#1C1C1E',
       'on-background': '#1C1C1E',
-      // Vuetify picks the label colour by luminance and settles for
-      // about 3:1, which is the bar for large text rather than for a
-      // button label. Measured on the filled buttons: info 4:1 → 5.2:1, error 3.5:1 → 4.8:1.
-      'on-info': '#000000',
+      /**
+       * Vuetify picks the label colour by luminance and settles for about
+       * 3:1, which is the bar for large text rather than for a button
+       * label. Measured on the filled buttons: error 3.5:1 → 4.8:1.
+       *
+       * `info` is deliberately not in this list. It is the same `#0071ED`
+       * as `primary`, and forcing a label on one of them and not the other
+       * put two different inks on one colour in one theme. It is also the
+       * one hue here that sits almost exactly on the crossover: black and
+       * white both measure 4.58:1, so nothing is bought by stating either,
+       * while APCA separates them 79 to 33 in white's favour. Vuetify's own
+       * pick is white, which is what the platform this theme follows puts
+       * on system blue, so the theme says nothing and lets it.
+       */
       'on-error': '#1C1C1E',
       'on-success': '#06140A',
       'on-warning': '#1A1004',

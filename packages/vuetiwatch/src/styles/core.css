@@ -249,8 +249,6 @@
     .v-field:not([class*='rounded-']),
     .v-list-item:not([class*='rounded-']),
     .v-snackbar__wrapper,
-    .v-menu > .v-overlay__content,
-    .v-tooltip > .v-overlay__content,
     .v-overlay__content > :is(.v-list, .v-sheet)
   ) {
     border-radius: var(--v-vw-radius, 4px);
@@ -424,6 +422,31 @@
   }
 
   /**
+   * And give it the shape it is being painted in.
+   *
+   * The treatment above lands on the content box, and so does a theme's own
+   * — the glass themes blur there, `brutalist` puts its offset block there.
+   * Vuetify leaves that box square while the card inside it is rounded, so
+   * every one of those decorations came out as a rectangle drawn around a
+   * rounded panel, most visibly wherever the corner radius is large.
+   *
+   * A menu and a tooltip are controls and take the control radius; a dialog
+   * is a card-sized surface and takes the panel one — the same expression
+   * the card itself resolves, so the two edges cannot drift apart. A
+   * fullscreen dialog is the exception: it has no corners because it has no
+   * edges.
+   */
+  &:is(.v-menu, .v-tooltip) > .v-overlay__content,
+  & :is(.v-menu, .v-tooltip) > .v-overlay__content {
+    border-radius: var(--v-vw-radius, 4px);
+  }
+
+  &.v-dialog:not(.v-dialog--fullscreen) > .v-overlay__content,
+  & .v-dialog:not(.v-dialog--fullscreen) > .v-overlay__content {
+    border-radius: var(--v-vw-radius-lg, var(--v-vw-radius, 4px));
+  }
+
+  /**
    * And how fast it gets there.
    *
    * Which transition a surface uses is a prop — a theme names it through
@@ -437,11 +460,18 @@
    * the timing straight back to Vuetify for a theme that says nothing, so
    * the two numbers stay opt-in.
    *
+   * The scrim is timed from the same pair, because it is the other half of
+   * the same event and Vuetify gives no way to say so: it is hard-wired to
+   * a 300ms `fade-transition` with no prop to change it. Left alone, a
+   * theme that opens its panels in 90ms gets the panel and then, a third of
+   * a second later, the room going dark behind it — two things happening
+   * where the user did one.
+   *
    * Leave falls through to enter, because a theme normally has one speed
    * and stating it twice is how the two drift apart. A theme that wants the
    * asymmetry Material describes — leave faster than enter — says so.
    */
-  & .v-overlay__content:is(
+  & :is(.v-overlay__content, .v-overlay__scrim):is(
     [class*='-transition-enter-active'],
     [class*='-transition-leave-active']
   ) {
@@ -454,6 +484,28 @@
 
   & .v-overlay__content[class*='-transition-leave-active'] {
     transition-duration: var(--v-vw-overlay-exit, var(--v-vw-overlay-duration, revert-layer));
+  }
+
+  /**
+   * The scrim follows the panel unless a theme separates them.
+   *
+   * Most of the time one number is right for both — they are two halves of
+   * one event, and a panel that arrives before the room darkens reads as
+   * two things happening. The exception is a theme whose panel does not
+   * travel at all: dimming the whole screen in a single frame is not
+   * decisive, it is a flash, and the eye reads it as a fault rather than as
+   * a choice. Such a theme gives the scrim a clock of its own and keeps its
+   * panel instant.
+   */
+  & .v-overlay__scrim[class*='-transition-enter-active'] {
+    transition-duration: var(--v-vw-scrim-duration, var(--v-vw-overlay-duration, revert-layer));
+  }
+
+  & .v-overlay__scrim[class*='-transition-leave-active'] {
+    transition-duration: var(
+      --v-vw-scrim-duration,
+      var(--v-vw-overlay-exit, var(--v-vw-overlay-duration, revert-layer))
+    );
   }
 
   /**

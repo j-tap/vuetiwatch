@@ -99,6 +99,20 @@ export const brutalist = defineTheme({
        */
       'vw-motion-duration': '0ms',
       'vw-motion-ease': 'linear',
+      /**
+       * The scrim cannot follow it, though, and this is the one place the
+       * theme's own rule is wrong. A panel appearing in a single frame is
+       * decisive; a whole screen going dark in a single frame is a flash,
+       * and the eye reads a flash as a fault rather than as a choice. So
+       * the panel keeps its zero and the dimming gets a beat of its own —
+       * still linear, still short enough that nothing is waited for.
+       *
+       * Left at Vuetify's own 300ms the mismatch was the other way round:
+       * the panel was there and the room was still darkening a third of a
+       * second later.
+       */
+      'vw-overlay-duration': '0ms',
+      'vw-scrim-duration': '120ms',
       'vw-press-scale': '1',
       'vw-pop-scale': '1.3',
       'vw-pop-duration': '100ms',

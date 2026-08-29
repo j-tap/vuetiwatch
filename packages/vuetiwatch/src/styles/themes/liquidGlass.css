@@ -54,20 +54,45 @@
    * Not a browser bug but the filter model working as specified: an element
    * with `opacity` below 1 becomes a backdrop root, and a `backdrop-filter`
    * inside one samples that root rather than the page. Every Vuetify
-   * transition fades, so for the whole of the entrance the blur has nothing
-   * behind it to blur and the frost only appears at the frame opacity
-   * reaches 1 — read as the effect loading late.
+   * transition fades, so for the length of the entrance the blur has
+   * nothing behind it to blur, and the frost only appears at the frame
+   * opacity reaches 1 — which reads as the effect loading late.
    *
-   * Taking the fade out of the entrance removes the backdrop root with it.
-   * The scale still carries the arrival, from a gentler start than the
-   * transition's own `scale(0)` now that opacity is not hiding the first
-   * frames. The exit keeps its fade: a blur going out early is not
-   * something anyone sees.
+   * So the entrance is split across two clocks rather than one. The scale
+   * keeps the theme's own length and carries the movement; opacity runs on
+   * `--vw-glass-lit`, short enough to end the backdrop root while the pane
+   * is still on its way in, so the frost is alight for almost all of the
+   * arrival.
+   *
+   * The scrim is put on that same short clock, and this is the half that is
+   * easy to get wrong: cutting the pane's fade altogether was the first
+   * attempt, and it traded a late blur for something worse — a solid pane
+   * in frame one with the room still darkening behind it for another three
+   * hundred milliseconds, which reads as two events instead of one. What
+   * has to agree is when the pane is lit and when the room is dark. The
+   * scale finishing later is movement, and movement is allowed to settle.
+   *
+   * The start scale is gentler than the transition's own `scale(0)`, since
+   * a pane already visible at 120ms should not still be a dot. The exit
+   * keeps one clock: a blur going out early is not something anyone sees.
    */
+  & {
+    --vw-glass-lit: 120ms;
+  }
+
   &:is(.v-menu, .v-dialog) > .v-overlay__content[class*='-transition-enter-from'],
   & :is(.v-menu, .v-dialog) > .v-overlay__content[class*='-transition-enter-from'] {
-    opacity: 1;
     transform: scale(0.92);
+  }
+
+  &:is(.v-menu, .v-dialog) > .v-overlay__content[class*='-transition-enter-active'],
+  & :is(.v-menu, .v-dialog) > .v-overlay__content[class*='-transition-enter-active'] {
+    transition-property: transform, opacity;
+    transition-duration: var(--v-vw-overlay-duration, 320ms), var(--vw-glass-lit);
+  }
+
+  & .v-overlay__scrim[class*='-transition-enter-active'] {
+    transition-duration: var(--vw-glass-lit);
   }
 
   /**
