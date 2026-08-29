@@ -1,4 +1,4 @@
-import { computed, inject, ref, watch } from 'vue'
+import { computed, inject, ref, toRaw, watch } from 'vue'
 import type { App, ComputedRef, Plugin, Ref } from 'vue'
 import type { VuetiwatchAccent, VuetiwatchDefaults, VuetiwatchTheme } from './types.js'
 import { combine } from './util/defaults.js'
@@ -198,8 +198,25 @@ export function createVuetiwatch (
       let applied: VuetiwatchDefaults | undefined
 
       const defaultsFor = (name: string) => {
-        if (applied && instance.defaults.value !== applied) {
-          userDefaults = instance.defaults.value ?? {}
+        /**
+         * The comparison goes through `toRaw`, because Vuetify holds
+         * `defaults` in a deep `ref` — "if an object is assigned as a ref's
+         * value, the object is made deeply reactive" — so reading it back
+         * hands out a proxy of what was written, never the object itself.
+         * Comparing the two directly can only ever say "not ours", which is
+         * the opposite of what the check asks: every theme change would fold
+         * the outgoing theme's defaults into the app's own, and they would
+         * never come back off. A theme with none of its own, `classic` above
+         * all, then keeps whatever was on screen before it.
+         *
+         * Only the comparison is unwrapped. Vue asks callers not to hold a
+         * persistent reference to a raw object, so what is kept is the proxy
+         * Vuetify handed out — `mergeDeep` only ever reads it.
+         */
+        const live = instance.defaults.value
+
+        if (applied && toRaw(live) !== applied) {
+          userDefaults = live ?? {}
         }
 
         const themeDefaults = defaultsByName.get(name)
