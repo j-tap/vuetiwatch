@@ -11,7 +11,18 @@ const FIELD_COMPONENTS = [
   'VAutocomplete',
   'VCombobox',
   'VFileInput',
+  'VNumberInput',
 ] as const
+
+/**
+ * The same list plus the one field that takes `variant` and `density` but
+ * none of the icons: the OTP input has no clear button to name.
+ *
+ * Both exist because a theme states its input style once. A field left out
+ * of it does not fall back to something neutral — it keeps Vuetify's filled
+ * variant and stands out as the one control the theme forgot.
+ */
+const FIELD_STYLED = [...FIELD_COMPONENTS, 'VOtpInput'] as const
 
 /** The subset of those that opens a menu, and so draws a dropdown glyph. */
 const MENU_COMPONENTS = [
@@ -48,7 +59,7 @@ const spread = (names: readonly string[], props: Props): VuetiwatchDefaults =>
  * input style once instead of six times.
  */
 export const fields = (props: Props): VuetiwatchDefaults =>
-  spread(FIELD_COMPONENTS, props)
+  spread(FIELD_STYLED, props)
 
 /** Applies the same props to checkboxes, radio groups and switches. */
 export const controls = (props: Props): VuetiwatchDefaults =>

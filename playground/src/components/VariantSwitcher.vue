@@ -10,6 +10,9 @@ import { useThemeSelection } from '@/composables/useThemeSelection'
  */
 const { current, select, siblings } = useThemeSelection()
 
+/** Labels are dropped where the control has to fit a narrow column. */
+const { labels = true } = defineProps<{ labels?: boolean }>()
+
 // The package leaves icons to the app: it cannot know which set is installed.
 const ICONS: Record<string, string> = {
   Light: 'mdi-white-balance-sunny',
@@ -42,7 +45,7 @@ const iconFor = (variant?: string, dark?: boolean) =>
           :value="item.name"
           :prepend-icon="iconFor(item.meta.variant, item.meta.dark)"
           :aria-label="`Switch to ${item.meta.title}`"
-          :text="item.meta.variant"
+          :text="labels ? item.meta.variant : undefined"
           size="small"
           @click="select(item.name, $event)"
         />

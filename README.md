@@ -391,7 +391,7 @@ A Bun workspace:
 | Path | What it is |
 | --- | --- |
 | `packages/vuetiwatch/` | The published package |
-| `playground/` | The [live demo](https://j-tap.github.io/vuetiwatch/) — every theme against a wall of components |
+| `playground/` | The [live demo](https://j-tap.github.io/vuetiwatch/) — every theme against a wall of components, a landing page and an admin panel |
 
 ```sh
 bun install
