@@ -194,7 +194,8 @@ fallback, so skipping this degrades gracefully rather than breaking.
 ### Shipping only a few themes
 
 Pass just those to the plugin and import their stylesheets instead of the
-combined one. A single-theme app drops from about 14.1 kB gzipped to 4.5 kB.
+combined one. The whole stylesheet is about 6.6 kB gzipped; the core layer
+plus one theme is under 3 kB.
 
 ```ts
 import { createVuetiwatch, paper } from 'vuetiwatch'
