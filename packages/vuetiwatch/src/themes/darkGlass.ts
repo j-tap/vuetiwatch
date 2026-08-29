@@ -41,6 +41,12 @@ export const darkGlass = defineTheme({
       'on-error': '#000000',
     },
     variables: {
+      /* A panel standing on its own — a bare list, sheet, banner or table.
+         Core owns the selector; this is what it draws with. */
+      'vw-panel-fill': 'rgba(var(--v-theme-surface), 0.62)',
+      'vw-panel-filter': 'blur(18px) saturate(160%)',
+      'vw-panel-border':
+        '1px solid rgba(var(--v-border-color), var(--v-border-opacity))',
       'border-color': '#B9A9FF',
       'border-opacity': 0.16,
       'shadow-color': '#000000',

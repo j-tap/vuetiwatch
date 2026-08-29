@@ -45,6 +45,10 @@ export const neon = defineTheme({
       'on-warning': '#05060A',
     },
     variables: {
+      /* A panel standing on its own — a bare list, sheet, banner or table.
+         Core owns the selector; this is what it draws with. */
+      'vw-panel-border':
+        'var(--v-vw-border-width) solid rgba(var(--v-theme-primary), 0.35)',
       'border-color': '#00F0FF',
       'border-opacity': 0.28,
       'shadow-color': '#00F0FF',

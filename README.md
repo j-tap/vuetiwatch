@@ -262,6 +262,8 @@ Vuetify's own, it reads:
 | `vw-radius-avatar` / `-dot` | `50%` | Avatars, and the dot on a timeline |
 | `vw-border-width` | `thin` | Outlined variants and field outlines |
 | `vw-outlined-fill` | `surface` | What an outlined card paints — `transparent` for themes whose surface is the ground |
+| `vw-panel-border` / `-shadow` / `-fill` | Vuetify's | A panel standing on its own: a bare list, sheet, banner or table |
+| `vw-panel-image` / `-filter` | none | The same panel's gradient and backdrop filter, for the gradient and glass themes |
 | `vw-outline-opacity` | `border-opacity` | The line around an outlined card, which Vuetify draws in the ink of its own text |
 | `vw-skeleton-opacity` | clamped | The bones of a loading placeholder, which Vuetify ties to `border-opacity` |
 | `vw-field-border-opacity` | `0.38` | The resting outline of a field — Vuetify's default reads about 2.3:1 |

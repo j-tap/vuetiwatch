@@ -46,13 +46,9 @@
     box-shadow: 0 0 14px rgba(var(--v-theme-primary), 0.55);
   }
 
-
-
-
   & .v-expansion-panels {
     box-shadow: 0 0 0 1px rgba(var(--v-theme-primary), 0.12);
   }
-
 
   /* The line is lit filament, and the dot is the lamp. */
   & :is(.v-timeline-divider__before, .v-timeline-divider__after) {
@@ -61,10 +57,5 @@
 
   & .v-timeline-divider__dot {
     box-shadow: 0 0 12px rgba(var(--v-theme-primary), 0.9);
-  }
-
-  /* A lit outline, the same one the outlined cards wear. */
-  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
-    border: var(--v-vw-border-width) solid rgba(var(--v-theme-primary), 0.35);
   }
 }

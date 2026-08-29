@@ -48,6 +48,10 @@ export const graphite = defineTheme({
       'on-error': '#000000',
     },
     variables: {
+      /* A panel standing on its own — a bare list, sheet, banner or table.
+         Core owns the selector; this is what it draws with. */
+      'vw-panel-border':
+        '1px solid rgba(var(--v-border-color), var(--v-border-opacity))',
       'border-color': '#9AA4B5',
       'border-opacity': 0.12,
       'shadow-color': '#000000',

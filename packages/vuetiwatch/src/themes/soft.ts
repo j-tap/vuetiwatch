@@ -44,6 +44,10 @@ export const soft = defineTheme({
       'on-error': '#2E2A3B',
     },
     variables: {
+      /* A panel standing on its own — a bare list, sheet, banner or table.
+         Core owns the selector; this is what it draws with. */
+      'vw-panel-shadow':
+        '0 2px 4px rgba(var(--v-theme-primary), 0.06), 0 12px 28px rgba(var(--v-theme-primary), 0.1)',
       'border-color': '#5F4DE0',
       'border-opacity': 0.1,
       'shadow-color': '#4A3F8C',

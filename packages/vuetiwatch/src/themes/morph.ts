@@ -45,6 +45,9 @@ export const morph = defineTheme({
       'on-error': '#000000',
     },
     variables: {
+      /* A panel standing on its own — a bare list, sheet, banner or table.
+         Core owns the selector; this is what it draws with. */
+      'vw-panel-shadow': 'var(--vw-morph-raised)',
       'border-color': '#9AA7BC',
       'border-opacity': 0.001,
       // The relief reaches past the shape it lifts — see core.css.

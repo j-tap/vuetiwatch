@@ -72,9 +72,4 @@
   & .v-timeline-divider__dot {
     box-shadow: var(--vw-morph-raised);
   }
-
-  /* Raised out of the same sheet as everything else. */
-  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
-    box-shadow: var(--vw-morph-raised);
-  }
 }

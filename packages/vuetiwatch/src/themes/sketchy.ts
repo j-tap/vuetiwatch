@@ -46,6 +46,10 @@ export const sketchy = defineTheme({
       'on-warning': '#2B2B2B',
     },
     variables: {
+      /* A panel standing on its own — a bare list, sheet, banner or table.
+         Core owns the selector; this is what it draws with. */
+      'vw-panel-border':
+        'var(--v-vw-border-width) solid rgba(var(--v-border-color), 0.7)',
       'border-color': '#2B2B2B',
       'border-opacity': 0.85,
       'high-emphasis-opacity': 0.95,

@@ -41,6 +41,10 @@ export const paper = defineTheme({
       'on-warning': '#14110E',
     },
     variables: {
+      /* A panel standing on its own — a bare list, sheet, banner or table.
+         Core owns the selector; this is what it draws with. */
+      'vw-panel-border':
+        'var(--v-vw-border-width) solid rgba(var(--v-border-color), var(--v-border-opacity))',
       'border-color': '#14110E',
       'border-opacity': 0.2,
       'high-emphasis-opacity': 0.92,

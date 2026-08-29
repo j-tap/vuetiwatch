@@ -60,9 +60,4 @@
     font-family: var(--vw-graphite-label);
     opacity: 0.5;
   }
-
-  /* The same hairline the cards draw — depth is an edge, not a shadow. */
-  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
-    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
-  }
 }

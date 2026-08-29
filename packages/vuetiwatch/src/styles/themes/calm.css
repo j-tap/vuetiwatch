@@ -12,20 +12,13 @@
     box-shadow: 0 16px 48px rgba(58, 58, 54, 0.06);
   }
 
-
   & :is(.v-table thead th, .v-data-table__th) {
     font-weight: 500;
     border-bottom: var(--v-vw-border-width) solid rgba(var(--v-border-color), 0.09);
   }
 
-
   /* Room to breathe is the theme's only real ornament. */
   & .v-card-text {
     line-height: 1.7;
-  }
-
-  /* Separated by the quietest line the theme owns. */
-  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
-    border: var(--v-vw-border-width) solid rgba(var(--v-border-color), var(--v-border-opacity));
   }
 }

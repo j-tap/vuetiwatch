@@ -47,6 +47,11 @@ export const aurora = defineTheme({
       'on-warning': '#1A1004',
     },
     variables: {
+      /* A panel standing on its own — a bare list, sheet, banner or table.
+         Core owns the selector; this is what it draws with. */
+      'vw-panel-image':
+        'radial-gradient(36rem 18rem at 0% 0%, rgba(124, 92, 255, 0.14), transparent 70%)',
+      'vw-panel-shadow': '0 12px 40px rgba(0, 0, 0, 0.55)',
       'border-color': '#9B8CFF',
       'border-opacity': 0.14,
       'shadow-color': '#000000',

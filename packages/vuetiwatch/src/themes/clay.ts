@@ -46,6 +46,9 @@ export const clay = defineTheme({
       'on-warning': '#3D2E00',
     },
     variables: {
+      /* A panel standing on its own — a bare list, sheet, banner or table.
+         Core owns the selector; this is what it draws with. */
+      'vw-panel-shadow': 'var(--vw-clay-lift)',
       'border-color': '#6C5CE7',
       'border-opacity': 0.001,
       // The relief reaches past the shape it lifts — see core.css.

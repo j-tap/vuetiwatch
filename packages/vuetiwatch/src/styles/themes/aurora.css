@@ -211,16 +211,6 @@
   & .v-timeline-divider__inner-dot:not([class*='bg-']) {
     background-color: transparent !important;
   }
-
-  /* Lit from its own corner, like the cards. */
-  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
-    background-image: radial-gradient(
-      36rem 18rem at 0% 0%,
-      rgba(124, 92, 255, 0.14),
-      transparent 70%
-    );
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
-  }
 }
 
 @keyframes vw-aurora-drift {

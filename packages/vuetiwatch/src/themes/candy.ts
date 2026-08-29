@@ -58,6 +58,9 @@ export const candy = defineTheme({
       'on-warning': '#3B2600',
     },
     variables: {
+      /* A panel standing on its own — a bare list, sheet, banner or table.
+         Core owns the selector; this is what it draws with. */
+      'vw-panel-shadow': 'var(--vw-candy-pad), var(--vw-candy-rest)',
       'border-color': '#DC2B6B',
       'border-opacity': 0.12,
       'shadow-color': '#C2537E',

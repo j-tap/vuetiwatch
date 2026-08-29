@@ -57,6 +57,12 @@ export const liquidGlass = defineTheme({
       'on-warning': '#1A1004',
     },
     variables: {
+      /* A panel standing on its own — a bare list, sheet, banner or table.
+         Core owns the selector; this is what it draws with. */
+      'vw-panel-fill': 'rgba(var(--v-theme-surface), 0.6)',
+      'vw-panel-filter': 'blur(30px) saturate(190%)',
+      'vw-panel-shadow':
+        'inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(255, 255, 255, 0.35), 0 10px 34px rgba(var(--v-shadow-color), 0.1)',
       'border-color': '#3A3A3C',
       // iOS separators are hairlines, not borders.
       'border-opacity': 0.1,

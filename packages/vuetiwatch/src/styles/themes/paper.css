@@ -16,7 +16,6 @@
     box-shadow: none;
   }
 
-
   /* A printed rule under the active tab, not a Material underline. */
 
   /* The switch gets an outline for the same reason cards do. */
@@ -27,11 +26,5 @@
   /* A double rule under the table head, the way print sets one. */
   & :is(.v-table thead th, .v-data-table__th) {
     border-bottom: 3px double rgba(var(--v-border-color), 0.45);
-  }
-
-  /* The list is a panel, and panels here are drawn, not lifted. */
-  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
-    border: var(--v-vw-border-width, 1px) solid
-      rgba(var(--v-border-color), var(--v-border-opacity));
   }
 }

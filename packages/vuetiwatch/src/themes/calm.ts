@@ -48,6 +48,10 @@ export const calm = defineTheme({
       'on-error': '#000000',
     },
     variables: {
+      /* A panel standing on its own — a bare list, sheet, banner or table.
+         Core owns the selector; this is what it draws with. */
+      'vw-panel-border':
+        'var(--v-vw-border-width) solid rgba(var(--v-border-color), var(--v-border-opacity))',
       'border-color': '#3A3A36',
       'border-opacity': 0.09,
       'high-emphasis-opacity': 0.78,

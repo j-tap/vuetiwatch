@@ -26,9 +26,12 @@
     border-radius: 8px 3px 8px 3px / 3px 8px 3px 8px;
   }
 
-  /* Drawn by the same unsteady hand as the cards. */
+  /**
+   * The one thing the panel token cannot carry: ink is never even, so
+   * the bottom of the stroke sits heavier. A shorthand sets all four
+   * sides, and this is a single longhand on top of it.
+   */
   & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
-    border: var(--v-vw-border-width) solid rgba(var(--v-border-color), 0.7);
     border-bottom-width: calc(var(--v-vw-border-width) + 1px);
   }
 }

@@ -49,11 +49,4 @@
   & .v-tabs--inset .v-tab__slider {
     box-shadow: 0 2px 10px rgba(var(--v-theme-primary), 0.2);
   }
-
-  /* The same diffuse, tinted lift the cards get. */
-  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
-    box-shadow:
-      0 2px 4px rgba(var(--v-theme-primary), 0.06),
-      0 12px 28px rgba(var(--v-theme-primary), 0.1);
-  }
 }

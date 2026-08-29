@@ -48,6 +48,11 @@ export const brutalist = defineTheme({
       'on-success': '#0A0A0A',
     },
     variables: {
+      /* A panel standing on its own — a bare list, sheet, banner or table.
+         Core owns the selector; this is what it draws with. */
+      'vw-panel-border': 'var(--v-vw-border-width) solid rgb(var(--v-shadow-color))',
+      'vw-panel-shadow':
+        'var(--vw-brut-offset) var(--vw-brut-offset) 0 rgb(var(--v-shadow-color))',
       'border-color': '#0A0A0A',
       'border-opacity': 1,
       'shadow-color': '#0A0A0A',

@@ -41,6 +41,11 @@ export const slate = defineTheme({
       'on-warning': '#1A202C',
     },
     variables: {
+      /* A panel standing on its own — a bare list, sheet, banner or table.
+         Core owns the selector; this is what it draws with. */
+      'vw-panel-border':
+        'var(--v-vw-border-width) solid rgba(var(--v-border-color), var(--v-border-opacity))',
+      'vw-panel-shadow': '0 1px 2px rgba(var(--v-shadow-color), 0.05)',
       'border-color': '#1A202C',
       'border-opacity': 0.14,
       'shadow-color': '#1A202C',

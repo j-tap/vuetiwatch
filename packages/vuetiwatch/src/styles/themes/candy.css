@@ -110,9 +110,4 @@
       inset 0 2px 0 rgba(255, 255, 255, 0.6),
       0 3px 8px rgba(var(--v-shadow-color), 0.22);
   }
-
-  /* Padded like everything else that holds content. */
-  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
-    box-shadow: var(--vw-candy-pad), var(--vw-candy-rest);
-  }
 }

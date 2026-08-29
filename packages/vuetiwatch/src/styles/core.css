@@ -75,6 +75,37 @@
   }
 
   /**
+   * And what that panel is drawn with. Fifteen themes had written this
+   * selector out in full — the same four components, the same five
+   * containers that own their children's edges — and each carried its own
+   * copy of a list that has had to grow twice. The selector belongs in one
+   * place; the treatment is a value, so it travels as one.
+   *
+   * Every fallback is `revert-layer`, which hands the property back to
+   * Vuetify's own layer, so a theme that says nothing here changes nothing.
+   * The radius is above rather than in this block because it comes from the
+   * shape scale every other surface uses, and a skeleton loader takes the
+   * corner without taking the edge.
+   */
+  & :is(.v-list, .v-sheet, .v-banner, .v-table):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
+    border: var(--v-vw-panel-border, revert-layer);
+    box-shadow: var(--v-vw-panel-shadow, revert-layer);
+    background-color: var(--v-vw-panel-fill, revert-layer);
+    background-image: var(--v-vw-panel-image, revert-layer);
+    backdrop-filter: var(--v-vw-panel-filter, none);
+  }
+
+  /**
+   * `border` on a list or a sheet is the author asking for an edge, and the
+   * shorthand above would answer with Vuetify's hairline. The width stays
+   * the theme's — which is how a theme that draws no borders at all keeps
+   * its zero, and how `brutalist` keeps its three pixels.
+   */
+  & :is(.v-list--border, .v-sheet--border):not(:is(.v-card, .v-overlay__content, .v-navigation-drawer, .v-expansion-panels, .v-list) *) {
+    border-width: var(--v-vw-border-width, thin);
+  }
+
+  /**
    * `.v-sheet` is Vuetify's surface primitive, so this one selector reaches
    * the stepper and the pickers as well — components with enough layout of
    * their own that no theme had thought to name them.
@@ -561,18 +592,19 @@
    * floating inside a panel that casts nothing.
    *
    * So the panel takes the theme's own edge and the header separates with
-   * the theme's own hairline. Both selectors sit in `:where()`, which is
-   * worth more here than specificity: unlayered still beats Vuetify's
-   * layered rules, while a theme that decorates its panels — brutalist's
-   * second shape, clay's relief — keeps winning without needing a knob.
+   * the theme's own hairline — through the panel tokens above, so a theme
+   * that decorates its panels decorates its stepper by saying nothing
+   * twice: brutalist's second shape and clay's relief arrive here on their
+   * own. What is left is the fallback for a theme with no opinion, which is
+   * a hairline and no shadow.
    */
-  & :where(.v-stepper.v-sheet:not(.v-stepper--flat, [class*='elevation-'])) {
-    box-shadow: none;
-    border: var(--v-vw-border-width, thin) solid
-      rgba(var(--v-border-color), var(--v-vw-outline-opacity, var(--v-border-opacity)));
+  & .v-stepper.v-sheet:not(.v-stepper--flat, [class*='elevation-']) {
+    box-shadow: var(--v-vw-panel-shadow, none);
+    border: var(--v-vw-panel-border, var(--v-vw-border-width, thin) solid
+      rgba(var(--v-border-color), var(--v-vw-outline-opacity, var(--v-border-opacity))));
   }
 
-  & :where(.v-stepper-header) {
+  & .v-stepper .v-stepper-header {
     box-shadow: none;
     border-block-end: var(--v-vw-border-width, thin) solid
       rgba(var(--v-border-color), var(--v-vw-outline-opacity, var(--v-border-opacity)));
