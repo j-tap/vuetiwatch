@@ -4,6 +4,8 @@ import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import vuetify from 'vite-plugin-vuetify'
 
+import { seo } from './vite-plugins/seo'
+
 export default defineConfig({
   /**
    * A GitHub Pages project site is served from a subdirectory, so the build
@@ -15,6 +17,9 @@ export default defineConfig({
   plugins: [
     vue(),
     vuetify({ autoImport: true }),
+    // Canonical and Open Graph URLs have to be absolute, which `base` — a
+    // path — cannot give. Override it when deploying anywhere else.
+    seo(process.env.SITE_URL ?? 'https://j-tap.github.io/vuetiwatch/'),
   ],
   resolve: {
     alias: {

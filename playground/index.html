@@ -4,7 +4,45 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vuetiwatch — themes for Vuetify</title>
+
+    <title>Vuetiwatch — free themes for Vuetify 4</title>
+    <meta
+      name="description"
+      content="Vuetiwatch is a set of %THEME_COUNT% free, plug-and-play themes for Vuetify 4 — a Bootswatch for Vuetify. Try every one of them live against a full wall of components."
+    />
+    <!-- The theme lives in the query string, so every theme is a variant of
+         this page rather than a page of its own. -->
+    <link rel="canonical" href="%SITE_URL%" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Vuetiwatch" />
+    <meta property="og:url" content="%SITE_URL%" />
+    <meta property="og:title" content="Vuetiwatch — free themes for Vuetify 4" />
+    <meta
+      property="og:description"
+      content="%THEME_COUNT% free, plug-and-play themes for Vuetify 4. Switch between them live, on a page of real components."
+    />
+    <meta property="og:image" content="%SITE_URL%og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The same landing page in nine of the nineteen Vuetify 4 themes" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "Vuetiwatch",
+        "description": "Free, plug-and-play themes for Vuetify 4 — a Bootswatch for Vuetify.",
+        "url": "%SITE_URL%",
+        "codeRepository": "https://github.com/j-tap/vuetiwatch",
+        "programmingLanguage": "TypeScript",
+        "runtimePlatform": "Vue 3, Vuetify 4",
+        "license": "https://opensource.org/licenses/MIT",
+        "author": { "@type": "Person", "name": "j-tap", "url": "https://github.com/j-tap" }
+      }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!--
@@ -15,9 +53,49 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Cabin+Sketch:wght@400;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Jost:wght@200;300;400;500&family=Neucha&family=Nunito:wght@400;600;700;800&family=Quicksand:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Space+Grotesk:wght@400;500;700&family=Varela+Round&display=swap"
     />
+
+    <!-- Styles the shell below only. The app brings its own and replaces it. -->
+    <style>
+      .shell {
+        margin: 0 auto;
+        max-width: 46rem;
+        padding: 3rem 1.5rem;
+        color: #1a1a1a;
+        font: 1rem/1.6 Inter, system-ui, sans-serif;
+      }
+      .shell h1 { font-size: 1.75rem; }
+      .shell ul { padding-left: 1.25rem; }
+      .shell li { margin-bottom: 0.25rem; }
+      @media (prefers-color-scheme: dark) {
+        body { background: #121212; }
+        .shell { color: #e6e6e6; }
+      }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <!--
+        The shell: what the page says before the bundle runs — for a crawler
+        that executes no script, and for the first paint on a slow line.
+        Mounting the app clears it. The theme list is injected at build time
+        from the package, so it cannot drift; see `vite-plugins/seo.ts`.
+      -->
+      <main class="shell">
+        <h1>Vuetiwatch — free themes for Vuetify 4</h1>
+        <p>
+          Vuetify ships one look. Vuetiwatch ships %THEME_COUNT%, and they differ in more than
+          hue: radius, border weight, density, component variants, typography, icons
+          and motion all move together. What Bootswatch is to Bootstrap.
+        </p>
+        <p>This page is every theme, live, against a wall of real Vuetify components.</p>
+        <!-- themes -->
+        <p>
+          <a href="https://github.com/j-tap/vuetiwatch">Source on GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vuetiwatch">vuetiwatch on npm</a> ·
+          <a href="https://vuetifyjs.com/">Vuetify</a>
+        </p>
+      </main>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

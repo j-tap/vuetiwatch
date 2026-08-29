@@ -41,9 +41,11 @@ jobs:
         run: bun run typecheck
 
       - name: Build the playground
-        # A project site lives at /<repo>/, so the assets need that prefix.
+        # A project site lives at /<owner>.github.io/<repo>/: the assets need
+        # that prefix, and the canonical and Open Graph tags the whole URL.
         env:
           BASE_PATH: /${{ github.event.repository.name }}/
+          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
         run: bun run --filter vuetiwatch-playground build
 
       - uses: actions/configure-pages@v5

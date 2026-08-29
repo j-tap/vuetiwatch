@@ -7,7 +7,7 @@
 🎨 Free, plug-and-play themes for **[Vuetify 4](https://vuetifyjs.com/)** — what [Bootswatch](https://bootswatch.com/)
 is to Bootstrap.
 
-[![The same page in two Vuetify 4 themes — Lux and Morph](docs/playground-themes.webp)](https://j-tap.github.io/vuetiwatch/)
+[![The same landing page in nine of the nineteen Vuetify 4 themes](docs/playground-themes.webp)](https://j-tap.github.io/vuetiwatch/)
 
 **[See all nineteen themes →](https://j-tap.github.io/vuetiwatch/)**
 
