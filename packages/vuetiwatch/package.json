@@ -1,8 +1,8 @@
 {
   "name": "vuetiwatch",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "type": "module",
-  "description": "Free, plug-and-play themes for Vuetify 4 \u2014 a Bootswatch for Vuetify",
+  "description": "Free, plug-and-play themes for Vuetify 4 — a Bootswatch for Vuetify",
   "license": "MIT",
   "author": "j-tap",
   "homepage": "https://j-tap.github.io/vuetiwatch/",
