@@ -368,6 +368,63 @@ The result: in all eighteen non-stock themes every filled control clears 4.5:1.
 `classic` does not, and that is the point of it — it is stock Vuetify,
 including this.
 
+### Motion
+
+Which transition a floating surface uses is an ordinary prop too, so a theme
+owns how its overlays arrive as well as how they look. `overlays()` states it
+once for the dialog, the menu, the tooltip and the snackbar — `menu` reaches
+the select, the autocomplete and the combobox with it.
+
+```ts
+import { overlays, ripple } from 'vuetiwatch'
+
+defineTheme({
+  // …
+  defaults: [
+    overlays({
+      dialog: 'fade-transition',
+      menu: 'slide-y-transition',
+      tooltip: 'fade-transition',
+    }),
+    ripple(false),
+  ],
+})
+```
+
+`false` means no animation at all, which is the honest answer for a theme
+that draws no depth for a surface to arrive through — `brutalist` uses it.
+
+Vuetify bakes the *timing* of each named transition into its own stylesheet,
+so naming one only half moves it: a fade takes 300ms whether it belongs to a
+theme that settles slowly or to one that repaints instantly. Two variables
+take that back, and default to Vuetify's own numbers so a theme that says
+nothing changes nothing:
+
+| Variable | What it sets |
+| --- | --- |
+| `--v-vw-overlay-duration` | How long a surface takes to arrive |
+| `--v-vw-overlay-exit` | How long it takes to leave; falls through to the above |
+
+The easing follows `--v-vw-motion-ease`, so a theme that already stated its
+curve gets its overlays eased the same way for free.
+
+`ripple(false)` turns off the Material ripple everywhere one is drawn — the
+tab, the app-bar nav icon and every tick box included, each of which is its
+own defaults key and would otherwise be missed.
+
+### Selection
+
+Dragging across text is answered in the browser's own blue, which belongs to
+no palette. Every non-stock theme replaces it with its accent at 24%, which
+costs a theme nothing and follows `setAccent()` when one repaints. A theme
+that wants a solid highlight states both halves and takes responsibility for
+the ink on top:
+
+| Variable | What it sets |
+| --- | --- |
+| `--v-vw-selection-fill` | The highlight behind selected text |
+| `--v-vw-selection-color` | The text on it; defaults to the text's own colour |
+
 ### Icons
 
 Vuetify's icon *set* is global and cannot vary per theme, but which glyph a

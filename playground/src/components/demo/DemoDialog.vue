@@ -23,7 +23,9 @@ const fullscreen = ref(false)
     </v-card>
   </v-dialog>
 
-  <v-dialog v-model="fullscreen" fullscreen transition="dialog-bottom-transition">
+  <!-- No `transition` here: it is the theme's to choose, and naming one
+       on the component would override whichever the active theme picked. -->
+  <v-dialog v-model="fullscreen" fullscreen>
     <v-card title="Fullscreen dialog">
       <template #append>
         <v-btn icon="mdi-close" variant="text" @click="fullscreen = false" />

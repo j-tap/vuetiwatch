@@ -1,4 +1,4 @@
-import { bars, controls, fields, icons, tables } from '../util/defaults.js'
+import { bars, controls, fields, icons, overlays, ripple, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -95,6 +95,35 @@ export const graphite = defineTheme({
       'vw-focus-ring': '1px solid rgba(var(--v-theme-primary), 0.85)',
       'vw-theme-transition': '260ms',
 
+      // The overlays repaint at the same 90ms as everything else; the
+      // linear easing above reaches them through `--v-vw-motion-ease`.
+      'vw-overlay-duration': '90ms',
+      'vw-overlay-exit': '70ms',
+      /**
+       * `primary` here is a near-white, so a tonal fill drawn at Vuetify's
+       * 0.12 is a pale grey on a near-black ground — the one place this
+       * palette needs more of the accent rather than less.
+       */
+      'activated-opacity': 0.14,
+      'focus-opacity': 0.18,
+      'disabled-opacity': 0.4,
+      /**
+       * The theme ships a mono stack for exactly this, and a developer tool
+       * shows more code than prose. Both take the raised surface rather
+       * than Vuetify's stock grey.
+       */
+      'theme-code': '#16191D',
+      'theme-on-code': '#E6E9ED',
+      'theme-kbd': '#1B1E23',
+      'theme-on-kbd': '#E6E9ED',
+
+      /**
+       * `primary` is a near-white here, and a wash of it over near-black
+       * text is a grey haze. The indigo held in `secondary` is what every
+       * editor this theme is modelled on selects with.
+       */
+      'vw-selection-fill': 'rgba(var(--v-theme-secondary), 0.4)',
+
       // Hairline and squared off, like every other edge here.
       'vw-timeline-line': 'rgba(var(--v-border-color), 0.35)',
       'vw-timeline-line-width': '1px',
@@ -104,17 +133,15 @@ export const graphite = defineTheme({
   },
   defaults: [
     {
-      // No ripple anywhere: it is a Material animation about the weight of
-      // a surface, and nothing in this theme has any.
       // No `density` here on purpose: Vuetify subtracts it from the size
       // height, and a compact `x-small` button ends up shorter than its
       // own label. The tight geometry comes from the radius instead.
-      VBtn: { variant: 'flat', ripple: false },
+      // The ripple is off through `ripple(false)` below, which reaches the
+      // tick boxes this list used to miss.
+      VBtn: { variant: 'flat' },
       VCard: { variant: 'outlined' },
       VAlert: { variant: 'outlined', density: 'compact' },
-      VChip: { variant: 'outlined', size: 'small', ripple: false },
-      VListItem: { ripple: false },
-      VTab: { ripple: false },
+      VChip: { variant: 'outlined', size: 'small' },
       // Flush stacked rows rather than floating panels with gaps.
       VExpansionPanels: { variant: 'accordion' },
       VNavigationDrawer: { border: 'e' },
@@ -146,5 +173,15 @@ export const graphite = defineTheme({
       close: 'mdi-close',
       breadcrumbDivider: '/',
     }),
+    /**
+     * Nothing here has weight, so nothing arrives from anywhere: a panel is
+     * repainted rather than opened. Linear, at the same 90ms as the rest.
+     */
+    overlays({
+      dialog: 'fade-transition',
+      menu: 'fade-transition',
+      tooltip: 'fade-transition',
+    }),
+    ripple(false),
   ],
 })

@@ -38,6 +38,36 @@ const CONTROL_COMPONENTS = [
   'VSwitch',
 ] as const
 
+/**
+ * Everything that draws a Material ripple.
+ *
+ * Longer than it looks, because a defaults key is matched by component
+ * name and several of these only look like a `VBtn`. The tab, the app-bar
+ * nav icon and the fab each declare their own prop set and hand it to a
+ * `VBtn` themselves, so a `VBtn` default never reaches them; the checkbox,
+ * the radio and the switch all reach one `VSelectionControl` underneath
+ * but arrive there under three different names. A theme that turned the
+ * ripple off on buttons alone would still get one from the hamburger and
+ * from every tick box on the screen.
+ */
+const RIPPLE_COMPONENTS = [
+  'VBtn',
+  'VTab',
+  'VAppBarNavIcon',
+  'VFab',
+  'VChip',
+  'VCard',
+  'VListItem',
+  'VExpansionPanelTitle',
+  'VStepperItem',
+  'VRating',
+  'VCheckbox',
+  'VCheckboxBtn',
+  'VRadio',
+  'VRadioGroup',
+  'VSwitch',
+] as const
+
 /** Containers that share the `flat` / `border` props. */
 const BAR_COMPONENTS = [
   'VAppBar',
@@ -72,6 +102,60 @@ export const bars = (props: Props): VuetiwatchDefaults =>
 /** Applies the same props to cards, alerts and chips. */
 export const surfaces = (props: Props): VuetiwatchDefaults =>
   spread(SURFACE_COMPONENTS, props)
+
+/**
+ * Turns the Material ripple off — or back on — everywhere one is drawn.
+ *
+ * The ripple is an animation about the weight of a surface, so a theme
+ * with no weight to describe is better off without it: it delays the
+ * moment a control looks like it answered, which on a screen someone
+ * works in all day is the one thing motion must never do.
+ */
+export const ripple = (on: boolean): VuetiwatchDefaults =>
+  spread(RIPPLE_COMPONENTS, { ripple: on })
+
+/**
+ * How each floating surface arrives.
+ *
+ * Vuetify names its transitions and resolves them from a string, so this
+ * is an ordinary prop like any other — which is what lets a theme own its
+ * overlays as well as its colours. `false` means no animation at all: the
+ * surface is simply there, which is the honest answer for a theme that
+ * draws no depth to move through.
+ *
+ * `menu` reaches the select, the autocomplete and the combobox as well,
+ * but not by one route: autocomplete and combobox let the `VMenu` they
+ * render take the global default, while `VSelect` declares a `transition`
+ * prop of its own and hands it down, which shadows that default entirely.
+ * So the select is named here too, and a theme still states its menus once.
+ */
+export interface VuetiwatchOverlays {
+  /** A modal. Vuetify's own is `dialog-transition`. */
+  dialog?: string | false
+  /** A dropdown, a select's list, a context menu. */
+  menu?: string | false
+  /** A tooltip. Vuetify scales it in and fades it out. */
+  tooltip?: string | false
+  /** A snackbar. */
+  snackbar?: string | false
+}
+
+export function overlays (set: VuetiwatchOverlays): VuetiwatchDefaults {
+  const byComponent = {
+    VDialog: set.dialog,
+    VMenu: set.menu,
+    // Shadows the `VMenu` default above rather than inheriting it.
+    VSelect: set.menu,
+    VTooltip: set.tooltip,
+    VSnackbar: set.snackbar,
+  }
+
+  return Object.fromEntries(
+    Object.entries(byComponent)
+      .filter(([, transition]) => transition !== undefined)
+      .map(([name, transition]) => [name, { transition }]),
+  )
+}
 
 /** Applies the same `density` to lists and both table components. */
 export const tables = (density: 'default' | 'comfortable' | 'compact'): VuetiwatchDefaults => ({

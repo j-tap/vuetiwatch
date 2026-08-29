@@ -1,5 +1,5 @@
 import type { VuetiwatchAccent, VuetiwatchDefaults } from '../types.js'
-import { bars, controls, fields, icons, tables } from '../util/defaults.js'
+import { bars, controls, fields, icons, overlays, ripple, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -93,6 +93,42 @@ export const atlasVariables = {
   'vw-pop-scale': '1.08',
   'vw-pop-duration': '180ms',
   'vw-theme-transition': '320ms',
+  /**
+   * Overlays move at the same speed as everything else, which Vuetify's
+   * own 300ms fade does not. A menu opened two hundred times a day is the
+   * one surface where the difference between 140ms and 300ms stops being
+   * taste and becomes lag; the exit is quicker still, because a panel on
+   * its way out is already answered and only has to get off the screen.
+   */
+  'vw-overlay-duration': '140ms',
+  'vw-overlay-exit': '100ms',
+
+  /**
+   * Keyboard focus, four times the hover it has to be told apart from.
+   * Vuetify's 0.12 against a 0.04 hover is a difference you have to look
+   * for, and the person driving an admin panel from the keyboard is the
+   * one who cannot afford to.
+   */
+  'focus-opacity': 0.16,
+  /**
+   * The tonal fill under chips and alerts — this theme's whole status
+   * vocabulary, and it carries it at `size="small"` and `density="compact"`
+   * where Vuetify's 0.12 thins out to nearly nothing.
+   */
+  'activated-opacity': 0.14,
+  /**
+   * A form here disables half its fields depending on the other half, so
+   * "off" has to stay readable rather than dissolve. Vuetify's 0.38 puts a
+   * label under 3:1 on this ground; 0.45 keeps it legible and still
+   * unmistakably inactive.
+   */
+  'disabled-opacity': 0.45,
+  /**
+   * A table waiting on its data is an everyday sight here, not an edge
+   * case. Vuetify derives the block from `border-opacity`, which at 0.22
+   * draws a row of grey slabs heavier than the data they stand in for.
+   */
+  'vw-skeleton-opacity': '0.09',
 } as const
 
 /** Component defaults. Identical across the family. */
@@ -122,7 +158,36 @@ export const atlasDefaults: VuetiwatchDefaults[] = [
      * each button floating on its own elevation.
      */
     VBtnToggle: { variant: 'outlined', divided: true, density: 'compact' },
+    // Flush stacked rows rather than floating panels with gaps: a settings
+    // page is a list of settings, not a deck of cards.
+    VExpansionPanels: { variant: 'accordion' },
+    /**
+     * Half the controls on a console are icon-only, so a tooltip fires
+     * every time the cursor crosses the toolbar on its way somewhere else.
+     * A short wait means the tip appears when it was wanted and stays out
+     * of the way when it was not.
+     */
+    VTooltip: { openDelay: 400 },
   },
+  /**
+   * Nothing travels. A dropdown you open all day should not slide into
+   * place before it can be read, a dialog holds a form you start filling
+   * the moment it lands, and a tooltip that scales is a word changing size
+   * while you read it. Fading is the only motion here that does not ask to
+   * be waited out — and at 140ms it is barely motion at all.
+   */
+  overlays({
+    dialog: 'fade-transition',
+    menu: 'fade-transition',
+    tooltip: 'fade-transition',
+  }),
+  /**
+   * No ripple. It is an animation about the weight of a surface, and this
+   * theme draws none — but the real cost is that it puts 300ms of spreading
+   * ink between a click and the look of an answer, on the screen where that
+   * click gets repeated all day.
+   */
+  ripple(false),
   // Compact throughout: an admin screen is a working surface, and a field
   // at Vuetify's default height is a third taller than the row it sits in.
   fields({ variant: 'outlined', density: 'compact' }),
@@ -204,6 +269,16 @@ export const atlas = defineTheme({
       'shadow-color': '#0B101C',
       'vw-overlay-border': '1px solid rgba(var(--v-border-color), 0.1)',
       'vw-overlay-shadow': '0 8px 28px rgba(var(--v-shadow-color), 0.1)',
+      /**
+       * Ids, tokens and shortcuts are what an admin panel is full of, and
+       * Vuetify draws both on a grey that belongs to no theme. They take
+       * the same tinted band the table headers and filled rows use, so a
+       * key cap reads as part of the panel rather than pasted onto it.
+       */
+      'theme-code': '#F5F8FD',
+      'theme-on-code': '#0B101C',
+      'theme-kbd': '#F5F8FD',
+      'theme-on-kbd': '#0B101C',
       ...atlasVariables,
     },
   },

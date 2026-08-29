@@ -1,4 +1,4 @@
-import { bars, fields, icons } from '../util/defaults.js'
+import { bars, fields, icons, overlays } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -75,6 +75,17 @@ export const morph = defineTheme({
       'vw-pop-scale': '1.15',
       'vw-pop-duration': '220ms',
 
+      // Quiet, like the relief itself.
+      'vw-overlay-duration': '180ms',
+      'vw-overlay-exit': '140ms',
+      /**
+       * The relief carries the whole theme, and a wash of colour on top of
+       * it flattens the light it is built from — so the states stay under
+       * what Vuetify draws.
+       */
+      'focus-opacity': 0.12,
+      'activated-opacity': 0.1,
+
       // The same groove the fields are, turned on its side.
       'vw-timeline-line': 'rgb(var(--v-theme-background))',
       'vw-timeline-line-width': '8px',
@@ -99,6 +110,16 @@ export const morph = defineTheme({
       checkboxOff: 'mdi-circle-outline',
       ratingFull: 'mdi-circle',
       ratingEmpty: 'mdi-circle-outline',
+    }),
+    /**
+     * A dialog is pressed out of the ground like everything else, so it
+     * grows into place. Menus and tips fade instead: they are small enough
+     * that scaling them reads as a twitch rather than as relief.
+     */
+    overlays({
+      dialog: 'scale-transition',
+      menu: 'fade-transition',
+      tooltip: 'fade-transition',
     }),
   ],
 })

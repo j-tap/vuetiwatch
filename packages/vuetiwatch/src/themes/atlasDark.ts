@@ -57,6 +57,11 @@ export const atlasDark = defineTheme({
       'shadow-color': '#000000',
       'vw-overlay-border': '1px solid rgba(var(--v-border-color), 0.16)',
       'vw-overlay-shadow': '0 12px 32px rgba(0, 0, 0, 0.5)',
+      // The same tinted band as the light variant, in this ground's register.
+      'theme-code': '#151E35',
+      'theme-on-code': '#EEF2F9',
+      'theme-kbd': '#151E35',
+      'theme-on-kbd': '#EEF2F9',
       ...atlasVariables,
     },
   },

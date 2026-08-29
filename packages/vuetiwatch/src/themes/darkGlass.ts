@@ -1,4 +1,4 @@
-import { bars, fields, icons } from '../util/defaults.js'
+import { bars, fields, icons, overlays } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -71,6 +71,13 @@ export const darkGlass = defineTheme({
       'vw-pop-scale': '1.18',
       'vw-pop-duration': '240ms',
 
+      // Glass slides, and it takes its time doing it.
+      'vw-overlay-duration': '260ms',
+      'vw-overlay-exit': '200ms',
+      // The ground is dark enough that a state has to be lit to register.
+      'focus-opacity': 0.16,
+      'activated-opacity': 0.14,
+
       // Violet through the glass.
       'vw-timeline-line': 'rgba(var(--v-theme-primary), 0.45)',
       'vw-timeline-line-width': '2px',
@@ -96,6 +103,12 @@ export const darkGlass = defineTheme({
       checkboxOff: 'mdi-circle-outline',
       ratingFull: 'mdi-star',
       ratingEmpty: 'mdi-star-outline',
+    }),
+    // Sheets slide; the tip, which is not a sheet, fades.
+    overlays({
+      dialog: 'slide-y-transition',
+      menu: 'slide-y-transition',
+      tooltip: 'fade-transition',
     }),
   ],
 })

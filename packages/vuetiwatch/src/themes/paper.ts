@@ -1,4 +1,4 @@
-import { bars, fields, icons, surfaces } from '../util/defaults.js'
+import { bars, fields, icons, overlays, ripple, surfaces } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -70,6 +70,33 @@ export const paper = defineTheme({
       'vw-pop-scale': '1.1',
       'vw-pop-duration': '180ms',
 
+      /**
+       * Overlays keep the page's own speed. Vuetify's 300ms fade belongs to
+       * a theme with depth to travel through; nothing here has any, so a
+       * panel arrives the way a printed page is turned over — at once.
+       */
+      'vw-overlay-duration': '140ms',
+      'vw-overlay-exit': '110ms',
+      // Ink is either on the paper or it is not, so the states are set by
+      // how much ink rather than by how much glow.
+      'focus-opacity': 0.14,
+      'activated-opacity': 0.1,
+      'disabled-opacity': 0.4,
+      // Set in type rather than in a grey box: a code span takes the same
+      // tinted stock the panels do.
+      'theme-code': '#F1EEE4',
+      'theme-on-code': '#14110E',
+      'theme-kbd': '#F1EEE4',
+      'theme-on-kbd': '#14110E',
+
+      /**
+       * `primary` here is ink, and a quarter-strength black is a smudge
+       * rather than a highlight. The selection takes the theme's second
+       * colour instead — a marker drawn over the type, which is what
+       * highlighting on paper actually looks like.
+       */
+      'vw-selection-fill': 'rgba(var(--v-theme-secondary), 0.28)',
+
       // A line of ink dots, the way a printed rule breaks up.
       'vw-timeline-line': 'repeating-linear-gradient(to bottom, rgba(var(--v-border-color), 0.55) 0 2px, transparent 2px 6px)',
       'vw-timeline-line-width': '1px',
@@ -103,5 +130,17 @@ export const paper = defineTheme({
       sortDesc: 'mdi-arrow-down',
       close: 'mdi-close',
     }),
+    /**
+     * Flat, and quick about it. A sheet of paper does not scale up out of
+     * the page it was lying on — it is either shown or it is not.
+     */
+    overlays({
+      dialog: 'fade-transition',
+      menu: 'fade-transition',
+      tooltip: 'fade-transition',
+    }),
+    // A ripple is a Material animation about a surface with weight, and
+    // this theme prints rather than raises.
+    ripple(false),
   ],
 })

@@ -1,4 +1,4 @@
-import { bars, fields, icons, surfaces, tables } from '../util/defaults.js'
+import { bars, fields, icons, overlays, ripple, surfaces, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -82,6 +82,33 @@ export const neon = defineTheme({
       'vw-focus-ring': '2px solid rgb(var(--v-theme-secondary))',
       'vw-theme-transition': '180ms',
 
+      // A terminal repaints; the linear easing above comes along through
+      // `--v-vw-motion-ease`, so nothing here accelerates.
+      'vw-overlay-duration': '110ms',
+      'vw-overlay-exit': '80ms',
+      /**
+       * Phosphor, not ink: a lit state on this ground has to be visibly
+       * lit, and Vuetify's 0.12 disappears into the black.
+       */
+      'focus-opacity': 0.24,
+      'activated-opacity': 0.25,
+      // The one theme where a code block is the native register.
+      'theme-code': '#04121A',
+      'theme-on-code': '#00F0FF',
+      'theme-kbd': '#04121A',
+      'theme-on-kbd': '#00F0FF',
+      // A tab is a label on a terminal chrome, set with the same wide
+      // tracking the buttons use and a size that keeps it on one line.
+      'vw-tab-size': '0.8125rem',
+
+      /**
+       * A terminal selects with a solid block and inverts the glyphs under
+       * it, which is also the only way cyan text stays readable once a
+       * cyan tint is laid over it.
+       */
+      'vw-selection-fill': 'rgb(var(--v-theme-primary))',
+      'vw-selection-color': 'rgb(var(--v-theme-background))',
+
       // A lit filament; the glow is in the stylesheet.
       'vw-timeline-line': 'rgb(var(--v-theme-secondary))',
       'vw-timeline-line-width': '2px',
@@ -117,5 +144,14 @@ export const neon = defineTheme({
       sortDesc: 'mdi-chevron-down',
       close: 'mdi-close',
     }),
+    // A screen repaints: the panel lights up where it stands rather than
+    // travelling to get there.
+    overlays({
+      dialog: 'fade-transition',
+      menu: 'fade-transition',
+      tooltip: 'fade-transition',
+    }),
+    // Nothing in a terminal ripples.
+    ripple(false),
   ],
 })

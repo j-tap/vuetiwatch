@@ -413,6 +413,39 @@
   }
 
   /**
+   * And how fast it gets there.
+   *
+   * Which transition a surface uses is a prop — a theme names it through
+   * `overlays()` — but the timing of every one of them is baked into
+   * Vuetify's own stylesheet: a fade takes 300ms whether it belongs to a
+   * theme that settles slowly or to one that repaints instantly. Naming a
+   * transition without owning its clock only half moves it.
+   *
+   * The class is on the content element itself, whatever the transition is
+   * called, so one selector reaches all of them — and `revert-layer` hands
+   * the timing straight back to Vuetify for a theme that says nothing, so
+   * the two numbers stay opt-in.
+   *
+   * Leave falls through to enter, because a theme normally has one speed
+   * and stating it twice is how the two drift apart. A theme that wants the
+   * asymmetry Material describes — leave faster than enter — says so.
+   */
+  & .v-overlay__content:is(
+    [class*='-transition-enter-active'],
+    [class*='-transition-leave-active']
+  ) {
+    transition-timing-function: var(--v-vw-overlay-ease, var(--v-vw-motion-ease, revert-layer));
+  }
+
+  & .v-overlay__content[class*='-transition-enter-active'] {
+    transition-duration: var(--v-vw-overlay-duration, revert-layer);
+  }
+
+  & .v-overlay__content[class*='-transition-leave-active'] {
+    transition-duration: var(--v-vw-overlay-exit, var(--v-vw-overlay-duration, revert-layer));
+  }
+
+  /**
    * A relief theme paints outside the shape it lifts, and a chip group is a
    * scroller: it clips to its content box, so the glow around the chips
    * comes out sheared along a straight edge with a corner where the row
@@ -749,6 +782,31 @@
     color: rgb(var(--v-theme-primary));
     text-decoration: var(--v-vw-link-decoration, underline);
     text-underline-offset: 0.15em;
+  }
+
+  /* ------------------------------------------------------------ selection */
+
+  /**
+   * Dragging across a paragraph is the one interaction every theme shares
+   * and none of them owned: the browser answers in its own blue, which
+   * belongs to no palette here and reads as a piece of the operating
+   * system showing through the page.
+   *
+   * The default is the theme's accent rather than a value each theme has
+   * to state, so it costs a theme nothing and follows the accent when
+   * `setAccent()` repaints one. `24%` is the strongest tint that still
+   * leaves body text at its own contrast on both light and dark grounds —
+   * a theme that wants a solid highlight sets the pair below and takes
+   * responsibility for the ink on top of it.
+   *
+   * `background-color` rather than the shorthand on purpose: `::selection`
+   * paints no image, so a theme whose surface is a gradient cannot express
+   * it here and would silently get nothing.
+   */
+  &::selection,
+  & ::selection {
+    background-color: var(--v-vw-selection-fill, rgba(var(--v-theme-primary), 0.24));
+    color: var(--v-vw-selection-color, inherit);
   }
 }
 

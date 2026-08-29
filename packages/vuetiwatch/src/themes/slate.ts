@@ -1,4 +1,4 @@
-import { bars, controls, fields, icons, tables } from '../util/defaults.js'
+import { bars, controls, fields, icons, overlays, ripple, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -72,6 +72,20 @@ export const slate = defineTheme({
       'vw-pop-duration': '160ms',
       'vw-focus-ring': '2px solid rgb(var(--v-theme-primary))',
 
+      // The dashboard's own tempo, applied to the panels that float over it.
+      'vw-overlay-duration': '120ms',
+      'vw-overlay-exit': '90ms',
+      // The focus ring above carries the keyboard; the wash only has to not
+      // fight it. The active row, though, has to be findable in a table of
+      // a hundred.
+      'focus-opacity': 0.12,
+      'activated-opacity': 0.12,
+      'disabled-opacity': 0.42,
+      'theme-code': '#EAEEF3',
+      'theme-on-code': '#1A202C',
+      'theme-kbd': '#EAEEF3',
+      'theme-on-kbd': '#1A202C',
+
       // Dense and structural: a 2px rule and a square dot.
       'vw-timeline-line': 'rgba(var(--v-theme-primary), 0.35)',
       'vw-timeline-line-width': '2px',
@@ -109,5 +123,17 @@ export const slate = defineTheme({
       sortAsc: 'mdi-menu-up',
       sortDesc: 'mdi-menu-down',
     }),
+    /**
+     * A dropdown drops. Everything else fades: a dialog over a dashboard is
+     * a change of subject, not an entrance, and the data behind it should
+     * not be dragged around while it arrives.
+     */
+    overlays({
+      dialog: 'fade-transition',
+      menu: 'slide-y-transition',
+      tooltip: 'fade-transition',
+    }),
+    // Dense rows and a spreading ink blot do not go together.
+    ripple(false),
   ],
 })

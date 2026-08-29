@@ -1,4 +1,4 @@
-import { bars, fields, icons } from '../util/defaults.js'
+import { bars, fields, icons, overlays } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -86,6 +86,19 @@ export const aurora = defineTheme({
       'vw-pop-duration': '300ms',
       'vw-theme-transition': '560ms',
 
+      // The showcase theme, so the overlays show off too.
+      'vw-overlay-duration': '300ms',
+      'vw-overlay-exit': '200ms',
+      // Saturated ground, saturated states.
+      'focus-opacity': 0.18,
+      'activated-opacity': 0.16,
+      /**
+       * Vuetify tints a raised surface with plain white on a dark ground.
+       * Here the light in the room is violet, so the tint that stands for
+       * height is the theme's own hue rather than a neutral.
+       */
+      'elevation-overlay-color': '#7C5CFF',
+
       // The line is the theme's own gradient, top to bottom.
       'vw-timeline-line': 'var(--v-vw-gradient)',
       'vw-timeline-line-width': '2px',
@@ -109,6 +122,13 @@ export const aurora = defineTheme({
       checkboxOff: 'mdi-circle-outline',
       ratingFull: 'mdi-star',
       ratingEmpty: 'mdi-star-outline',
+    }),
+    // Everything swells into place, at the length the rest of the theme
+    // moves on.
+    overlays({
+      dialog: 'scale-transition',
+      menu: 'scale-transition',
+      tooltip: 'scale-transition',
     }),
   ],
 })

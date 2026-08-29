@@ -1,4 +1,4 @@
-import { bars, fields, icons, surfaces } from '../util/defaults.js'
+import { bars, fields, icons, overlays, ripple, surfaces } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -77,6 +77,21 @@ export const sketchy = defineTheme({
       'vw-pop-scale': '1.25',
       'vw-pop-duration': '200ms',
 
+      /**
+       * The stepped easing above reaches overlays through
+       * `--v-vw-motion-ease`, so a panel arrives in two frames — drawn
+       * rather than animated.
+       */
+      'vw-overlay-duration': '140ms',
+      'vw-overlay-exit': '100ms',
+      // Marker on paper: a state is a scribble over the shape, not a tint.
+      'focus-opacity': 0.2,
+      'activated-opacity': 0.15,
+
+      // Pencil in `primary`, so the highlighter is the second colour and
+      // drawn heavier than elsewhere — a marker, not a tint.
+      'vw-selection-fill': 'rgba(var(--v-theme-secondary), 0.35)',
+
       // Dashes of uneven length, as if drawn in one pass.
       'vw-timeline-line': 'repeating-linear-gradient(to bottom, rgba(var(--v-border-color), 0.7) 0 7px, transparent 7px 11px, rgba(var(--v-border-color), 0.7) 11px 15px, transparent 15px 23px)',
       'vw-timeline-line-width': '2px',
@@ -104,5 +119,13 @@ export const sketchy = defineTheme({
       ratingEmpty: 'mdi-star-outline',
       close: 'mdi-close-thick',
     }),
+    // Two frames, like everything else here: the panel is drawn in.
+    overlays({
+      dialog: 'scale-transition',
+      menu: 'fade-transition',
+      tooltip: 'fade-transition',
+    }),
+    // Nothing in a pencil mock-up ripples.
+    ripple(false),
   ],
 })

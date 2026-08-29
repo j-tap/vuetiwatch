@@ -1,4 +1,4 @@
-import { bars, fields, icons } from '../util/defaults.js'
+import { bars, fields, icons, overlays } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -75,6 +75,13 @@ export const clay = defineTheme({
       'vw-pop-scale': '1.25',
       'vw-pop-duration': '280ms',
 
+      // Soft mass takes a moment to arrive, as it takes one to squash.
+      'vw-overlay-duration': '220ms',
+      'vw-overlay-exit': '160ms',
+      // The shapes are bright and the fills are generous; the states match.
+      'focus-opacity': 0.16,
+      'activated-opacity': 0.16,
+
       // A channel pressed into the ground rather than a line on it.
       'vw-timeline-line': 'rgb(var(--v-theme-background))',
       'vw-timeline-line-width': '8px',
@@ -99,6 +106,13 @@ export const clay = defineTheme({
       ratingFull: 'mdi-star',
       ratingEmpty: 'mdi-star-outline',
       close: 'mdi-close-circle',
+    }),
+    // Inflated, so it inflates: every floating shape swells into place
+    // rather than sliding or fading.
+    overlays({
+      dialog: 'scale-transition',
+      menu: 'scale-transition',
+      tooltip: 'scale-transition',
     }),
   ],
 })

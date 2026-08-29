@@ -1,4 +1,4 @@
-import { bars, fields, icons } from '../util/defaults.js'
+import { bars, fields, icons, overlays, ripple } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -78,16 +78,53 @@ export const brutalist = defineTheme({
       'vw-heading-tracking': '-0.02em',
       'vw-tab-slider-height': '4px',
 
-      // Two frames, no curve. The press is the theme's own slide into its
-      // shadow, so the shared squash stays out of its way.
-      'vw-motion-duration': '80ms',
-      'vw-motion-ease': 'steps(2, end)',
+      /**
+       * Nothing eases and nothing tweens: a state change is the frame it
+       * happens in.
+       *
+       * A stepped curve was the first attempt at saying that, and it says
+       * the opposite. Two discrete jumps across 80ms read as a dropped
+       * frame rather than as a decision, and on anything that takes longer
+       * to arrive — a tooltip, a dialog the size of the screen — the hold
+       * between the steps looks like the page has hung. Zero is the only
+       * duration that is actually instant.
+       *
+       * `linear` is what is left for the two things here that are
+       * animations rather than transitions — the icon pop and the theme
+       * wipe — where a curve would be the theme describing a weight it
+       * does not have.
+       *
+       * The press is the theme's own slide into its shadow, so the shared
+       * squash stays out of its way.
+       */
+      'vw-motion-duration': '0ms',
+      'vw-motion-ease': 'linear',
       'vw-press-scale': '1',
       'vw-pop-scale': '1.3',
       'vw-pop-duration': '100ms',
       'vw-focus-ring': '3px solid rgb(var(--v-shadow-color))',
       'vw-focus-offset': '3px',
       'vw-theme-transition': '200ms',
+
+      // Hard states to match the hard edges: a pressed control is a
+      // different colour, not a slightly darker one.
+      'focus-opacity': 0.2,
+      'activated-opacity': 0.3,
+      'disabled-opacity': 0.5,
+      /**
+       * A tab is set at body size rather than shrunk to Vuetify's label
+       * size — nothing in this theme whispers.
+       */
+      'vw-tab-size': '1rem',
+
+      /**
+       * Lime is this theme's active colour — it already marks the table
+       * heads, the current page and the slider — so a selected run of text
+       * joins them. Solid rather than a tint: nothing here is translucent,
+       * and the ink on top is stated rather than left to the browser.
+       */
+      'vw-selection-fill': 'rgb(var(--v-theme-secondary))',
+      'vw-selection-color': 'rgb(var(--v-shadow-color))',
 
       // A structural beam, and the dot is a square like everything else.
       'vw-timeline-line': 'rgb(var(--v-shadow-color))',
@@ -128,5 +165,14 @@ export const brutalist = defineTheme({
       sortDesc: 'mdi-menu-down',
       close: 'mdi-close-thick',
     }),
+    /**
+     * No transition at all, which is the only honest answer here. Every
+     * other theme animates a surface arriving from somewhere; this one has
+     * no depth for it to arrive through, so the panel is simply there —
+     * one frame without it, the next frame with it.
+     */
+    overlays({ dialog: false, menu: false, tooltip: false }),
+    // A ripple is a soft, round, spreading thing.
+    ripple(false),
   ],
 })

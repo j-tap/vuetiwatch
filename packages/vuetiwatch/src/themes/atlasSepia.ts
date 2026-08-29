@@ -53,6 +53,11 @@ export const atlasSepia = defineTheme({
       'shadow-color': '#3B332A',
       'vw-overlay-border': '1px solid rgba(var(--v-border-color), 0.12)',
       'vw-overlay-shadow': '0 8px 28px rgba(var(--v-shadow-color), 0.14)',
+      // The same tinted band as the light variant, in the warm register.
+      'theme-code': '#F4EEE3',
+      'theme-on-code': '#241E16',
+      'theme-kbd': '#F4EEE3',
+      'theme-on-kbd': '#241E16',
       ...atlasVariables,
     },
   },

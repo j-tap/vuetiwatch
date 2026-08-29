@@ -1,4 +1,4 @@
-import { bars, controls, fields, icons, tables } from '../util/defaults.js'
+import { bars, controls, fields, icons, overlays, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -100,6 +100,16 @@ export const liquidGlass = defineTheme({
       'vw-pop-duration': '300ms',
       'vw-theme-transition': '520ms',
 
+      /**
+       * The iOS curve above carries overlays too, through
+       * `--v-vw-motion-ease`: fast out of the gate, then a long settle.
+       */
+      'vw-overlay-duration': '320ms',
+      'vw-overlay-exit': '220ms',
+      // Through glass a state is a change of light, not a block of colour.
+      'focus-opacity': 0.12,
+      'activated-opacity': 0.12,
+
       // Frosted, so the line is a highlight rather than a rule.
       'vw-timeline-line': 'rgba(var(--v-theme-on-surface), 0.18)',
       'vw-timeline-line-width': '2px',
@@ -133,6 +143,16 @@ export const liquidGlass = defineTheme({
       close: 'mdi-close-circle',
       sortAsc: 'mdi-chevron-up',
       sortDesc: 'mdi-chevron-down',
+    }),
+    /**
+     * A sheet of glass scales up from the control that summoned it, which
+     * is what the platform this theme follows does. The tooltip fades:
+     * it is one word, and a word that grows is a word you re-read.
+     */
+    overlays({
+      dialog: 'scale-transition',
+      menu: 'scale-transition',
+      tooltip: 'fade-transition',
     }),
   ],
 })

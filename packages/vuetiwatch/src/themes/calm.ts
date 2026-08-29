@@ -1,4 +1,4 @@
-import { bars, controls, fields, icons, tables } from '../util/defaults.js'
+import { bars, controls, fields, icons, overlays, ripple, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -77,6 +77,18 @@ export const calm = defineTheme({
       'vw-pop-duration': '280ms',
       'vw-theme-transition': '560ms',
 
+      // Slow here too, so an overlay drifts in rather than appearing.
+      'vw-overlay-duration': '320ms',
+      'vw-overlay-exit': '240ms',
+      /**
+       * Every state is a shade quieter than Vuetify draws it. The theme
+       * spends colour only on what you can act on, and a wash under
+       * something already selected is not one of those things.
+       */
+      'focus-opacity': 0.1,
+      'activated-opacity': 0.06,
+      'disabled-opacity': 0.35,
+
       // Barely there, like everything else in this theme.
       'vw-timeline-line': 'rgba(var(--v-border-color), 0.5)',
       'vw-timeline-line-width': '1px',
@@ -107,5 +119,15 @@ export const calm = defineTheme({
       ratingEmpty: 'mdi-circle-outline',
       close: 'mdi-close',
     }),
+    // Nothing arrives from a direction, and nothing scales: the surface
+    // is simply there a moment later than you asked.
+    overlays({
+      dialog: 'fade-transition',
+      menu: 'fade-transition',
+      tooltip: 'fade-transition',
+    }),
+    // The discipline is subtractive, and a ripple is a fill spreading
+    // across the one part of the screen you are already looking at.
+    ripple(false),
   ],
 })

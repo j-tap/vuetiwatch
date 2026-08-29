@@ -1,4 +1,4 @@
-import { bars, controls, fields, icons, tables } from '../util/defaults.js'
+import { bars, controls, fields, icons, overlays, ripple, tables } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -77,6 +77,31 @@ export const lux = defineTheme({
       'vw-focus-ring': '1px solid rgb(var(--v-theme-primary))',
       'vw-theme-transition': '520ms',
 
+      // The same unhurried curve the rest of the theme moves on.
+      'vw-overlay-duration': '240ms',
+      'vw-overlay-exit': '180ms',
+      // Restraint applies to states too: an outline and a hairline of
+      // wash, never a block of colour.
+      'focus-opacity': 0.12,
+      'activated-opacity': 0.08,
+      'disabled-opacity': 0.35,
+      /**
+       * A tab is a label in this theme, set at the same size as the caps on
+       * the buttons rather than at Vuetify's body-sized default — the wide
+       * tracking below needs the smaller size to stay a line and not a
+       * heading.
+       */
+      'vw-tab-size': '0.75rem',
+      /**
+       * Initials set small inside a generous circle: the air around a mark
+       * is the whole point of the register this theme is written in.
+       */
+      'vw-avatar-ratio': '0.34',
+
+      // Ink again in `primary`, so the highlight is the theme's gold —
+      // the one flourish it allows itself, spent where a reader drags.
+      'vw-selection-fill': 'rgba(var(--v-theme-secondary), 0.25)',
+
       // A gold hairline; the dot stays a circle.
       'vw-timeline-line': 'rgba(var(--v-theme-primary), 0.55)',
       'vw-timeline-line-width': '1px',
@@ -109,5 +134,13 @@ export const lux = defineTheme({
       // An em dash rather than a slash — the one flourish the theme allows.
       breadcrumbDivider: '—',
     }),
+    // Expensive things do not bounce. They fade, slowly, and stop.
+    overlays({
+      dialog: 'fade-transition',
+      menu: 'fade-transition',
+      tooltip: 'fade-transition',
+    }),
+    // Material's ink blot is the loudest thing this theme could do.
+    ripple(false),
   ],
 })

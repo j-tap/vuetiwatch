@@ -1,4 +1,4 @@
-import { bars, controls, fields, icons } from '../util/defaults.js'
+import { bars, controls, fields, icons, overlays } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -101,6 +101,20 @@ export const candy = defineTheme({
       'vw-focus-offset': '3px',
       'vw-theme-transition': '480ms',
 
+      /**
+       * The spring above rides along through `--v-vw-motion-ease`, so an
+       * overlay overshoots and settles like every other shape here. The
+       * exit skips the spring by being too short to overshoot in.
+       */
+      'vw-overlay-duration': '260ms',
+      'vw-overlay-exit': '160ms',
+      // Loud, like the rest of it: a pressed sweet goes visibly darker.
+      'focus-opacity': 0.2,
+      'activated-opacity': 0.18,
+      'disabled-opacity': 0.4,
+      // A big letter in a big circle.
+      'vw-avatar-ratio': '0.46',
+
       // A fat ribbon with rounded ends — see the stylesheet.
       'vw-timeline-line': 'rgba(var(--v-theme-primary), 0.3)',
       'vw-timeline-line-width': '6px',
@@ -139,6 +153,15 @@ export const candy = defineTheme({
       next: 'mdi-chevron-right',
       prev: 'mdi-chevron-left',
       breadcrumbDivider: '•',
+    }),
+    /**
+     * The dialog comes up from the bottom, the way every app a child has
+     * used opens a sheet, and the small surfaces pop rather than fade.
+     */
+    overlays({
+      dialog: 'dialog-bottom-transition',
+      menu: 'scale-transition',
+      tooltip: 'scale-transition',
     }),
   ],
 })

@@ -1,4 +1,4 @@
-import { bars, fields, icons } from '../util/defaults.js'
+import { bars, fields, icons, overlays } from '../util/defaults.js'
 import { defineTheme } from '../util/defineTheme.js'
 
 /**
@@ -69,6 +69,16 @@ export const soft = defineTheme({
       'vw-pop-scale': '1.22',
       'vw-pop-duration': '260ms',
 
+      // Unhurried here as well, with the exit a touch quicker so a
+      // dismissed panel does not linger.
+      'vw-overlay-duration': '250ms',
+      'vw-overlay-exit': '180ms',
+      // Tonal fills are this theme's colour, so they are drawn to be seen.
+      'focus-opacity': 0.14,
+      'activated-opacity': 0.14,
+      // Bigger initials inside the circle, to match everything else here.
+      'vw-avatar-ratio': '0.44',
+
       // Thick and pastel, matching the radii.
       'vw-timeline-line': 'rgba(var(--v-theme-primary), 0.25)',
       'vw-timeline-line-width': '5px',
@@ -101,6 +111,16 @@ export const soft = defineTheme({
       ratingFull: 'mdi-heart',
       ratingEmpty: 'mdi-heart-outline',
       close: 'mdi-close-circle',
+    }),
+    /**
+     * Friendly rather than efficient: a dialog swells into place, a menu
+     * drops from the control that opened it. The ripple stays — this is one
+     * of the themes with a surface soft enough to justify it.
+     */
+    overlays({
+      dialog: 'scale-transition',
+      menu: 'slide-y-transition',
+      tooltip: 'scale-transition',
     }),
   ],
 })
