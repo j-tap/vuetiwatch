@@ -134,17 +134,19 @@ const questions = [
 </script>
 
 <template>
-  <!-- The strip every product site has, and the one place a theme's banner
-       treatment shows on a page rather than in a component list. -->
-  <v-banner
-    icon="mdi-party-popper"
-    text="Atlas Sepia is out — a warm-paper variant for people who find white panels bright."
-    lines="one"
-  >
-    <template #actions>
-      <v-btn text="See it" />
-    </template>
-  </v-banner>
+  <v-container>
+    <!-- The strip every product site has, and the one place a theme's banner
+        treatment shows on a page rather than in a component list. -->
+    <v-banner
+      icon="mdi-party-popper"
+      text="Atlas Sepia is out — a warm-paper variant for people who find white panels bright."
+      lines="one"
+    >
+      <template #actions>
+        <v-btn text="See it" />
+      </template>
+    </v-banner>
+  </v-container>
 
   <!-- Hero -->
   <section class="py-12 py-md-16">

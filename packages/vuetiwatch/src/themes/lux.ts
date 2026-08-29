@@ -33,13 +33,24 @@ export const lux = defineTheme({
       error: '#96322A',
       info: '#3D5A73',
       success: '#4A6B4F',
-      warning: '#A8791E',
+      /**
+       * Deepened rather than re-inked. Vuetify picks the label colour by
+       * APCA and settles for about 3:1 on WCAG, which is the bar for large
+       * text rather than for a button label — so this theme states `on-*`
+       * wherever the automatic pick falls short.
+       *
+       * Warning is the case where doing that made things worse. The ochre
+       * sat where WCAG wanted black and APCA wanted white by a wide margin
+       * (73 to 37), and the forced dark label did not even clear 4.5:1
+       * (4.49:1). Taking 9 per cent of lightness out of the hue satisfies both:
+       * white now reads 4.56:1 on the filled button, APCA 79, and the colour
+       * as text on the surface goes from 3.88:1 — under the bar it was
+       * being held to elsewhere — to 4.56:1. The label is left to the
+       * automatic pick, which is white.
+       */
+      warning: '#996E1B',
       'on-surface': '#1A1A1A',
       'on-background': '#1A1A1A',
-      // Vuetify picks the label colour by luminance and settles for
-      // about 3:1, which is the bar for large text rather than for a
-      // button label. Measured on the filled buttons: warning 3.9:1 → 4.5:1.
-      'on-warning': '#1A1A1A',
     },
     variables: {
       /* A panel standing on its own — a bare list, sheet, banner or table.

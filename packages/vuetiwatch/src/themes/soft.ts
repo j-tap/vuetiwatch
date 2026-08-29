@@ -35,13 +35,34 @@ export const soft = defineTheme({
       warning: '#F5B851',
       'on-surface': '#2E2A3B',
       'on-background': '#2E2A3B',
-      // Vuetify's automatic pick lands on white here, which is worse by
-      // both models — this reads w6.0/a56 against w2.3/a50.
-      'on-secondary': '#2E2A3B',
-      // Vuetify picks the label colour by luminance and settles for
-      // about 3:1, which is the bar for large text rather than for a
-      // button label. Measured on the filled buttons: error 2.8:1 → 4.9:1.
-      'on-error': '#2E2A3B',
+      /**
+       * The one stated exception in the package, and it is deliberate.
+       *
+       * White on these pastels does not clear WCAG's 4.5:1 for a button
+       * label: secondary 2.33:1, error 2.84:1, info 2.25:1, success 2.21:1,
+       * warning 1.77:1. The dark ink that white replaced carried 4.89:1 to
+       * 11.86:1, and APCA agrees with WCAG on every one of them — so this
+       * is not a case of the two models disagreeing and a hue needing a few
+       * points of lightness, which is how every other theme here resolves
+       * it. The only arrangement that gets white over the bar takes these
+       * hues down 23 to 39 per cent, and a pastel darkened by a third is
+       * not a pastel: it would be a different theme wearing this one's name.
+       *
+       * So the trade is made the other way round, once, in the theme whose
+       * whole proposition is softness — and it is a trade, not an oversight.
+       * A screen that has to be read by everyone should reach for a theme
+       * that measures; `atlas` and `graphite` exist for that, and `soft` is
+       * for the onboarding flow and the marketing page where the palette is
+       * the point. The README says as much next to the claim it qualifies.
+       *
+       * `primary` is not listed because it needs no help: at #705EEF white
+       * already reads 4.63:1 and is the automatic pick.
+       */
+      'on-secondary': '#FFFFFF',
+      'on-error': '#FFFFFF',
+      'on-info': '#FFFFFF',
+      'on-success': '#FFFFFF',
+      'on-warning': '#FFFFFF',
     },
     variables: {
       /* A panel standing on its own — a bare list, sheet, banner or table.

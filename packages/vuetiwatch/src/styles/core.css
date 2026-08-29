@@ -314,6 +314,34 @@
     background-color: rgb(var(--v-theme-surface));
   }
 
+  /**
+   * A tonal card tints its ground, not the things standing on it.
+   *
+   * Vuetify paints that tint with `.v-card__underlay`, positioned and left
+   * at `z-index: auto` — which puts it in the positioned layer, above every
+   * unpositioned child of the card. Its own `.v-card__content` wrapper is
+   * `position: relative` and so escapes, but a card is only given that
+   * wrapper for certain slots; content passed straight to the default slot
+   * gets none, and is painted over.
+   *
+   * What that costs is the whole point of the variant. A white field on a
+   * tonal card came out washed by `--v-activated-opacity` and read as
+   * disabled rather than as somewhere to type, and every label in the card
+   * lost the same fraction of its contrast — the stronger a theme sets that
+   * opacity, the more it loses.
+   *
+   * The card already establishes a stacking context of its own, so a
+   * negative index puts the tint under the content and no further: it stays
+   * inside the card and above the card's own background. Only the card is
+   * corrected here. The same shape appears on buttons, chips and avatars,
+   * where the tint is the entire visible surface rather than a ground —
+   * pushed back there, it disappears behind a transparent control and takes
+   * the variant with it.
+   */
+  & .v-card--variant-tonal > .v-card__underlay {
+    z-index: -1;
+  }
+
   /* --------------------------------------------------- nested surfaces */
 
   /**

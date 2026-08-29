@@ -64,8 +64,9 @@
    * is still on its way in, so the frost is alight for almost all of the
    * arrival.
    *
-   * The scrim is put on that same short clock, and this is the half that is
-   * easy to get wrong: cutting the pane's fade altogether was the first
+   * The scrim is put on that same short clock — that is what
+   * `--v-vw-scrim-duration` is, and core reads it — and this is the half
+   * that is easy to get wrong: cutting the pane's fade altogether was the first
    * attempt, and it traded a late blur for something worse — a solid pane
    * in frame one with the room still darkening behind it for another three
    * hundred milliseconds, which reads as two events instead of one. What
@@ -76,10 +77,6 @@
    * a pane already visible at 120ms should not still be a dot. The exit
    * keeps one clock: a blur going out early is not something anyone sees.
    */
-  & {
-    --vw-glass-lit: 120ms;
-  }
-
   &:is(.v-menu, .v-dialog) > .v-overlay__content[class*='-transition-enter-from'],
   & :is(.v-menu, .v-dialog) > .v-overlay__content[class*='-transition-enter-from'] {
     transform: scale(0.92);
@@ -88,11 +85,7 @@
   &:is(.v-menu, .v-dialog) > .v-overlay__content[class*='-transition-enter-active'],
   & :is(.v-menu, .v-dialog) > .v-overlay__content[class*='-transition-enter-active'] {
     transition-property: transform, opacity;
-    transition-duration: var(--v-vw-overlay-duration, 320ms), var(--vw-glass-lit);
-  }
-
-  & .v-overlay__scrim[class*='-transition-enter-active'] {
-    transition-duration: var(--vw-glass-lit);
+    transition-duration: var(--v-vw-overlay-duration, 320ms), var(--v-vw-scrim-duration, 120ms);
   }
 
   /**

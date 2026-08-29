@@ -54,6 +54,7 @@
     "clean": "node --eval \"fs.rmSync('dist', { recursive: true, force: true })\"",
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
+    "audit": "npm run build:types && node scripts/audit-contrast.mjs",
     "prepack": "npm run build"
   },
   "peerDependencies": {

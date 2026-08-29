@@ -11,6 +11,7 @@
     "build": "bun run --filter vuetiwatch build",
     "dev": "bun run build && bun run --filter vuetiwatch-playground dev",
     "typecheck": "bun run --filter \"*\" typecheck",
+    "audit": "bun run --filter vuetiwatch audit",
     "release": "npm publish --workspace vuetiwatch"
   },
   "packageManager": "bun@1.3.14"

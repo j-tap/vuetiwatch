@@ -70,13 +70,18 @@
    * Inputs are the one place the padding goes the other way: a dent pressed
    * into the cushion, shaded at the top where the surface falls in. Without
    * it `solo-filled` is the same white as the card it sits on.
+   *
+   * The tint goes on the field, not on `.v-field__overlay`, which is where
+   * it used to be and where it did nothing: Vuetify holds that overlay at
+   * `opacity: 0.04`, so a colour set there arrives at a twenty-fifth of its
+   * strength — the dent stayed white, and against a tonal card the field
+   * read as an inert slab rather than as somewhere to type. Leaving the
+   * overlay alone also leaves Vuetify's own hover and focus shading, which
+   * recomputes that opacity and would have fought a value forced into it.
    */
   & .v-field.v-field--variant-solo-filled {
-    box-shadow: inset 0 2px 5px rgba(var(--v-shadow-color), 0.16);
-  }
-
-  & .v-field.v-field--variant-solo-filled .v-field__overlay {
     background-color: rgb(var(--v-theme-surface-light));
+    box-shadow: inset 0 2px 5px rgba(var(--v-shadow-color), 0.16);
   }
 
   & :is(.v-switch__track, .v-slider-track__background) {

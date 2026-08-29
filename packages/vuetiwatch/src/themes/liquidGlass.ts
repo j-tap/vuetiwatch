@@ -116,6 +116,13 @@ export const liquidGlass = defineTheme({
        */
       'vw-overlay-duration': '320ms',
       'vw-overlay-exit': '220ms',
+      /**
+       * The scrim, and with it the pane's own fade — the stylesheet reads
+       * this same number for the opacity leg of the entrance. Short, so the
+       * frost is alight while the pane is still arriving; see the note over
+       * the rule for why the two have to agree.
+       */
+      'vw-scrim-duration': '120ms',
       // Through glass a state is a change of light, not a block of colour.
       'focus-opacity': 0.12,
       'activated-opacity': 0.12,

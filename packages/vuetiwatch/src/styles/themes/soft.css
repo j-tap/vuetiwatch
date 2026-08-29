@@ -29,9 +29,18 @@
    * `solo-filled` paints itself `surface`, which sits a couple of percent
    * from this theme's `background`. Without the shadow the field has no
    * edge at all, so it keeps one — in the theme's own tint.
+   *
+   * A cast shadow is not enough on its own, though, and the newsletter
+   * band is where that shows: on a tonal card the ground is already a
+   * tinted grey, a diffuse violet glow over it is invisible, and the field
+   * loses its only edge. What is left is a pale slab a few per cent from
+   * what surrounds it, which reads as disabled rather than as somewhere to
+   * type. The ring restores the boundary wherever the glow cannot — inset,
+   * so it costs no layout the way a real border would.
    */
   & .v-field.v-field--variant-solo-filled {
     box-shadow:
+      inset 0 0 0 1px rgba(var(--v-theme-primary), 0.3),
       0 1px 2px rgba(var(--v-theme-primary), 0.08),
       0 4px 12px rgba(var(--v-theme-primary), 0.06);
   }
