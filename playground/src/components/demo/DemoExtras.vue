@@ -129,12 +129,12 @@ const rows = [
     </v-col>
     <!-- Three blocks that size themselves very differently: side by side
          they balance, stacked they leave a column of nothing. -->
-    <v-col cols="12" md="6" lg="4">
+    <v-col cols="12" md="7" lg="5">
       <p class="text-label-medium text-medium-emphasis mb-2">Date picker</p>
       <v-date-picker v-model="date" />
     </v-col>
 
-    <v-col cols="12" md="6" lg="4">
+    <v-col cols="12" md="5" lg="4">
       <!-- In a card, like the skeleton beside it: `v-empty-state` paints no
            surface of its own, and next to blocks that do it reads as a hole
            rather than as a state. -->
@@ -153,7 +153,7 @@ const rows = [
       </v-card>
     </v-col>
 
-    <v-col cols="12" lg="4">
+    <v-col cols="12" lg="3">
       <p class="text-label-medium text-medium-emphasis mb-2">Loading</p>
       <v-card variant="outlined">
         <v-skeleton-loader type="article, actions" />
@@ -162,7 +162,7 @@ const rows = [
 
     <!-- The heavier machinery: components with enough layout of their own
          that a theme reaches them only through what it can set globally. -->
-    <v-col cols="12" md="6" lg="4">
+    <v-col cols="12" md="6" lg="3">
       <p class="text-label-medium text-medium-emphasis mb-2">Tree and virtual list</p>
       <v-card variant="outlined" class="mb-4">
         <v-treeview :items="tree" item-value="id" open-all density="compact" />
@@ -177,7 +177,7 @@ const rows = [
       </v-card>
     </v-col>
 
-    <v-col cols="12" md="6" lg="4">
+    <v-col cols="12" md="6" lg="3">
       <p class="text-label-medium text-medium-emphasis mb-2">Inline edit and shortcuts</p>
       <v-card variant="outlined" class="pa-4 mb-4">
         <v-confirm-edit v-model="editable">
@@ -194,7 +194,7 @@ const rows = [
       </div>
     </v-col>
 
-    <v-col cols="12" md="6" lg="4">
+    <v-col cols="12" lg="6">
       <p class="text-label-medium text-medium-emphasis mb-2">Pickers and figures</p>
       <div class="d-flex flex-wrap ga-4">
         <v-time-picker v-model="time" format="24hr" />

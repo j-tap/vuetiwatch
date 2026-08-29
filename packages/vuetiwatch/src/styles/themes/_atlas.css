@@ -85,7 +85,18 @@
   }
 
   & .v-date-picker-month__day {
-    height: 36px;
+    height: 32px;
+  }
+
+  /* The date grid is a table of numbers, so it takes the table's size. */
+  & :is(.v-date-picker-month, .v-date-picker-years, .v-date-picker-months) {
+    font-size: 0.8125rem;
+  }
+
+  /* The clock face is sized for a thumb on a phone: 256px next to a
+     compact field is a component from another application. */
+  & .v-time-picker-clock {
+    max-width: 208px;
   }
 
   & .v-date-picker-controls {

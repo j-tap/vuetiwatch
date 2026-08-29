@@ -115,6 +115,9 @@ export const atlasDefaults: VuetiwatchDefaults[] = [
     // The one field the `fields()` helper does not reach: it takes density
     // like the rest, and at the default it draws 48px boxes.
     VOtpInput: { density: 'compact' },
+    // Vuetify draws the empty-state glyph at 96px, which is a poster on a
+    // panel this size. Enough to read as an illustration, not as a banner.
+    VEmptyState: { size: 56 },
     /**
      * A segmented control is one object, not a row of raised buttons: a
      * hairline box with the chosen segment filled. Vuetify's default leaves

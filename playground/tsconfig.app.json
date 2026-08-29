@@ -3,9 +3,10 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
 
-    "baseUrl": ".",
+    /* Paths without `baseUrl`: it is deprecated in TypeScript 7, and since
+       4.1 a path pattern resolves relative to this file anyway. */
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
     "types": ["vite/client", "vuetify"],
 
