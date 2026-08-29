@@ -317,6 +317,24 @@
   }
 
   /**
+   * Vuetify draws an outlined card with `border: thin solid currentColor`,
+   * so the line around a panel is the ink of the text inside it — near
+   * black at high emphasis, measured. Every system this package is held
+   * against draws that line far lighter: Ant Design separates containers
+   * with #f0f0f0 and saves #d9d9d9 for controls.
+   *
+   * The line becomes the theme's own border colour instead. A theme that
+   * means its outline to be heavy — `brutalist` and its 3px rule — says so
+   * through the token rather than inheriting it by accident.
+   */
+  & .v-card--variant-outlined:not([class*='border-']) {
+    border-color: rgba(
+      var(--v-border-color),
+      var(--v-vw-outline-opacity, var(--v-border-opacity))
+    );
+  }
+
+  /**
    * Vuetify already funnels every outline segment through one property, so
    * the field only needs that one set. Specificity matters here: this must
    * beat `.v-field__outline` (0,1,0) but lose to the focused rule (0,3,0)
@@ -498,6 +516,86 @@
 
   & .v-tab__slider {
     height: var(--v-vw-tab-slider-height, 2px);
+  }
+
+  /**
+   * A tab is a label, not a button. Vuetify builds one out of the other, so
+   * a tab inherits whatever the button type is — which in this build is the
+   * body size, since the reset layer's `font-size: inherit` on `button`
+   * outranks the size class that meant to set 0.875rem. The label ends up a
+   * step larger than the text it introduces.
+   *
+   * Material's tab label is 0.875rem and so is the button size Vuetify
+   * intends, so the value is the same either way and the tab no longer
+   * depends on which order the two layers happened to load in.
+   */
+  & .v-tab.v-tab {
+    font-size: var(--v-vw-tab-size, 0.875rem);
+  }
+
+  /* -------------------------------------------------------- avatar type */
+
+  /**
+   * Vuetify sizes the circle and leaves the letters inside it at whatever
+   * the surrounding text was: `RM` in a 28px avatar next to a button label
+   * comes out 16px, more than half the diameter. Material's own ratio is
+   * 0.4 — 16px inside the 40px default — so this changes nothing at the
+   * default size and only corrects the ones a size prop moved.
+   *
+   * Only the keyword sizes publish their height as a variable; a numeric
+   * `size` is an inline style no rule can read, and the guard on the class
+   * keeps the declaration from resolving against a missing variable there.
+   * Images and icons carry their own dimensions and are left alone.
+   */
+  & .v-avatar[class*='--size-']:not(:has(img, .v-img, .v-icon)) {
+    font-size: calc(var(--v-avatar-height) * var(--v-vw-avatar-ratio, 0.4));
+  }
+
+  /* ------------------------------------------------------------ stepper */
+
+  /**
+   * The stepper is a panel, and Vuetify raises it twice: an elevation on
+   * the sheet, and a second one under the header band. That is Material's
+   * way of separating a scrolling window from its chrome, and no theme here
+   * separates anything that way — the flat ones had already dropped the
+   * sheet's shadow through their `.v-sheet` rule and were left with a band
+   * floating inside a panel that casts nothing.
+   *
+   * So the panel takes the theme's own edge and the header separates with
+   * the theme's own hairline. Both selectors sit in `:where()`, which is
+   * worth more here than specificity: unlayered still beats Vuetify's
+   * layered rules, while a theme that decorates its panels — brutalist's
+   * second shape, clay's relief — keeps winning without needing a knob.
+   */
+  & :where(.v-stepper.v-sheet:not(.v-stepper--flat, [class*='elevation-'])) {
+    box-shadow: none;
+    border: var(--v-vw-border-width, thin) solid
+      rgba(var(--v-border-color), var(--v-vw-outline-opacity, var(--v-border-opacity)));
+  }
+
+  & :where(.v-stepper-header) {
+    box-shadow: none;
+    border-block-end: var(--v-vw-border-width, thin) solid
+      rgba(var(--v-border-color), var(--v-vw-outline-opacity, var(--v-border-opacity)));
+  }
+
+  /**
+   * And the steps themselves come down a size. Vuetify pads each one by
+   * 1.5rem on every side, which makes a three-word progress bar 72px tall —
+   * taller than the app bar above it — and margins the window by as much
+   * again. This is the one component where the stock metrics are set for a
+   * full-page wizard and every other use is a form inside a panel.
+   */
+  & :where(.v-stepper-item) {
+    padding: 1rem 1.25rem;
+  }
+
+  & :where(.v-stepper-window) {
+    margin: 1.25rem;
+  }
+
+  & :where(.v-stepper .v-stepper-actions) {
+    padding: 0 1.25rem 1rem;
   }
 
   /**

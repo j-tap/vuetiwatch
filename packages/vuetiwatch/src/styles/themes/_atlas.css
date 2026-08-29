@@ -12,12 +12,23 @@
 .v-theme--atlasDark,
 .v-theme--atlasSepia {
   /**
+   * The frame reads as a frame: the navigation takes the muted band, the
+   * content keeps the white. It is the oldest console layout there is, and
+   * the reason a panel on a white page still looks like an application.
+   */
+  & .v-navigation-drawer {
+    background-color: rgb(var(--v-theme-surface-light));
+  }
+
+  /**
    * A table header that keeps its own ground, so a sticky one does not have
    * rows sliding through it, and a rule under it that reads as structure
    * rather than as a border round the table.
    */
   & :is(.v-table thead th, .v-data-table__th) {
-    background-color: rgb(var(--v-theme-surface));
+    /* A shade off the rows rather than the same white: the header of a
+       console table is a band, and a band you cannot see is a caption. */
+    background-color: rgb(var(--v-theme-surface-light));
     border-bottom: 1px solid rgba(var(--v-border-color), calc(var(--v-border-opacity) * 1.6));
   }
 
@@ -144,6 +155,35 @@
   & .v-empty-state {
     min-height: 0;
     padding-block: 24px;
+  }
+
+  /**
+   * Vuetify sets an alert title at 24px with a 28px glyph beside it, which
+   * on a console page is a headline announcing a footnote. Ant Design runs
+   * its alerts at 16 and 14, and that is the register a notice belongs in
+   * when the screen behind it is full of data.
+   */
+  & .v-alert-title {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  & .v-alert .v-alert__content {
+    font-size: 0.875rem;
+  }
+
+  & .v-alert .v-alert__prepend .v-icon {
+    font-size: 20px;
+  }
+
+  /**
+   * A breadcrumb trail is orientation, not content: it sits above the page
+   * title saying where you are, and Vuetify runs it at body size, which
+   * puts it in the same voice as the text it introduces. Every console this
+   * theme is measured against sets it a step down.
+   */
+  & .v-breadcrumbs {
+    font-size: 0.875rem;
   }
 
   /* Dense screens read better when the rules between rows are lighter than

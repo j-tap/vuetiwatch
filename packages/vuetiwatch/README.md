@@ -262,6 +262,7 @@ Vuetify's own, it reads:
 | `vw-radius-avatar` / `-dot` | `50%` | Avatars, and the dot on a timeline |
 | `vw-border-width` | `thin` | Outlined variants and field outlines |
 | `vw-outlined-fill` | `surface` | What an outlined card paints — `transparent` for themes whose surface is the ground |
+| `vw-outline-opacity` | `border-opacity` | The line around an outlined card, which Vuetify draws in the ink of its own text |
 | `vw-skeleton-opacity` | clamped | The bones of a loading placeholder, which Vuetify ties to `border-opacity` |
 | `vw-field-border-opacity` | `0.38` | The resting outline of a field — Vuetify's default reads about 2.3:1 |
 | `vw-btn-weight` / `-tracking` / `-transform` | Vuetify's | Button typography |
@@ -269,6 +270,8 @@ Vuetify's own, it reads:
 | `vw-th-weight` / `-tracking` / `-transform` | Vuetify's | Table headers |
 | `vw-numeric` | `normal` | Figures in tables and pagination — `tabular-nums` lines columns up |
 | `vw-tab-slider-height` | `2px` | Active tab indicator |
+| `vw-tab-size` | `0.875rem` | Tab labels, which Vuetify builds out of buttons and sizes like body text |
+| `vw-avatar-ratio` | `0.4` | Initials inside an avatar, as a share of its height |
 | `vw-timeline-line` / `-width` | hairline | The timeline connector — any background, so a repeating gradient makes it dashed |
 | `vw-timeline-line-opacity` | `border-opacity` | The connector's fade, when `vw-timeline-line` is left alone |
 | `vw-relief-inset` | `0` | Padding inside chip groups, room for controls that lift |

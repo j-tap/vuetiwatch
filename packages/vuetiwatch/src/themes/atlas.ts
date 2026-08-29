@@ -27,7 +27,7 @@ import { defineTheme } from '../util/defineTheme.js'
  * Every value here is measured: filled controls clear 4.5:1 in all three.
  */
 const ACCENTS = [
-  { id: 'ocean', title: 'Ocean', light: ['#1F6689', '#18516D'], dark: ['#79B4D6', '#5E97B8'], sepia: ['#2F6580', '#255066'] },
+  { id: 'cobalt', title: 'Cobalt', light: ['#0059FF', '#0047CC'], dark: ['#3382FF', '#2A6BD6'], sepia: ['#1150E0', '#0E41B4'] },
   { id: 'indigo', title: 'Indigo', light: ['#3F4E8C', '#323E70'], dark: ['#93A4E8', '#7688D1'], sepia: ['#46508A', '#37406E'] },
   { id: 'eucalyptus', title: 'Eucalyptus', light: ['#2F6B5B', '#245448'], dark: ['#6FB39B', '#57957F'], sepia: ['#3F6B57', '#325544'] },
   { id: 'plum', title: 'Plum', light: ['#6B3F63', '#55324F'], dark: ['#C596BC', '#A87A9F'], sepia: ['#6B4560', '#56374D'] },
@@ -58,11 +58,12 @@ export const atlasVariables = {
   'medium-emphasis-opacity': 0.6,
   'hover-opacity': 0.04,
   'font-body': "'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif",
-  // Six, not eight: a corner any softer starts reading as a marketing page
-  // rather than as a tool. Panels get a little more, controls a little less.
-  'vw-radius': '6px',
+  // Eight and ten, which is where the admin frameworks people actually
+  // like have settled: tight enough to read as a tool, round enough not to
+  // look like a spreadsheet.
+  'vw-radius': '8px',
   'vw-radius-lg': '10px',
-  'vw-radius-chip': '4px',
+  'vw-radius-chip': '6px',
   'vw-radius-thumb': '50%',
   'vw-border-width': '1px',
   // A field's outline is how you find the field: 0.5 puts it just past 3:1
@@ -72,7 +73,7 @@ export const atlasVariables = {
   'vw-btn-tracking': '0',
   'vw-btn-weight': '500',
   'vw-heading-weight': '600',
-  'vw-heading-tracking': '-0.01em',
+  'vw-heading-tracking': '-0.025em',
   // Column headers are labels, not announcements: weight and a little
   // tracking, no capitals. Three themes here already shout in their tables.
   'vw-th-weight': '500',
@@ -154,39 +155,53 @@ export const atlas = defineTheme({
   name: 'atlas',
   meta: {
     title: 'Atlas',
-    description: 'Calm admin light — soft neutrals, one cool accent, hairlines instead of shadows.',
+    description: 'Console light — a white page, hairline panels and one blue that means "do it".',
     dark: false,
     iconStyle: 'outline',
     family: 'atlas',
     variant: 'Light',
     accents: atlasAccents('light'),
-    swatch: ['#F1F3F0', '#FFFFFF', '#1F6689', '#4C5C68'],
+    swatch: ['#FDFDFF', '#FFFFFF', '#0059FF', '#57647B'],
     fonts: ['Inter'],
   },
   theme: {
     dark: false,
     colors: {
-      background: '#F1F3F0',
+      /**
+       * The ground is white, not grey. Consoles built this decade separate
+       * a panel from the page with a line, not with a tint — the tint is
+       * saved for the bands inside a panel, which is what `surface-light`
+       * is here: table headers, filled rows, the sidebar.
+       */
+      background: '#FDFDFF',
       surface: '#FFFFFF',
       'surface-bright': '#FFFFFF',
-      'surface-light': '#EDEFEC',
-      'surface-variant': '#2E3A34',
-      'on-surface-variant': '#F1F3F0',
-      primary: '#1F6689',
-      'primary-darken-1': '#18516D',
-      secondary: '#4C5C68',
-      'secondary-darken-1': '#3B4752',
-      error: '#B3261E',
-      info: '#2A6F97',
-      success: '#2E6B4F',
-      warning: '#8A6A16',
-      'on-surface': '#1D2422',
-      'on-background': '#1D2422',
+      // The reference uses this tint at a third of its strength — `bg-muted/30`
+      // — so the bands read as a change of paper, not as a coloured stripe.
+      'surface-light': '#F5F8FD',
+      'surface-variant': '#0B101C',
+      'on-surface-variant': '#FDFDFF',
+      primary: '#0059FF',
+      'primary-darken-1': '#0047CC',
+      secondary: '#57647B',
+      'secondary-darken-1': '#45505F',
+      error: '#D91326',
+      info: '#0369A1',
+      success: '#15803D',
+      warning: '#B45309',
+      'on-surface': '#0B101C',
+      'on-background': '#0B101C',
     },
     variables: {
-      'border-color': '#1D2422',
-      'border-opacity': 0.12,
-      'shadow-color': '#1D2422',
+      /**
+       * A cool grey line rather than ink at low alpha: ink fades to a
+       * neutral grey, and every line here should carry the same blue cast
+       * as the surfaces it separates. At 0.22 it lands on #DFE3EB, a shade
+       * off the panel it edges.
+       */
+      'border-color': '#6E82A6',
+      'border-opacity': 0.22,
+      'shadow-color': '#0B101C',
       'vw-overlay-border': '1px solid rgba(var(--v-border-color), 0.1)',
       'vw-overlay-shadow': '0 8px 28px rgba(var(--v-shadow-color), 0.1)',
       ...atlasVariables,

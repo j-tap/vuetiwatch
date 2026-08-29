@@ -140,13 +140,18 @@ const activity = [
 </script>
 
 <template>
-  <v-container fluid class="py-6">
-    <!-- Page header: where you are, what this is, what you can do here. -->
-    <v-breadcrumbs :items="['Console', 'Billing', 'Accounts']" class="px-0 pb-2" />
+  <v-container fluid class="py-4">
+    <!-- Page header: where you are, what this is, what you can do here.
+         The paddings are tight on purpose: a console header is a strip of
+         orientation above the work, and Vuetify's breadcrumbs bring 16px of
+         their own on top of whatever the container gives them. -->
+    <v-breadcrumbs :items="['Console', 'Billing', 'Accounts']" class="pa-0 mb-2" />
 
-    <div class="d-flex flex-wrap align-center ga-4 mb-6">
+    <div class="d-flex flex-wrap align-center ga-4 mb-4">
       <div class="flex-1-1">
-        <h1 class="text-headline-medium">Accounts</h1>
+        <!-- A bare `h1` keeps the browser's own margin — two thirds of its
+             own size, so the bigger the heading the wider the gap. -->
+        <h1 class="text-headline-medium mb-1">Accounts</h1>
         <p class="text-body-medium text-medium-emphasis">
           Six workspaces, two of them needing attention.
         </p>
@@ -191,7 +196,7 @@ const activity = [
         <v-menu location="bottom end">
           <template #activator="{ props }">
             <v-btn v-bind="props" variant="text" class="px-2">
-              <v-avatar size="28" color="primary" class="me-2">RM</v-avatar>
+              <v-avatar size="small" color="primary" class="me-2">RM</v-avatar>
               <span class="d-none d-sm-inline">Rae Mitchell</span>
               <v-icon icon="mdi-chevron-down" end />
             </v-btn>
@@ -313,7 +318,7 @@ const activity = [
           >
             <template #item.name="{ item }">
               <div class="d-flex align-center ga-3">
-                <v-avatar size="28" color="primary">
+                <v-avatar size="small" color="primary">
                   {{ item.name.slice(0, 1) }}
                 </v-avatar>
                 <span>{{ item.name }}</span>
