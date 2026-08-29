@@ -201,7 +201,14 @@
     box-shadow: 0 0 16px rgba(124, 92, 255, 0.55);
   }
 
-  & .v-timeline-divider__inner-dot {
+  /**
+   * The dot above is the gradient, so its inner disc has to be clear for
+   * that to show. Vuetify writes this one inline when `dot-color` is a
+   * plain colour, which is the single place in the package where nothing
+   * but `!important` reaches — and the `bg-` guard keeps it off a dot whose
+   * colour the author did name, since that one arrives as a class.
+   */
+  & .v-timeline-divider__inner-dot:not([class*='bg-']) {
     background-color: transparent !important;
   }
 

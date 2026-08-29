@@ -20,13 +20,21 @@
  * Vuetiwatch theme, and every value falls back to the stock Vuetify one, so
  * a theme only pays for what it overrides.
  *
- * Component classes are doubled to out-specify Vuetify's own rules without
- * relying on an ancestor, which keeps teleported overlays covered.
+ * Weight is deliberate, and it runs one way: every rule here has to beat
+ * Vuetify and lose to everything else. It beats Vuetify for free — all but
+ * six of its rules ship inside `@layer vuetify-*`, and an unlayered author
+ * rule outranks a layered one whatever its specificity — so the scope below
+ * sits in `:where()` and costs nothing. What is left is the component
+ * selector alone, which a theme file (a theme class plus the same selector)
+ * and an app's own stylesheet both clear without a fight. Vuetify's utility
+ * classes are the exception in the other direction: they carry `!important`,
+ * which no specificity reaches, so the rules here step around them with
+ * `:not([class*='bg-'])` and its siblings instead.
  *
  * Authored with CSS nesting; the published file is flattened at build time.
  */
 
-:is([data-vuetiwatch]:not(VUETIWATCH_STOCK), .v-theme--VUETIWATCH_THEMES) {
+:where([data-vuetiwatch]:not(VUETIWATCH_STOCK), .v-theme--VUETIWATCH_THEMES) {
   /* -------------------------------------------------------------- radius */
 
   /**
@@ -39,11 +47,11 @@
    * those children individually turns a joined group into separate pills
    * and a full-height toolbar button into a rounded slab.
    */
-  & .v-btn.v-btn--icon:not([class*='rounded-'], .v-btn-group *) {
+  & .v-btn--icon:not([class*='rounded-'], .v-btn-group *, .v-pagination *) {
     border-radius: var(--v-vw-radius-icon-btn, 50%);
   }
 
-  & .v-btn.v-btn:not(
+  & .v-btn:not(
     .v-btn--icon,
     .v-btn--rounded,
     [class*='rounded-'],
@@ -78,7 +86,7 @@
    * `.v-btn-group *`. Without this the group kept Vuetify's 8px while every
    * button in the theme was square.
    */
-  & :is(.v-btn-group.v-btn-group, .v-btn-toggle.v-btn-toggle):not([class*='rounded-']) {
+  & :is(.v-btn-group, .v-btn-toggle):not([class*='rounded-']) {
     border-radius: var(--v-vw-radius-btn, var(--v-vw-radius, 4px));
   }
 
@@ -108,7 +116,7 @@
    * default. They get their own knobs because a theme with no curve
    * anywhere — `brutalist`, `neon` — was still drawing two of them.
    */
-  & .v-avatar.v-avatar:not([class*='rounded-']) {
+  & .v-avatar:not([class*='rounded-']) {
     border-radius: var(--v-vw-radius-avatar, 50%);
   }
 
@@ -173,33 +181,24 @@
   }
 
   /* The group keeps the corners its children gave up. */
-  & .v-btn-group.v-btn-group:not([class*='rounded-']) {
+  & .v-btn-group:not([class*='rounded-']) {
     border-radius: var(--v-vw-radius, 4px);
   }
 
   /**
-   * Pagination items are `icon` buttons so the rule above leaves them
-   * round, but they read as a row of tiles rather than icons — they follow
-   * the button radius instead.
+   * Pagination items are `icon` buttons, but they read as a row of tiles
+   * rather than icons, so they follow the button radius. The rule above
+   * excludes them by name for that reason: two rules of equal weight
+   * claiming the same element would leave the outcome to source order,
+   * which is not something a stylesheet should have an opinion about.
    */
-  & .v-pagination .v-btn.v-btn {
+  & .v-pagination .v-btn {
     border-radius: var(--v-vw-radius-btn, var(--v-vw-radius, 4px));
   }
 
-  /**
-   * The same containers join their buttons into one shape, so a per-button
-   * shadow draws a seam down every join. Decoration belongs on the
-   * container — this out-specifies the theme layers that give `.v-btn` a
-   * relief, and a theme that wants a decorated group styles
-   * `.v-btn-group` itself.
-   */
-  & :is(.v-btn-group, .v-toolbar-items) .v-btn.v-btn {
-    box-shadow: none;
-  }
-
   & :is(
-    .v-card.v-card:not([class*='rounded-']),
-    .v-table.v-table
+    .v-card:not([class*='rounded-']),
+    .v-table
   ) {
     border-radius: var(--v-vw-radius-lg, var(--v-vw-radius, 4px));
   }
@@ -210,14 +209,14 @@
    * to unlayered ones at any specificity, so styling `.v-expansion-panel`
    * here would flatten that logic and round every panel in the stack.
    */
-  & .v-expansion-panels.v-expansion-panels {
+  & .v-expansion-panels {
     border-radius: var(--v-vw-radius-lg, var(--v-vw-radius, 4px));
   }
 
   & :is(
-    .v-alert.v-alert:not([class*='rounded-']),
-    .v-field.v-field:not([class*='rounded-']),
-    .v-list-item.v-list-item:not([class*='rounded-']),
+    .v-alert:not([class*='rounded-']),
+    .v-field:not([class*='rounded-']),
+    .v-list-item:not([class*='rounded-']),
     .v-snackbar__wrapper,
     .v-menu > .v-overlay__content,
     .v-tooltip > .v-overlay__content,
@@ -227,11 +226,11 @@
   }
 
   /* Filled and underlined fields only round their top corners. */
-  & .v-field.v-field:is(.v-field--variant-filled, .v-field--variant-underlined):not([class*='rounded-']) {
+  & .v-field:is(.v-field--variant-filled, .v-field--variant-underlined):not([class*='rounded-']) {
     border-radius: var(--v-vw-radius, 4px) var(--v-vw-radius, 4px) 0 0;
   }
 
-  & .v-chip.v-chip:not([class*='rounded-']) {
+  & .v-chip:not([class*='rounded-']) {
     border-radius: var(--v-vw-radius-chip, 9999px);
   }
 
@@ -241,7 +240,7 @@
    * most themes even when nothing else is — only the square-cornered ones
    * set it.
    */
-  & .v-slider-track.v-slider-track {
+  & .v-slider-track {
     border-radius: var(--v-vw-radius, 4px);
   }
 
@@ -361,7 +360,7 @@
    * and a fallback that reintroduced them would be this file changing a
    * theme that never asked it to.
    */
-  & .v-btn.v-btn {
+  & .v-btn {
     font-weight: var(--v-vw-btn-weight, 500);
     letter-spacing: var(--v-vw-btn-tracking, 0.0071428571em);
     text-transform: var(--v-vw-btn-transform, none);
@@ -466,7 +465,7 @@
    * second row, and a picker with two rows of navigation reads as broken.
    * The type here follows the picker, not the theme's button voice.
    */
-  & .v-date-picker-controls .v-btn.v-btn {
+  & .v-date-picker-controls .v-btn {
     letter-spacing: normal;
     text-transform: none;
     /* And not the theme's button size either: `candy` ships `size="large"`,
@@ -529,7 +528,7 @@
    * intends, so the value is the same either way and the tab no longer
    * depends on which order the two layers happened to load in.
    */
-  & .v-tab.v-tab {
+  & .v-tab {
     font-size: var(--v-vw-tab-size, 0.875rem);
   }
 
@@ -736,12 +735,34 @@
 }
 
 /**
+ * Corrections, and the one place weight runs the other way.
+ *
+ * Everything above is a default a theme is free to overrule. The rules
+ * below are the opposite: they exist because a theme's own rule does damage
+ * in a context it never considered, so they keep the scope's weight and
+ * outrank it deliberately. Anything added here needs that justification —
+ * otherwise it belongs in the weightless block above.
+ */
+:is([data-vuetiwatch]:not(VUETIWATCH_STOCK), .v-theme--VUETIWATCH_THEMES) {
+  /**
+   * A button group and a toolbar join their buttons into one shape, so a
+   * per-button shadow draws a seam down every join — visible on any theme
+   * that gives `.v-btn` a relief or a glow. Decoration belongs on the
+   * container, and a theme that wants a decorated group styles
+   * `.v-btn-group` itself.
+   */
+  & :is(.v-btn-group, .v-toolbar-items) .v-btn.v-btn {
+    box-shadow: none;
+  }
+}
+
+/**
  * One switch for every theme at once: the tokens themselves go to zero, so
  * anything driven by them stops moving — including a theme built with
  * `defineTheme()` that never wrote a media query of its own.
  */
 @media (prefers-reduced-motion: reduce) {
-  :is([data-vuetiwatch]:not(VUETIWATCH_STOCK), .v-theme--VUETIWATCH_THEMES) {
+  :where([data-vuetiwatch]:not(VUETIWATCH_STOCK), .v-theme--VUETIWATCH_THEMES) {
     --v-vw-motion-duration: 1ms;
     --v-vw-pop-duration: 1ms;
     --v-vw-press-scale: 1;

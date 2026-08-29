@@ -7,17 +7,6 @@
     box-shadow: none;
   }
 
-  /**
-   * Surfaces separate by tone alone, at the smallest step that still reads.
-   *
-   * `[class*='bg-']` means the author passed `color=` and Vuetify already
-   * painted the card; repainting it here would leave the `on-*` text it
-   * chose sitting on the wrong ground — white on white, in the worst case.
-   */
-  & .v-card.v-card--variant-flat:not([class*='bg-']) {
-    background-color: rgb(var(--v-theme-surface));
-  }
-
   & :is(.v-menu, .v-dialog) > .v-overlay__content {
     border: var(--v-vw-border-width) solid rgba(var(--v-border-color), 0.09);
     box-shadow: 0 16px 48px rgba(58, 58, 54, 0.06);
