@@ -406,7 +406,18 @@
    * theme built with `defineTheme()` gets the same knobs for free.
    */
 
-  /* Every floating surface, so a tooltip is not left behind by a menu. */
+  /**
+   * Every floating surface, so a tooltip is not left behind by a menu.
+   *
+   * Written twice because an overlay is not where it looks like it is.
+   * Vuetify teleports one to `.v-overlay-container`, which hangs off
+   * `<body>` rather than off the application root, and stamps the theme
+   * class onto the overlay itself — so the theme class and `.v-dialog` land
+   * on one element and a descendant combinator has nothing to descend from.
+   * The compound form is what matches a teleported surface; the descendant
+   * one still covers a menu rendered in place with `attach`.
+   */
+  &:is(.v-menu, .v-dialog, .v-tooltip) > .v-overlay__content,
   & :is(.v-menu, .v-dialog, .v-tooltip) > .v-overlay__content {
     border: var(--v-vw-overlay-border, none);
     box-shadow: var(--v-vw-overlay-shadow, revert-layer);

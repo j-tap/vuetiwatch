@@ -12,6 +12,7 @@
     font-weight: 600;
   }
 
+  &:is(.v-menu, .v-dialog) > .v-overlay__content,
   & :is(.v-menu, .v-dialog) > .v-overlay__content {
     box-shadow: 0 8px 24px rgba(var(--v-shadow-color), 0.16);
   }

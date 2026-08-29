@@ -20,6 +20,7 @@
     font-size: 0.75rem;
   }
 
+  &:is(.v-menu, .v-dialog) > .v-overlay__content,
   & :is(.v-menu, .v-dialog) > .v-overlay__content {
     border: var(--v-vw-border-width) solid rgba(var(--v-border-color), 0.14);
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.08);

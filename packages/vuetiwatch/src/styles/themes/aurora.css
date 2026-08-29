@@ -98,6 +98,7 @@
     box-shadow: 0 0 14px rgba(124, 92, 255, 0.5);
   }
 
+  &:is(.v-menu, .v-dialog) > .v-overlay__content,
   & :is(.v-menu, .v-dialog) > .v-overlay__content {
     box-shadow: 0 0 0 1px rgba(155, 140, 255, 0.16), 0 24px 64px rgba(0, 0, 0, 0.7);
   }

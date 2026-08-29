@@ -26,6 +26,7 @@
     box-shadow: 5px 5px 0 rgb(var(--v-shadow-color));
   }
 
+  &:is(.v-menu, .v-dialog) > .v-overlay__content,
   & :is(.v-menu, .v-dialog) > .v-overlay__content {
     border: var(--v-vw-border-width) solid rgb(var(--v-shadow-color));
     box-shadow: 8px 8px 0 rgb(var(--v-shadow-color));

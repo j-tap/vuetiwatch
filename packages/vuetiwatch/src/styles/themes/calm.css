@@ -7,6 +7,7 @@
     box-shadow: none;
   }
 
+  &:is(.v-menu, .v-dialog) > .v-overlay__content,
   & :is(.v-menu, .v-dialog) > .v-overlay__content {
     border: var(--v-vw-border-width) solid rgba(var(--v-border-color), 0.09);
     box-shadow: 0 16px 48px rgba(58, 58, 54, 0.06);

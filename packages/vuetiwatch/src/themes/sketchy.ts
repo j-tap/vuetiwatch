@@ -78,12 +78,17 @@ export const sketchy = defineTheme({
       'vw-pop-duration': '200ms',
 
       /**
-       * The stepped easing above reaches overlays through
-       * `--v-vw-motion-ease`, so a panel arrives in two frames — drawn
-       * rather than animated.
+       * Overlays opt out of the stepped easing above.
+       *
+       * Two frames read as a drawn line on a control the size of a button;
+       * on a panel the size of the screen the hold between them reads as a
+       * dropped frame, which is the same thing that made `brutalist` look
+       * like it had hung. The steps stay where they are small enough to be
+       * charm — the press, the hover, the icon pop.
        */
       'vw-overlay-duration': '140ms',
       'vw-overlay-exit': '100ms',
+      'vw-overlay-ease': 'ease-out',
       // Marker on paper: a state is a scribble over the shape, not a tint.
       'focus-opacity': 0.2,
       'activated-opacity': 0.15,

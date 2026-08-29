@@ -63,6 +63,7 @@
       -2px -2px 6px rgba(255, 255, 255, 0.9);
   }
 
+  &:is(.v-menu, .v-dialog) > .v-overlay__content,
   & :is(.v-menu, .v-dialog) > .v-overlay__content {
     box-shadow: 12px 12px 40px rgba(var(--v-shadow-color), 0.24);
   }

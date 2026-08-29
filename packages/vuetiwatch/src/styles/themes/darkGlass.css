@@ -28,6 +28,7 @@
       0 8px 32px rgba(var(--v-shadow-color), 0.45);
   }
 
+  &:is(.v-menu, .v-dialog) > .v-overlay__content,
   & :is(.v-menu, .v-dialog) > .v-overlay__content {
     backdrop-filter: blur(18px) saturate(160%);
     box-shadow: 0 16px 48px rgba(var(--v-shadow-color), 0.55);

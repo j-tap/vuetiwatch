@@ -20,6 +20,7 @@
     box-shadow: 0 2px 8px rgba(var(--v-theme-primary), 0.24);
   }
 
+  &:is(.v-menu, .v-dialog) > .v-overlay__content,
   & :is(.v-menu, .v-dialog) > .v-overlay__content {
     box-shadow: 0 16px 48px rgba(var(--v-theme-primary), 0.18);
   }
